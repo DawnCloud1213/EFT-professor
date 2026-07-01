@@ -146,17 +146,21 @@ for e in entries:
                 cx = nx - 0.5
                 cz = nz - 0.5
 
-                # Apply coordinateToCardinalRotation
-                # After rotation: ry > 0 = north, ry < 0 = south
+                # Apply coordinateToCardinalRotation (clockwise per API spec).
+                # Game +Z axis points SOUTH (for 180° maps), game +X points WEST.
+                # After CW rotation: positive rx = east, positive ry = north.
                 rad = math.radians(rot)
-                rx = cx * math.cos(rad) - cz * math.sin(rad)
-                ry = cx * math.sin(rad) + cz * math.cos(rad)
+                cos_r = math.cos(rad)
+                sin_r = math.sin(rad)
+                rx = cx * cos_r + cz * sin_r   # clockwise rotation
+                ry = -cx * sin_r + cz * cos_r  # clockwise rotation
 
-                # Map to CRS image pixels with margin
-                # (ry + 0.5) correctly maps north (positive ry) to top (small img_y)
+                # Map cardinal → CRS image pixels.
+                # CRS.Simple: y=0 is top, y=max is bottom.
+                # Cardinal north (positive ry) → image top (small img_y) → Y-flip needed.
                 margin = 0.10
                 img_x = round(w * (margin + (1 - 2 * margin) * (rx + 0.5)))
-                img_y = round(h * (margin + (1 - 2 * margin) * (ry + 0.5)))
+                img_y = round(h * (margin + (1 - 2 * margin) * (0.5 - ry)))
 
                 e["position"] = [img_y, img_x]
                 continue
