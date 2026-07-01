@@ -45,10 +45,14 @@ with open(r"A:\JUST_DO_IT\EFT-professor\tarkov-map.html", "r", encoding="utf-8")
     html = f.read()
 
 # Parse current QUEST_MARKERS to get quest data (without position)
-idx = html.find("const QUEST_MARKERS = [")
+# Find the LAST definition — JS uses the last one, and there may be duplicates
+idx = html.rfind("const QUEST_MARKERS = [")
 end_idx = html.find("];\n\nconst CN_QUEST_NAMES", idx)
 if end_idx == -1:
     end_idx = html.find("];\n\nconst TRADER_COLORS", idx)
+if end_idx == -1:
+    # Fallback: find ]; followed by blank lines
+    end_idx = html.find("];\n\n\n", idx)
     
 section = html[idx:end_idx+2]
 
@@ -147,25 +151,26 @@ for e in entries:
                 # Normalize to 0-1
                 nx = (gx - min_x) / span_x
                 nz = (gz - min_z) / span_z
-                # Margin: map 10-90% of image
-                margin = 0.10
-                ny = margin + (1 - 2*margin) * nx
-                nz_m = margin + (1 - 2*margin) * nz
                 
-                # Apply rotation
-                # coordinateToCardinalRotation: degrees clockwise rotation
-                # from game axes to cardinal (north-up) orientation
-                import math
-                rad = math.radians(rot)
-                # Center the coords around 0.5 then rotate
+                # Center around 0.5
                 cx = nx - 0.5
                 cz = nz - 0.5
+                
+                # Apply coordinateToCardinalRotation (counterclockwise)
+                # This rotates game axes to align with cardinal directions.
+                # After rotation, ry > 0 means north, ry < 0 means south.
+                import math
+                rad = math.radians(rot)
                 rx = cx * math.cos(rad) - cz * math.sin(rad)
                 ry = cx * math.sin(rad) + cz * math.cos(rad)
-                # Apply margin and map to image (with Y-flip for north up)
+                
+                # Map to image pixels with margin
+                # The rotation already handles the game→cardinal orientation,
+                # so no extra Y-flip needed — (ry + 0.5) maps north (positive ry)
+                # to the top of the image (small img_y in Leaflet CRS.Simple).
                 margin = 0.10
                 img_x = round(w * (margin + (1 - 2*margin) * (rx + 0.5)))
-                img_y = round(h * (margin + (1 - 2*margin) * (0.5 - ry)))
+                img_y = round(h * (margin + (1 - 2*margin) * (ry + 0.5)))
                 
                 e["position"] = [img_y, img_x]
                 continue
