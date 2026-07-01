@@ -66,16 +66,22 @@ for ch in section:
             brace_depth -= 1
     current += ch
     if brace_depth == 0 and current.strip().endswith("},"):
-        try:
-            entries.append(json.loads(current.rstrip(',')))
-        except:
-            pass
+        # Extract JSON from first "{" — strips any non-JSON prefix (e.g. "const QUEST_MARKERS = [\n")
+        json_start = current.find("{")
+        if json_start >= 0:
+            try:
+                entries.append(json.loads(current[json_start:].rstrip(',')))
+            except:
+                pass
         current = ""
-    elif brace_depth == 0 and current.strip() == "}":
-        try:
-            entries.append(json.loads(current))
-        except:
-            pass
+    elif brace_depth == 0 and current.strip().endswith("}"):
+        # Last entry (no trailing comma)
+        json_start = current.find("{")
+        if json_start >= 0:
+            try:
+                entries.append(json.loads(current[json_start:]))
+            except:
+                pass
         current = ""
 
 print(f"Parsed {len(entries)} quests")
