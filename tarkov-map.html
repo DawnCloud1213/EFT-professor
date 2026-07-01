@@ -1,0 +1,4549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EFT Map Reference - Escape from Tarkov</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+    background: #1a1a1c;
+    color: #c7c5b3;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+}
+#app {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+}
+
+/* Left Sidebar */
+#sidebar {
+    width: 260px;
+    min-width: 260px;
+    background: #2d2d2f;
+    border-right: 1px solid #3a3a3d;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    transition: margin-left 0.3s ease, min-width 0.3s ease, width 0.3s ease;
+    z-index: 1000;
+}
+#sidebar.collapsed {
+    width: 0 !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    border: none !important;
+}
+#sidebar-inner {
+    padding: 16px;
+    min-width: 260px;
+}
+#sidebar h2 {
+    color: #c7c5b3;
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #3a3a3d;
+    padding-bottom: 8px;
+}
+#sidebar label {
+    display: block;
+    margin: 4px 0;
+    font-size: 13px;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+#sidebar label:hover {
+    background: #3a3a3d;
+}
+#sidebar input[type="checkbox"] {
+    margin-right: 8px;
+    accent-color: #c7c5b3;
+}
+.sidebar-section {
+    margin-bottom: 16px;
+}
+.sidebar-section-title {
+    color: #c7c5b3;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+    padding: 4px 8px;
+    background: #3a3a3d;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+/* Map selector */
+#map-select {
+    width: 100%;
+    padding: 8px 10px;
+    background: #1a1a1c;
+    border: 1px solid #3a3a3d;
+    color: #c7c5b3;
+    border-radius: 4px;
+    font-size: 13px;
+    cursor: pointer;
+    margin-bottom: 12px;
+    outline: none;
+}
+#map-select:focus {
+    border-color: #c7c5b3;
+}
+#map-select option {
+    background: #1a1a1c;
+    color: #c7c5b3;
+}
+
+/* Collapse button */
+#collapse-btn {
+    position: absolute;
+    left: 260px;
+    top: 10px;
+    z-index: 1001;
+    background: #2d2d2f;
+    border: 1px solid #3a3a3d;
+    color: #c7c5b3;
+    padding: 6px 8px;
+    cursor: pointer;
+    border-radius: 0 4px 4px 0;
+    font-size: 14px;
+    transition: left 0.3s ease;
+}
+#sidebar.collapsed ~ #collapse-btn {
+    left: 0;
+}
+
+/* Right Search Panel */
+#search-panel {
+    width: 300px;
+    min-width: 300px;
+    background: #2d2d2f;
+    border-left: 1px solid #3a3a3d;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 1000;
+}
+#search-panel.collapsed {
+    width: 0 !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    border: none !important;
+}
+#search-panel-inner {
+    padding: 16px;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+#search-panel h2 {
+    color: #c7c5b3;
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #3a3a3d;
+    padding-bottom: 8px;
+}
+#search-input {
+    width: 100%;
+    padding: 10px 12px;
+    background: #1a1a1c;
+    border: 1px solid #3a3a3d;
+    color: #c7c5b3;
+    border-radius: 4px;
+    font-size: 13px;
+    outline: none;
+    margin-bottom: 12px;
+}
+#search-input:focus {
+    border-color: #c7c5b3;
+}
+#search-input::placeholder {
+    color: #666;
+}
+#quest-list {
+    flex: 1;
+    overflow-y: auto;
+    margin: 0 -16px;
+    padding: 0 16px;
+}
+.quest-item {
+    padding: 10px 12px;
+    margin-bottom: 8px;
+    background: #1a1a1c;
+    border: 1px solid #3a3a3d;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.quest-item:hover {
+    border-color: #c7c5b3;
+    background: #222225;
+}
+.quest-item.active {
+    border-color: #c7c5b3;
+    background: #2a2a2e;
+}
+.quest-item .q-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: #c7c5b3;
+    margin-bottom: 4px;
+}
+.quest-item .q-trader {
+    font-size: 11px;
+    color: #888;
+    margin-bottom: 4px;
+}
+.quest-item .q-map {
+    font-size: 11px;
+    color: #666;
+    margin-bottom: 4px;
+}
+.quest-item .q-objectives {
+    font-size: 11px;
+    color: #999;
+    padding-left: 8px;
+    border-left: 2px solid #3a3a3d;
+}
+.quest-item .q-objectives div {
+    margin: 2px 0;
+}
+.quest-count {
+    font-size: 11px;
+    color: #666;
+    margin-bottom: 8px;
+    text-align: right;
+}
+
+/* Map container */
+#map-container {
+    flex: 1;
+    position: relative;
+    background: #1a1a1c;
+}
+#map {
+    width: 100%;
+    height: 100%;
+}
+.leaflet-container {
+    background: #1a1a1c !important;
+}
+
+/* Custom marker styles */
+.trader-marker {
+    background: none !important;
+    border: none !important;
+}
+.trader-marker > div {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 4px solid #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    transition: transform 0.2s;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+}
+.trader-marker > div:hover {
+    transform: scale(1.2);
+}
+.leaflet-div-icon {
+    background: transparent !important;
+    border: none !important;
+}
+.leaflet-popup-content-wrapper {
+    background: #2d2d2f !important;
+    color: #c7c5b3 !important;
+    border: 1px solid #3a3a3d !important;
+    border-radius: 6px !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4) !important;
+}
+.leaflet-popup-tip {
+    background: #2d2d2f !important;
+    border: 1px solid #3a3a3d !important;
+}
+.leaflet-popup-content {
+    margin: 10px 14px !important;
+    font-size: 13px !important;
+    line-height: 1.4 !important;
+    max-height: 300px;
+    overflow-y: auto;
+}
+.popup-title {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #c7c5b3;
+}
+.popup-trader {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 8px;
+}
+.popup-objective {
+    font-size: 12px;
+    color: #aaa;
+    padding: 3px 0;
+    border-bottom: 1px solid #3a3a3d;
+}
+.popup-objective:last-child {
+    border-bottom: none;
+}
+.popup-objective::before {
+    content: "\2022 ";
+    color: #c7c5b3;
+}
+
+/* Leaflet overrides */
+.leaflet-control-zoom a {
+    background: #2d2d2f !important;
+    color: #c7c5b3 !important;
+    border-color: #3a3a3d !important;
+}
+.leaflet-control-zoom a:hover {
+    background: #3a3a3d !important;
+}
+
+/* Scrollbar styling */
+#sidebar::-webkit-scrollbar,
+#quest-list::-webkit-scrollbar,
+#search-panel::-webkit-scrollbar {
+    width: 6px;
+}
+#sidebar::-webkit-scrollbar-track,
+#quest-list::-webkit-scrollbar-track,
+#search-panel::-webkit-scrollbar-track {
+    background: #1a1a1c;
+}
+#sidebar::-webkit-scrollbar-thumb,
+#quest-list::-webkit-scrollbar-thumb,
+#search-panel::-webkit-scrollbar-thumb {
+    background: #3a3a3d;
+    border-radius: 3px;
+}
+#sidebar::-webkit-scrollbar-thumb:hover,
+#quest-list::-webkit-scrollbar-thumb:hover,
+#search-panel::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.search-collapse-btn {
+    position: absolute;
+    right: 300px;
+    top: 10px;
+    z-index: 1001;
+    background: #2d2d2f;
+    border: 1px solid #3a3a3d;
+    color: #c7c5b3;
+    padding: 6px 8px;
+    cursor: pointer;
+    border-radius: 4px 0 0 4px;
+    font-size: 14px;
+    transition: right 0.3s ease;
+}
+#search-panel.collapsed ~ .search-collapse-btn {
+    right: 0;
+}
+/* Style toggle buttons */
+.style-btn.active {
+    background: #3a3a3d !important;
+    color: #c7c5b3 !important;
+    border-color: #c7c5b3 !important;
+}
+/* SVG images should not have background */
+.leaflet-image-layer {
+    background: transparent !important;
+}
+</style>
+</head>
+<body>
+
+<div id="app">
+    <!-- Left Sidebar -->
+    <div id="sidebar">
+        <div id="sidebar-inner">
+            <h2>🗺️ EFT Maps</h2>
+            
+            <select id="map-select"></select>
+            <div style="display:flex;gap:6px;margin-bottom:12px">
+                <button id="style-sat" class="style-btn active" style="flex:1;padding:6px 8px;background:#1a1a1c;border:1px solid #3a3a3d;color:#c7c5b3;border-radius:4px;cursor:pointer;font-size:12px;transition:all 0.2s">🛰️ 卫星图</button>
+                <button id="style-abs" class="style-btn" style="flex:1;padding:6px 8px;background:#1a1a1c;border:1px solid #3a3a3d;color:#666;border-radius:4px;cursor:pointer;font-size:12px;transition:all 0.2s">🎨 抽象图</button>
+            </div>
+            
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">过滤器 / Filters</div>
+                <label><input type="checkbox" class="filter-cb" data-filter="quests" checked> 任务 Quests <span style="font-size:10px;color:#888">(切换标记)</span></label>
+            </div>
+        </div>
+    </div>
+    <button id="collapse-btn">◀</button>
+
+    <!-- Map Container -->
+    <div id="map-container">
+        <div id="map"></div>
+    </div>
+
+    <!-- Right Search Panel -->
+    <button class="search-collapse-btn">▶</button>
+    <div id="search-panel">
+        <div id="search-panel-inner">
+            <h2>🔍 搜索任务 / Search Quests</h2>
+            <input type="text" id="search-input" placeholder="Search quests by name..." />
+            <div class="quest-count" id="quest-count">265 quests with map locations</div>
+            <div id="quest-list"></div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+// ==================== EMBEDDED DATA ====================
+
+const MAPS_DATA = [
+  {"name":"Factory","nameId":"factory4_day","normalizedName":"factory"},
+  {"name":"Customs","nameId":"bigmap","normalizedName":"customs"},
+  {"name":"Woods","nameId":"Woods","normalizedName":"woods"},
+  {"name":"Lighthouse","nameId":"Lighthouse","normalizedName":"lighthouse"},
+  {"name":"Shoreline","nameId":"Shoreline","normalizedName":"shoreline"},
+  {"name":"Reserve","nameId":"RezervBase","normalizedName":"reserve"},
+  {"name":"Interchange","nameId":"Interchange","normalizedName":"interchange"},
+  {"name":"Streets of Tarkov","nameId":"TarkovStreets","normalizedName":"streets-of-tarkov"},
+  {"name":"Night Factory","nameId":"factory4_night","normalizedName":"night-factory"},
+  {"name":"The Lab","nameId":"laboratory","normalizedName":"the-lab"},
+  {"name":"Ground Zero","nameId":"Sandbox","normalizedName":"ground-zero"},
+  {"name":"Ground Zero 21+","nameId":"Sandbox_high","normalizedName":"ground-zero-21"},
+  {"name":"The Labyrinth","nameId":"Labyrinth","normalizedName":"the-labyrinth"},
+  {"name":"Ground Zero Tutorial","nameId":"Sandbox_Tutorial","normalizedName":"ground-zero-tutorial"},
+  {"name":"Terminal","nameId":"Terminal_ui","normalizedName":"terminal"},
+  {"name":"Icebreaker","nameId":"Icebreaker","normalizedName":"icebreaker"}
+];
+
+const MAP_LAYERS = {
+    "factory":         { file: "maps/svg/Factory.svg",          crsW: 130.82, crsH: 141.23,  rot: 90 },
+    "customs":         { file: "maps/svg/Customs.svg",          crsW: 1062.48, crsH: 535.17,  rot: 180 },
+    "woods":           { file: "maps/svg/Woods.svg",            crsW: 1472.79, crsH: 1420.60, rot: 180 },
+    "lighthouse":      { file: "maps/svg/Lighthouse.svg",       crsW: 1059.38, crsH: 1722.95, rot: 180 },
+    "shoreline":       { file: "maps/svg/Shoreline.svg",        crsW: 1559.57, crsH: 1032.49, rot: 180 },
+    "reserve":         { file: "maps/svg/Reserve.svg",          crsW: 827.29,  crsH: 761.16,  rot: 195.209 },
+    "interchange":     { file: "maps/svg/Interchange.svg",      crsW: 1127.69, crsH: 947.03,  rot: 180 },
+    "streets-of-tarkov":{file: "maps/2d/Streets_of_Tarkov.jpg", crsW: 605.32,  crsH: 831.58,  rot: 180, isFallback: true },
+    "night-factory":   { file: "maps/svg/Factory.svg",          crsW: 130.82,  crsH: 141.23,  rot: 90 },
+    "the-lab":         { file: "maps/2d/Laboratory.jpg",        crsW: 1238,    crsH: 1078,    rot: 270, isFallback: true },
+    "ground-zero":     { file: "maps/2d/Ground_Zero.jpg",       crsW: 600,     crsH: 600,     rot: 180, isFallback: true },
+    "ground-zero-21":  { file: "maps/2d/Ground_Zero.jpg",       crsW: 600,     crsH: 600,     rot: 180, isFallback: true },
+    "ground-zero-tutorial":{file: "maps/2d/Ground_Zero.jpg",    crsW: 600,     crsH: 600,     rot: 180, isFallback: true },
+    "the-labyrinth":   { file: "maps/2d/Labyrinth.jpg",         crsW: 4800,    crsH: 4320,    rot: 90,  isFallback: true },
+    "terminal":        { file: "maps/svg/Terminal.svg",         crsW: 887.70,  crsH: 1043.95, rot: 180 },
+    "icebreaker":      { file: "maps/2d/Icebreaker.jpg",        crsW: 7680,    crsH: 4320,    rot: 180, isFallback: true }
+};
+
+const CN_QUEST_NAMES = {
+"59675d6c86f7740a842fc482": "蛋卷冰淇淋",
+"6744ab1def61d56e020b5c56": "对空遮断",
+"6744aca8d3346c216702c583": "反将一军",
+"5ae449b386f77446d8741719": "感恩的心",
+"68400953506db3b4db0700e7": "公道价 - 2",
+"596a0e1686f7741ddf17dbee": "供给计划",
+"63966fe7ea74a47c2d3fc0e6": "归还人情",
+"666314b8312343839d032d24": "航空包裹",
+"674602307e3818d5bb069489": "后知后觉",
+"673f2cd5d3346c2167020484": "货运延误 - 2",
+"6745fdddd3346c216702e0bf": "简单副业",
+"5d2495a886f77425cd51e403": "介绍",
+"665eec4a4dfc83b0ed0a9dca": "口干舌燥 - 送货服务",
+"60e71b9bbd90872cb85440f3": "掠地攻城",
+"5b47926a86f7747ccc057c15": "情报就是力量",
+"5d25b6be86f77444001e1b89": "生存者之路 - 省吃俭用",
+"625d6fff4149f1149b5b12c9": "试探 - 2",
+"5fd9fad9c1ce6b1a3b486d00": "搜索任务",
+"66ab970848ddbe9d4a0c49a8": "特别联络",
+"673f61a066e6a521aa04b62b": "外部订单",
+"66b38c7bf85b8bf7250f9cb6": "危机四伏塔科夫",
+"6578ec473dbd035d04531a8d": "稳定信号",
+"66631493312343839d032d22": "小本生意 - 3",
+"5a27ba1c86f77461ea5a3c56": "邪教 - 2",
+"669fa38fad7f1eac2607ed46": "悬结已解",
+"666314c3acf8442f8b0531a3": "一报还一报",
+"6752f6d83038f7df520c83e8": "一臂之力",
+"5a68665c86f774255929b4c7": "医疗隐私 - 3",
+"5b4795fb86f7745876267770": "愿者上钩",
+"6740b60c60a98cad1b0e0aa0": "再次延误",
+"5c10f94386f774227172c572": "战争之血 - 3",
+"66d9cbb67b491f9d5304f6e6": "这是什么梗？",
+"674605df60a98cad1b0ec799": "致命论据",
+"666314bd920800278d0f6748": "忠实观众",
+"5b4794cb86f774598100d5d4": "租借法案 - 1",
+"657315ddab5a49b71f098853": "初来乍到",
+"657315df034d76585f032e01": "打靶练习",
+"657315e270bb0b8dba00cc48": "轮胎燃烧",
+"657315e4a6af4ab4b50f3459": "拯救鼠猭",
+"657315e7a6af4ab4b50f345a": "检查站",
+"657315ead6d74e772f0d7ca4": "大扫除",
+"657315ed034d76585f032e02": "地头蛇",
+"657315f0d6d74e772f0d7ca5": "磨练之后"
+};
+
+const TRADER_COLORS = {"Prapor": "#e74c3c", "Therapist": "#2ecc71", "Skier": "#3498db", "Peacekeeper": "#f39c12", "Mechanic": "#9b59b6", "Ragman": "#e67e22", "Jaeger": "#1abc9c", "Fence": "#95a5a6", "Lightkeeper": "#f1c40f", "Ref": "#e91e63", "BTR Driver": "#ff5722"};
+
+const QUEST_MARKERS = [
+  {
+    "id": "657315ddab5a49b71f098853",
+    "name": "First in Line",
+    "mapNormalizedName": "ground-zero",
+    "trader": "Therapist",
+    "objectives": [
+      "Visit the specified location",
+      "Hand over 3x found item"
+    ],
+    "position": [
+      60,
+      173
+    ]
+  },
+  {
+    "id": "657315ddab5a49b71f098853",
+    "name": "First in Line",
+    "mapNormalizedName": "ground-zero-21",
+    "trader": "Therapist",
+    "objectives": [
+      "Visit the specified location",
+      "Hand over 3x found item"
+    ],
+    "position": [
+      60,
+      173
+    ]
+  },
+  {
+    "id": "657315df034d76585f032e01",
+    "name": "Shooting Cans",
+    "mapNormalizedName": "ground-zero",
+    "trader": "Prapor",
+    "objectives": [
+      "Visit the specified location",
+      "Visit the specified location",
+      "5x eliminate targets"
+    ],
+    "position": [
+      388,
+      304
+    ]
+  },
+  {
+    "id": "657315df034d76585f032e01",
+    "name": "Shooting Cans",
+    "mapNormalizedName": "ground-zero-21",
+    "trader": "Prapor",
+    "objectives": [
+      "Visit the specified location",
+      "Visit the specified location",
+      "5x eliminate targets"
+    ],
+    "position": [
+      388,
+      304
+    ]
+  },
+  {
+    "id": "657315e4a6af4ab4b50f3459",
+    "name": "Saving the Mole",
+    "mapNormalizedName": "ground-zero",
+    "trader": "Mechanic",
+    "objectives": [
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Find the quest item",
+      "Hand over the quest item"
+    ],
+    "position": [
+      176,
+      492
+    ]
+  },
+  {
+    "id": "657315e4a6af4ab4b50f3459",
+    "name": "Saving the Mole",
+    "mapNormalizedName": "ground-zero-21",
+    "trader": "Mechanic",
+    "objectives": [
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Find the quest item",
+      "Hand over the quest item"
+    ],
+    "position": [
+      176,
+      492
+    ]
+  },
+  {
+    "id": "657315e1dccd301f1301416a",
+    "name": "Luxurious Life",
+    "mapNormalizedName": "ground-zero",
+    "trader": "Prapor",
+    "objectives": [
+      "Visit the specified location",
+      "Find the quest item",
+      "Hand over the quest item"
+    ],
+    "position": [
+      186,
+      240
+    ]
+  },
+  {
+    "id": "657315e1dccd301f1301416a",
+    "name": "Luxurious Life",
+    "mapNormalizedName": "ground-zero-21",
+    "trader": "Prapor",
+    "objectives": [
+      "Visit the specified location",
+      "Find the quest item",
+      "Hand over the quest item"
+    ],
+    "position": [
+      186,
+      240
+    ]
+  },
+  {
+    "id": "5d2495a886f77425cd51e403",
+    "name": "Introduction",
+    "mapNormalizedName": "woods",
+    "trader": "Mechanic",
+    "objectives": [
+      "Visit the specified location",
+      "Find the quest item",
+      "Hand over the quest item"
+    ],
+    "position": [
+      881,
+      880
+    ]
+  },
+  {
+    "id": "5d25b6be86f77444001e1b89",
+    "name": "The Survivalist Path - Thrifty",
+    "mapNormalizedName": "woods",
+    "trader": "Jaeger",
+    "objectives": [
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item"
+    ],
+    "position": [
+      919,
+      581
+    ]
+  },
+  {
+    "id": "5d25e44386f77409453bce7b",
+    "name": "The Huntsman Path - Evil Watchman",
+    "mapNormalizedName": "customs",
+    "trader": "Jaeger",
+    "objectives": [
+      "5x eliminate targets"
+    ],
+    "position": [
+      449,
+      460
+    ]
+  },
+  {
+    "id": "669fa3979b0ce3feae01a130",
+    "name": "Claustrophobia",
+    "mapNormalizedName": "factory",
+    "trader": "Jaeger",
+    "objectives": [
+      "5x eliminate targets"
+    ],
+    "position": [
+      66,
+      60
+    ]
+  },
+  {
+    "id": "66b38c7bf85b8bf7250f9cb6",
+    "name": "Rough Tarkov",
+    "mapNormalizedName": "woods",
+    "trader": "Jaeger",
+    "objectives": [
+      "Visit the specified location",
+      "Visit the specified location"
+    ],
+    "position": [
+      371,
+      258
+    ]
+  },
+  {
+    "id": "66b38c7bf85b8bf7250f9cb6",
+    "name": "Rough Tarkov",
+    "mapNormalizedName": "ground-zero",
+    "trader": "Jaeger",
+    "objectives": [
+      "Visit the specified location",
+      "Visit the specified location"
+    ],
+    "position": [
+      351,
+      336
+    ]
+  },
+  {
+    "id": "66b38c7bf85b8bf7250f9cb6",
+    "name": "Rough Tarkov",
+    "mapNormalizedName": "ground-zero-21",
+    "trader": "Jaeger",
+    "objectives": [
+      "Visit the specified location",
+      "Visit the specified location"
+    ],
+    "position": [
+      351,
+      336
+    ]
+  },
+  {
+    "id": "66b38e144f2ab7cc530c3fe7",
+    "name": "Every Hunter Knows This",
+    "mapNormalizedName": "factory",
+    "trader": "Jaeger",
+    "objectives": [
+      "Visit the specified location",
+      "Visit the specified location"
+    ],
+    "position": [
+      56,
+      33
+    ]
+  },
+  {
+    "id": "66b38e144f2ab7cc530c3fe7",
+    "name": "Every Hunter Knows This",
+    "mapNormalizedName": "customs",
+    "trader": "Jaeger",
+    "objectives": [
+      "Visit the specified location",
+      "Visit the specified location"
+    ],
+    "position": [
+      455,
+      488
+    ]
+  },
+  {
+    "id": "675c1cf4a757ddd00404f0a3",
+    "name": "Work Smarter",
+    "mapNormalizedName": "customs",
+    "trader": "Jaeger",
+    "objectives": [
+      "Find the specified item",
+      "Visit the specified location"
+    ],
+    "position": [
+      285,
+      451
+    ]
+  },
+  {
+    "id": "675c1cf4a757ddd00404f0a3",
+    "name": "Work Smarter",
+    "mapNormalizedName": "the-labyrinth",
+    "trader": "Jaeger",
+    "objectives": [
+      "Find the specified item",
+      "Visit the specified location"
+    ],
+    "position": [
+      396,
+      2998
+    ]
+  },
+  {
+    "id": "675c1ec7a46173572a0bf20a",
+    "name": "Rite of Passage",
+    "mapNormalizedName": "customs",
+    "trader": "Jaeger",
+    "objectives": [
+      "10x eliminate targets",
+      "10x eliminate targets",
+      "Hand over 2x found item"
+    ],
+    "position": [
+      195,
+      302
+    ]
+  },
+  {
+    "id": "5d25e2b486f77409de05bba0",
+    "name": "The Huntsman Path - Secured Perimeter",
+    "mapNormalizedName": "factory",
+    "trader": "Jaeger",
+    "objectives": [
+      "6x eliminate targets"
+    ],
+    "position": [
+      57,
+      31
+    ]
+  },
+  {
+    "id": "5fd9fad9c1ce6b1a3b486d00",
+    "name": "Search Mission",
+    "mapNormalizedName": "woods",
+    "trader": "Prapor",
+    "objectives": [
+      "Visit the specified location",
+      "Visit the specified location",
+      "Extract from the location"
+    ],
+    "position": [
+      345,
+      364
+    ]
+  },
+  {
+    "id": "59674eb386f774539f14813a",
+    "name": "Delivery From the Past",
+    "mapNormalizedName": "factory",
+    "trader": "Prapor",
+    "objectives": [
+      "Find the quest item",
+      "[plantQuestItem]"
+    ],
+    "position": [
+      41,
+      31
+    ]
+  },
+  {
+    "id": "63a88045abf76d719f42d715",
+    "name": "The Delicious Sausage",
+    "mapNormalizedName": "streets-of-tarkov",
+    "trader": "Jaeger",
+    "objectives": [
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Hand over the found item"
+    ],
+    "position": [
+      564,
+      276
+    ]
+  },
+  {
+    "id": "59c124d686f774189b3c843f",
+    "name": "BP Depot",
+    "mapNormalizedName": "customs",
+    "trader": "Prapor",
+    "objectives": [
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker"
+    ],
+    "position": [
+      184,
+      523
+    ]
+  },
+  {
+    "id": "59689fbd86f7740d137ebfc4",
+    "name": "Operation Aquarius - Part 1",
+    "mapNormalizedName": "customs",
+    "trader": "Therapist",
+    "objectives": [
+      "Visit the specified location",
+      "Extract from the location"
+    ],
+    "position": [
+      432,
+      432
+    ]
+  },
+  {
+    "id": "5967530a86f77462ba22226b",
+    "name": "Bad Rep Evidence",
+    "mapNormalizedName": "factory",
+    "trader": "Prapor",
+    "objectives": [
+      "Visit the specified location",
+      "Find the specified item",
+      "Find the quest item",
+      "Hand over the quest item",
+      "Extract from the location"
+    ],
+    "position": [
+      51,
+      33
+    ]
+  },
+  {
+    "id": "596b43fb86f77457ca186186",
+    "name": "The Extortionist",
+    "mapNormalizedName": "customs",
+    "trader": "Skier",
+    "objectives": [
+      "Find the quest item",
+      "Hand over the quest item",
+      "Visit the specified location",
+      "Visit the specified location"
+    ],
+    "position": [
+      193,
+      463
+    ]
+  },
+  {
+    "id": "5979eee086f774311955e614",
+    "name": "Golden Swag",
+    "mapNormalizedName": "customs",
+    "trader": "Skier",
+    "objectives": [
+      "Find the quest item",
+      "[plantQuestItem]"
+    ],
+    "position": [
+      54,
+      825
+    ]
+  },
+  {
+    "id": "59675d6c86f7740a842fc482",
+    "name": "Ice Cream Cones",
+    "mapNormalizedName": "woods",
+    "trader": "Prapor",
+    "objectives": [
+      "Find 3x specified item",
+      "Hand over 3x found item",
+      "Find the specified item",
+      "Visit the specified location"
+    ],
+    "position": [
+      940,
+      152
+    ]
+  },
+  {
+    "id": "66058cb22cee99303f1ba067",
+    "name": "Easy Money - Part 1",
+    "mapNormalizedName": "customs",
+    "trader": "Skier",
+    "objectives": [
+      "Plant the specified item"
+    ],
+    "position": [
+      156,
+      461
+    ]
+  },
+  {
+    "id": "5ede55112c95834b583f052a",
+    "name": "The Bunker - Part 1",
+    "mapNormalizedName": "reserve",
+    "trader": "Prapor",
+    "objectives": [
+      "Visit the specified location",
+      "Visit the specified location",
+      "Extract from the location"
+    ],
+    "position": [
+      383,
+      653
+    ]
+  },
+  {
+    "id": "5969f9e986f7741dde183a50",
+    "name": "Pharmacist",
+    "mapNormalizedName": "customs",
+    "trader": "Therapist",
+    "objectives": [
+      "Find the quest item",
+      "Hand over the quest item",
+      "Visit the specified location",
+      "Visit the specified location"
+    ],
+    "position": [
+      366,
+      270
+    ]
+  },
+  {
+    "id": "5979f9ba86f7740f6c3fe9f2",
+    "name": "Chemical - Part 1",
+    "mapNormalizedName": "customs",
+    "trader": "Skier",
+    "objectives": [
+      "Find the quest item",
+      "Hand over the quest item",
+      "Find the specified item",
+      "Hand over the found item",
+      "Visit the specified location"
+    ],
+    "position": [
+      127,
+      195
+    ]
+  },
+  {
+    "id": "5a27b75b86f7742e97191958",
+    "name": "Fishing Gear",
+    "mapNormalizedName": "shoreline",
+    "trader": "Peacekeeper",
+    "objectives": [
+      "Visit the specified location",
+      "Plant the specified item",
+      "Plant the specified item"
+    ],
+    "position": [
+      825,
+      814
+    ]
+  },
+  {
+    "id": "5a27b7a786f774579c3eb376",
+    "name": "Tigr Safari",
+    "mapNormalizedName": "customs",
+    "trader": "Peacekeeper",
+    "objectives": [
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker"
+    ],
+    "position": [
+      267,
+      310
+    ]
+  },
+  {
+    "id": "5a27b7d686f77460d847e6a6",
+    "name": "Scrap Metal",
+    "mapNormalizedName": "shoreline",
+    "trader": "Peacekeeper",
+    "objectives": [
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker"
+    ],
+    "position": [
+      400,
+      656
+    ]
+  },
+  {
+    "id": "675c15fbf7da9792a4059871",
+    "name": "Provide Viewership",
+    "mapNormalizedName": "customs",
+    "trader": "Ref",
+    "objectives": [
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "15x eliminate targets"
+    ],
+    "position": [
+      217,
+      400
+    ]
+  },
+  {
+    "id": "66058cbd9f59e625462acc8e",
+    "name": "Create a Distraction - Part 1",
+    "mapNormalizedName": "ground-zero",
+    "trader": "Ref",
+    "objectives": [
+      "Plant 3x specified item"
+    ],
+    "position": [
+      325,
+      256
+    ]
+  },
+  {
+    "id": "66058cbd9f59e625462acc8e",
+    "name": "Create a Distraction - Part 1",
+    "mapNormalizedName": "ground-zero-21",
+    "trader": "Ref",
+    "objectives": [
+      "Plant 3x specified item"
+    ],
+    "position": [
+      325,
+      256
+    ]
+  },
+  {
+    "id": "66058ccf06ef1d50a60c1f48",
+    "name": "Between Two Fires",
+    "mapNormalizedName": "customs",
+    "trader": "Fence",
+    "objectives": [
+      "Visit the specified location",
+      "Find the quest item",
+      "Hand over the quest item"
+    ],
+    "position": [
+      461,
+      480
+    ]
+  },
+  {
+    "id": "66058ccbc7f3584787181478",
+    "name": "Against the Conscience - Part 1",
+    "mapNormalizedName": "customs",
+    "trader": "Fence",
+    "objectives": [
+      "Visit the specified location",
+      "Visit the specified location",
+      "Extract from the location",
+      "Find the specified item"
+    ],
+    "position": [
+      460,
+      478
+    ]
+  },
+  {
+    "id": "5a27b80086f774429a5d7e20",
+    "name": "Eagle Eye",
+    "mapNormalizedName": "shoreline",
+    "trader": "Peacekeeper",
+    "objectives": [
+      "Visit the specified location",
+      "Find the quest item",
+      "Hand over the quest item",
+      "Visit the specified location",
+      "Find the quest item",
+      "Hand over the quest item"
+    ],
+    "position": [
+      233,
+      874
+    ]
+  },
+  {
+    "id": "597a0f5686f774273b74f676",
+    "name": "Chemical - Part 4",
+    "mapNormalizedName": "customs",
+    "trader": "Skier",
+    "objectives": [
+      "Visit the specified location",
+      "Mark the specified location with an MS2000 Marker"
+    ],
+    "position": [
+      196,
+      202
+    ]
+  },
+  {
+    "id": "597a160786f77477531d39d2",
+    "name": "Out of Curiosity",
+    "mapNormalizedName": "customs",
+    "trader": "Therapist",
+    "objectives": [
+      "Visit the specified location",
+      "Mark the specified location with an MS2000 Marker"
+    ],
+    "position": [
+      196,
+      202
+    ]
+  },
+  {
+    "id": "597a171586f77405ba6887d3",
+    "name": "Big Customer",
+    "mapNormalizedName": "customs",
+    "trader": "Prapor",
+    "objectives": [
+      "Visit the specified location",
+      "Mark the specified location with an MS2000 Marker"
+    ],
+    "position": [
+      196,
+      202
+    ]
+  },
+  {
+    "id": "5a27b87686f77460de0252a8",
+    "name": "Humanitarian Supplies",
+    "mapNormalizedName": "shoreline",
+    "trader": "Peacekeeper",
+    "objectives": [
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker",
+      "Find 5x specified item",
+      "Hand over 5x found item",
+      "10x eliminate targets",
+      "Visit the specified location",
+      "Visit the specified location"
+    ],
+    "position": [
+      528,
+      1075
+    ]
+  },
+  {
+    "id": "5ac345dc86f774288030817f",
+    "name": "Farming - Part 1",
+    "mapNormalizedName": "factory",
+    "trader": "Mechanic",
+    "objectives": [
+      "Plant the specified item",
+      "Plant the specified item"
+    ],
+    "position": [
+      20,
+      97
+    ]
+  },
+  {
+    "id": "5ac3467986f7741d6224abc2",
+    "name": "Signal - Part 1",
+    "mapNormalizedName": "shoreline",
+    "trader": "Mechanic",
+    "objectives": [
+      "Visit the specified location",
+      "Visit the specified location",
+      "Extract from the location"
+    ],
+    "position": [
+      454,
+      1009
+    ]
+  },
+  {
+    "id": "5a27b9de86f77464e5044585",
+    "name": "The Cult - Part 1",
+    "mapNormalizedName": "shoreline",
+    "trader": "Peacekeeper",
+    "objectives": [
+      "Visit the specified location",
+      "Extract from the location"
+    ],
+    "position": [
+      335,
+      289
+    ]
+  },
+  {
+    "id": "5a03173786f77451cb427172",
+    "name": "Spa Tour - Part 2",
+    "mapNormalizedName": "shoreline",
+    "trader": "Peacekeeper",
+    "objectives": [
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker"
+    ],
+    "position": [
+      332,
+      907
+    ]
+  },
+  {
+    "id": "5a03296886f774569778596a",
+    "name": "Spa Tour - Part 4",
+    "mapNormalizedName": "shoreline",
+    "trader": "Peacekeeper",
+    "objectives": [
+      "Visit the specified location",
+      "Visit the specified location",
+      "Extract from the location"
+    ],
+    "position": [
+      302,
+      894
+    ]
+  },
+  {
+    "id": "5a27bb3d86f77411ea361a21",
+    "name": "Cargo X - Part 2",
+    "mapNormalizedName": "shoreline",
+    "trader": "Peacekeeper",
+    "objectives": [
+      "Visit the specified location",
+      "Find the quest item",
+      "Hand over the quest item"
+    ],
+    "position": [
+      290,
+      987
+    ]
+  },
+  {
+    "id": "5a27bb5986f7741dfb660900",
+    "name": "Cargo X - Part 3",
+    "mapNormalizedName": "shoreline",
+    "trader": "Peacekeeper",
+    "objectives": [
+      "Visit the specified location",
+      "Extract from the location"
+    ],
+    "position": [
+      301,
+      778
+    ]
+  },
+  {
+    "id": "5ac3477486f7741d651d6885",
+    "name": "Scout",
+    "mapNormalizedName": "factory",
+    "trader": "Mechanic",
+    "objectives": [
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Extract from the location"
+    ],
+    "position": [
+      66,
+      61
+    ]
+  },
+  {
+    "id": "61958c366726521dd96828ec",
+    "name": "Cargo X - Part 4",
+    "mapNormalizedName": "lighthouse",
+    "trader": "Peacekeeper",
+    "objectives": [
+      "Mark the specified location with an MS2000 Marker"
+    ],
+    "position": [
+      1082,
+      481
+    ]
+  },
+  {
+    "id": "626bd75e47ea7f506e5493c5",
+    "name": "Broadcast - Part 1",
+    "mapNormalizedName": "lighthouse",
+    "trader": "Mechanic",
+    "objectives": [
+      "Visit the specified location",
+      "Plant the specified item"
+    ],
+    "position": [
+      436,
+      610
+    ]
+  },
+  {
+    "id": "64f731ab83cfca080a361e42",
+    "name": "Pets Won't Need It - Part 1",
+    "mapNormalizedName": "streets-of-tarkov",
+    "trader": "Therapist",
+    "objectives": [
+      "Visit the specified location",
+      "Visit the specified location",
+      "Extract from the location"
+    ],
+    "position": [
+      457,
+      127
+    ]
+  },
+  {
+    "id": "6573387d0b26ed4fde798de3",
+    "name": "Pets Won't Need It - Part 2",
+    "mapNormalizedName": "streets-of-tarkov",
+    "trader": "Therapist",
+    "objectives": [
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Extract from the location"
+    ],
+    "position": [
+      400,
+      285
+    ]
+  },
+  {
+    "id": "669fa394e0c9f9fafa082897",
+    "name": "Forklift Certified",
+    "mapNormalizedName": "factory",
+    "trader": "Mechanic",
+    "objectives": [
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location"
+    ],
+    "position": [
+      52,
+      71
+    ]
+  },
+  {
+    "id": "669fa39b91b0a8c9680fc467",
+    "name": "Black Swan",
+    "mapNormalizedName": "factory",
+    "trader": "Mechanic",
+    "objectives": [
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker"
+    ],
+    "position": [
+      59,
+      72
+    ]
+  },
+  {
+    "id": "669fa39c64ea11e84c0642a6",
+    "name": "The Walls Have Eyes",
+    "mapNormalizedName": "factory",
+    "trader": "Skier",
+    "objectives": [
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item"
+    ],
+    "position": [
+      68,
+      50
+    ]
+  },
+  {
+    "id": "66aa74571e5e199ecd094f18",
+    "name": "Secrets of Polikhim",
+    "mapNormalizedName": "factory",
+    "trader": "Mechanic",
+    "objectives": [
+      "Find the quest item",
+      "Extract from the location",
+      "3x eliminate targets",
+      "[plantQuestItem]"
+    ],
+    "position": [
+      53,
+      102
+    ]
+  },
+  {
+    "id": "66aba85403e0ee3101042877",
+    "name": "Beneath The Streets",
+    "mapNormalizedName": "the-lab",
+    "trader": "Therapist",
+    "objectives": [
+      "Visit the specified location",
+      "Extract from the location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location"
+    ],
+    "position": [
+      464,
+      669
+    ]
+  },
+  {
+    "id": "669fa3a1c26f13bd04030f37",
+    "name": "Capacity Check",
+    "mapNormalizedName": "factory",
+    "trader": "Mechanic",
+    "objectives": [
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item"
+    ],
+    "position": [
+      73,
+      65
+    ]
+  },
+  {
+    "id": "6086c852c945025d41566124",
+    "name": "Revision - Reserve",
+    "mapNormalizedName": "reserve",
+    "trader": "Peacekeeper",
+    "objectives": [
+      "Visit the specified location",
+      "Mark the specified location with an MS2000 Marker",
+      "Visit the specified location",
+      "Mark the specified location with an MS2000 Marker",
+      "Visit the specified location",
+      "Mark the specified location with an MS2000 Marker",
+      "Visit the specified location",
+      "Mark the specified location with an MS2000 Marker",
+      "Visit the specified location",
+      "Mark the specified location with an MS2000 Marker",
+      "Visit the specified location",
+      "Visit the specified location"
+    ],
+    "position": [
+      316,
+      383
+    ]
+  },
+  {
+    "id": "5ac3462b86f7741d6118b983",
+    "name": "Farming - Part 3",
+    "mapNormalizedName": "customs",
+    "trader": "Mechanic",
+    "objectives": [
+      "Visit the specified location",
+      "Find the quest item",
+      "Hand over the quest item"
+    ],
+    "position": [
+      161,
+      843
+    ]
+  },
+  {
+    "id": "6089736efa70fc097863b8f6",
+    "name": "Back Door",
+    "mapNormalizedName": "reserve",
+    "trader": "Mechanic",
+    "objectives": [
+      "Visit the specified location",
+      "Extract from the location"
+    ],
+    "position": [
+      596,
+      724
+    ]
+  },
+  {
+    "id": "5a27bbf886f774333a418eeb",
+    "name": "Wet Job - Part 2",
+    "mapNormalizedName": "shoreline",
+    "trader": "Peacekeeper",
+    "objectives": [
+      "Visit the specified location",
+      "Mark the specified location with an MS2000 Marker"
+    ],
+    "position": [
+      807,
+      347
+    ]
+  },
+  {
+    "id": "5a27bc1586f7741f6d40fa2f",
+    "name": "Wet Job - Part 3",
+    "mapNormalizedName": "shoreline",
+    "trader": "Peacekeeper",
+    "objectives": [
+      "Visit the specified location",
+      "Extract from the location"
+    ],
+    "position": [
+      716,
+      529
+    ]
+  },
+  {
+    "id": "6179b4d1bca27a099552e04e",
+    "name": "Revision - Lighthouse",
+    "mapNormalizedName": "lighthouse",
+    "trader": "Peacekeeper",
+    "objectives": [
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker"
+    ],
+    "position": [
+      881,
+      658
+    ]
+  },
+  {
+    "id": "67a09636b8725511260bc421",
+    "name": "Shady Contractor",
+    "mapNormalizedName": "ground-zero",
+    "trader": "Mechanic",
+    "objectives": [
+      "Visit the specified location",
+      "Find the quest item",
+      "Hand over the quest item"
+    ],
+    "position": [
+      444,
+      345
+    ]
+  },
+  {
+    "id": "67a09636b8725511260bc421",
+    "name": "Shady Contractor",
+    "mapNormalizedName": "ground-zero-21",
+    "trader": "Mechanic",
+    "objectives": [
+      "Visit the specified location",
+      "Find the quest item",
+      "Hand over the quest item"
+    ],
+    "position": [
+      444,
+      345
+    ]
+  },
+  {
+    "id": "5967725e86f774601a446662",
+    "name": "Shaking Up the Teller",
+    "mapNormalizedName": "customs",
+    "trader": "Prapor",
+    "objectives": [
+      "Find the quest item",
+      "Hand over the quest item",
+      "Visit the specified location"
+    ],
+    "position": [
+      482,
+      483
+    ]
+  },
+  {
+    "id": "5ede567cfa6dc072ce15d6e3",
+    "name": "The Bunker - Part 2",
+    "mapNormalizedName": "reserve",
+    "trader": "Prapor",
+    "objectives": [
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Extract from the location"
+    ],
+    "position": [
+      383,
+      647
+    ]
+  },
+  {
+    "id": "6089743983426423753cd58a",
+    "name": "Safe Corridor",
+    "mapNormalizedName": "reserve",
+    "trader": "Skier",
+    "objectives": [
+      "10x eliminate targets"
+    ],
+    "position": [
+      257,
+      247
+    ]
+  },
+  {
+    "id": "5ac346cf86f7741d63233a02",
+    "name": "Signal - Part 3",
+    "mapNormalizedName": "shoreline",
+    "trader": "Mechanic",
+    "objectives": [
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker"
+    ],
+    "position": [
+      456,
+      1141
+    ]
+  },
+  {
+    "id": "6179aff8f57fb279792c60a1",
+    "name": "Overpopulation",
+    "mapNormalizedName": "lighthouse",
+    "trader": "Peacekeeper",
+    "objectives": [
+      "12x eliminate targets"
+    ],
+    "position": [
+      1035,
+      784
+    ]
+  },
+  {
+    "id": "63913715f8e5dd32bf4e3aaa",
+    "name": "Broadcast - Part 2",
+    "mapNormalizedName": "streets-of-tarkov",
+    "trader": "Mechanic",
+    "objectives": [
+      "Visit the specified location",
+      "Extract from the location"
+    ],
+    "position": [
+      618,
+      169
+    ]
+  },
+  {
+    "id": "64ee9df4496db64f9b7a4432",
+    "name": "The Door",
+    "mapNormalizedName": "streets-of-tarkov",
+    "trader": "Mechanic",
+    "objectives": [
+      "Visit the specified location",
+      "Plant the specified item",
+      "Plant the specified item"
+    ],
+    "position": [
+      390,
+      147
+    ]
+  },
+  {
+    "id": "6578ec473dbd035d04531a8d",
+    "name": "Steady Signal",
+    "mapNormalizedName": "woods",
+    "trader": "Mechanic",
+    "objectives": [
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker"
+    ],
+    "position": [
+      690,
+      633
+    ]
+  },
+  {
+    "id": "665eec4a4dfc83b0ed0a9dca",
+    "name": "Thirsty - Delivery",
+    "mapNormalizedName": "woods",
+    "trader": "Skier",
+    "objectives": [
+      "Visit the specified location",
+      "Plant the specified item",
+      "Visit the specified location",
+      "Plant the specified item"
+    ],
+    "position": [
+      154,
+      377
+    ]
+  },
+  {
+    "id": "665eec4a4dfc83b0ed0a9dca",
+    "name": "Thirsty - Delivery",
+    "mapNormalizedName": "customs",
+    "trader": "Skier",
+    "objectives": [
+      "Visit the specified location",
+      "Plant the specified item",
+      "Visit the specified location",
+      "Plant the specified item"
+    ],
+    "position": [
+      319,
+      636
+    ]
+  },
+  {
+    "id": "665eeca45d86b6c8aa03c79d",
+    "name": "Thirsty - Echo",
+    "mapNormalizedName": "shoreline",
+    "trader": "Therapist",
+    "objectives": [
+      "Visit the specified location",
+      "Find the quest item",
+      "Hand over the quest item"
+    ],
+    "position": [
+      302,
+      834
+    ]
+  },
+  {
+    "id": "669fa38fad7f1eac2607ed46",
+    "name": "One Less Loose End",
+    "mapNormalizedName": "woods",
+    "trader": "Peacekeeper",
+    "objectives": [
+      "Find the quest item",
+      "[plantQuestItem]"
+    ],
+    "position": [
+      690,
+      1145
+    ]
+  },
+  {
+    "id": "67a0964e972c11a3f507731b",
+    "name": "Needle in a Haystack",
+    "mapNormalizedName": "ground-zero",
+    "trader": "Mechanic",
+    "objectives": [
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location"
+    ],
+    "position": [
+      234,
+      464
+    ]
+  },
+  {
+    "id": "67a0964e972c11a3f507731b",
+    "name": "Needle in a Haystack",
+    "mapNormalizedName": "ground-zero-21",
+    "trader": "Mechanic",
+    "objectives": [
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location"
+    ],
+    "position": [
+      234,
+      464
+    ]
+  },
+  {
+    "id": "67a0964e972c11a3f507731b",
+    "name": "Needle in a Haystack",
+    "mapNormalizedName": "interchange",
+    "trader": "Mechanic",
+    "objectives": [
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location"
+    ],
+    "position": [
+      243,
+      436
+    ]
+  },
+  {
+    "id": "67a0964e972c11a3f507731b",
+    "name": "Needle in a Haystack",
+    "mapNormalizedName": "streets-of-tarkov",
+    "trader": "Mechanic",
+    "objectives": [
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location"
+    ],
+    "position": [
+      660,
+      117
+    ]
+  },
+  {
+    "id": "67a0964e972c11a3f507731b",
+    "name": "Needle in a Haystack",
+    "mapNormalizedName": "shoreline",
+    "trader": "Mechanic",
+    "objectives": [
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location"
+    ],
+    "position": [
+      546,
+      1157
+    ]
+  },
+  {
+    "id": "67a096577e86e067eb045733",
+    "name": "Hidden Layer",
+    "mapNormalizedName": "shoreline",
+    "trader": "Mechanic",
+    "objectives": [
+      "Visit the specified location",
+      "Visit the specified location",
+      "Find the specified item"
+    ],
+    "position": [
+      299,
+      830
+    ]
+  },
+  {
+    "id": "67a0970744893b9f3f0d9b68",
+    "name": "Offensive Reconnaissance",
+    "mapNormalizedName": "the-labyrinth",
+    "trader": "Mechanic",
+    "objectives": [
+      "Visit the specified location",
+      "Find the specified item"
+    ],
+    "position": [
+      1995,
+      3040
+    ]
+  },
+  {
+    "id": "67a0970f05d1611ed90be75d",
+    "name": "Hypotheses Testing",
+    "mapNormalizedName": "the-labyrinth",
+    "trader": "Mechanic",
+    "objectives": [
+      "Visit the specified location",
+      "Hand over 5x found item"
+    ],
+    "position": [
+      2689,
+      480
+    ]
+  },
+  {
+    "id": "67a09724972c11a3f5077324",
+    "name": "Confidential Info",
+    "mapNormalizedName": "the-labyrinth",
+    "trader": "Peacekeeper",
+    "objectives": [
+      "Find the quest item",
+      "Plant the specified item",
+      "Hand over the quest item"
+    ],
+    "position": [
+      2744,
+      684
+    ]
+  },
+  {
+    "id": "67a0972e77dd677f600804bd",
+    "name": "This Tape Sucks",
+    "mapNormalizedName": "the-labyrinth",
+    "trader": "Therapist",
+    "objectives": [
+      "Visit the specified location",
+      "Find the quest item",
+      "Hand over the quest item"
+    ],
+    "position": [
+      597,
+      2485
+    ]
+  },
+  {
+    "id": "67a09761e720611a6a01f288",
+    "name": "Keeper's Word",
+    "mapNormalizedName": "the-labyrinth",
+    "trader": "Lightkeeper",
+    "objectives": [
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item"
+    ],
+    "position": [
+      1951,
+      2380
+    ]
+  },
+  {
+    "id": "639135e0fa894f0a866afde6",
+    "name": "Urban Medicine",
+    "mapNormalizedName": "streets-of-tarkov",
+    "trader": "Therapist",
+    "objectives": [
+      "Visit the specified location",
+      "Find the quest item",
+      "Hand over the quest item"
+    ],
+    "position": [
+      624,
+      227
+    ]
+  },
+  {
+    "id": "639135f286e646067c176a87",
+    "name": "Revision - Streets of Tarkov",
+    "mapNormalizedName": "streets-of-tarkov",
+    "trader": "Peacekeeper",
+    "objectives": [
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker"
+    ],
+    "position": [
+      599,
+      307
+    ]
+  },
+  {
+    "id": "5ae448e586f7744dcf0c2a67",
+    "name": "Big Sale",
+    "mapNormalizedName": "interchange",
+    "trader": "Ragman",
+    "objectives": [
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Extract from the location"
+    ],
+    "position": [
+      434,
+      552
+    ]
+  },
+  {
+    "id": "60896bca6ee58f38c417d4f2",
+    "name": "No Place for Renegades",
+    "mapNormalizedName": "reserve",
+    "trader": "Prapor",
+    "objectives": [
+      "5x eliminate targets"
+    ],
+    "position": [
+      394,
+      644
+    ]
+  },
+  {
+    "id": "639135b04ed9512be67647d7",
+    "name": "Glory to CPSU - Part 1",
+    "mapNormalizedName": "streets-of-tarkov",
+    "trader": "Prapor",
+    "objectives": [
+      "Visit the specified location",
+      "Extract from the location"
+    ],
+    "position": [
+      544,
+      192
+    ]
+  },
+  {
+    "id": "608974af4b05530f55550c21",
+    "name": "Inventory Check",
+    "mapNormalizedName": "reserve",
+    "trader": "Ragman",
+    "objectives": [
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Extract from the location"
+    ],
+    "position": [
+      405,
+      729
+    ]
+  },
+  {
+    "id": "608974d01a66564e74191fc0",
+    "name": "A Fuel Matter",
+    "mapNormalizedName": "reserve",
+    "trader": "Ragman",
+    "objectives": [
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker"
+    ],
+    "position": [
+      412,
+      241
+    ]
+  },
+  {
+    "id": "65802b627b44fa5e14638899",
+    "name": "Nothing Fishy About This",
+    "mapNormalizedName": "shoreline",
+    "trader": "Ragman",
+    "objectives": [
+      "Visit the specified location",
+      "Extract from the location"
+    ],
+    "position": [
+      220,
+      356
+    ]
+  },
+  {
+    "id": "66aa58245ab22944110db6e9",
+    "name": "New Day, New Paths",
+    "mapNormalizedName": "ground-zero",
+    "trader": "Peacekeeper",
+    "objectives": [
+      "Visit the specified location",
+      "Visit the specified location",
+      "Extract from the location"
+    ],
+    "position": [
+      230,
+      103
+    ]
+  },
+  {
+    "id": "66aa58245ab22944110db6e9",
+    "name": "New Day, New Paths",
+    "mapNormalizedName": "ground-zero-21",
+    "trader": "Peacekeeper",
+    "objectives": [
+      "Visit the specified location",
+      "Visit the specified location",
+      "Extract from the location"
+    ],
+    "position": [
+      230,
+      103
+    ]
+  },
+  {
+    "id": "675c03d1f7da9792a405549a",
+    "name": "Abandoned Cargo",
+    "mapNormalizedName": "customs",
+    "trader": "Therapist",
+    "objectives": [
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker"
+    ],
+    "position": [
+      205,
+      596
+    ]
+  },
+  {
+    "id": "675c085d59b0575973005f52",
+    "name": "Break the Deal",
+    "mapNormalizedName": "customs",
+    "trader": "Ragman",
+    "objectives": [
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item"
+    ],
+    "position": [
+      252,
+      414
+    ]
+  },
+  {
+    "id": "5ae448f286f77448d73c0131",
+    "name": "The Blood of War - Part 1",
+    "mapNormalizedName": "interchange",
+    "trader": "Ragman",
+    "objectives": [
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker"
+    ],
+    "position": [
+      350,
+      692
+    ]
+  },
+  {
+    "id": "5ae449b386f77446d8741719",
+    "name": "Gratitude",
+    "mapNormalizedName": "woods",
+    "trader": "Ragman",
+    "objectives": [
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item"
+    ],
+    "position": [
+      973,
+      589
+    ]
+  },
+  {
+    "id": "5a27ba1c86f77461ea5a3c56",
+    "name": "The Cult - Part 2",
+    "mapNormalizedName": "woods",
+    "trader": "Peacekeeper",
+    "objectives": [
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker"
+    ],
+    "position": [
+      503,
+      558
+    ]
+  },
+  {
+    "id": "5a27ba1c86f77461ea5a3c56",
+    "name": "The Cult - Part 2",
+    "mapNormalizedName": "customs",
+    "trader": "Peacekeeper",
+    "objectives": [
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker"
+    ],
+    "position": [
+      481,
+      476
+    ]
+  },
+  {
+    "id": "5a27ba1c86f77461ea5a3c56",
+    "name": "The Cult - Part 2",
+    "mapNormalizedName": "shoreline",
+    "trader": "Peacekeeper",
+    "objectives": [
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker"
+    ],
+    "position": [
+      290,
+      987
+    ]
+  },
+  {
+    "id": "6179ac7511973d018217d0b9",
+    "name": "Easy Job - Part 1",
+    "mapNormalizedName": "lighthouse",
+    "trader": "Prapor",
+    "objectives": [
+      "Visit the specified location",
+      "Mark the specified location with an MS2000 Marker"
+    ],
+    "position": [
+      518,
+      768
+    ]
+  },
+  {
+    "id": "6179acbdc760af5ad2053585",
+    "name": "Easy Job - Part 2",
+    "mapNormalizedName": "lighthouse",
+    "trader": "Prapor",
+    "objectives": [
+      "10x eliminate targets"
+    ],
+    "position": [
+      499,
+      713
+    ]
+  },
+  {
+    "id": "626bd75c71bd851e971b82a5",
+    "name": "Reconnaissance",
+    "mapNormalizedName": "lighthouse",
+    "trader": "Prapor",
+    "objectives": [
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Extract from the location"
+    ],
+    "position": [
+      398,
+      748
+    ]
+  },
+  {
+    "id": "66ab970848ddbe9d4a0c49a8",
+    "name": "Special Comms",
+    "mapNormalizedName": "woods",
+    "trader": "Prapor",
+    "objectives": [
+      "Plant the specified item",
+      "Plant the specified item",
+      "Extract from the location",
+      "Plant the specified item",
+      "Plant the specified item"
+    ],
+    "position": [
+      1278,
+      737
+    ]
+  },
+  {
+    "id": "66ab970848ddbe9d4a0c49a8",
+    "name": "Special Comms",
+    "mapNormalizedName": "reserve",
+    "trader": "Prapor",
+    "objectives": [
+      "Plant the specified item",
+      "Plant the specified item",
+      "Extract from the location",
+      "Plant the specified item",
+      "Plant the specified item"
+    ],
+    "position": [
+      130,
+      239
+    ]
+  },
+  {
+    "id": "5d25e48186f77443e625e386",
+    "name": "Courtesy Visit",
+    "mapNormalizedName": "shoreline",
+    "trader": "Jaeger",
+    "objectives": [
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Extract from the location"
+    ],
+    "position": [
+      306,
+      209
+    ]
+  },
+  {
+    "id": "61904daa7d0d857927447b9c",
+    "name": "The Hermit",
+    "mapNormalizedName": "lighthouse",
+    "trader": "Jaeger",
+    "objectives": [
+      "Visit the specified location",
+      "Find the quest item",
+      "Hand over the quest item"
+    ],
+    "position": [
+      729,
+      953
+    ]
+  },
+  {
+    "id": "5d25e4d586f77443e625e388",
+    "name": "Reserve (quest)",
+    "mapNormalizedName": "reserve",
+    "trader": "Jaeger",
+    "objectives": [
+      "Visit the specified location",
+      "Extract from the location"
+    ],
+    "position": [
+      244,
+      216
+    ]
+  },
+  {
+    "id": "6193850f60b34236ee0483de",
+    "name": "Long Road",
+    "mapNormalizedName": "lighthouse",
+    "trader": "Skier",
+    "objectives": [
+      "4x eliminate targets"
+    ],
+    "position": [
+      1082,
+      650
+    ]
+  },
+  {
+    "id": "5a68661a86f774500f48afb0",
+    "name": "Health Care Privacy - Part 1",
+    "mapNormalizedName": "shoreline",
+    "trader": "Therapist",
+    "objectives": [
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker"
+    ],
+    "position": [
+      550,
+      457
+    ]
+  },
+  {
+    "id": "639136d68ba6894d155e77cf",
+    "name": "Green Corridor",
+    "mapNormalizedName": "streets-of-tarkov",
+    "trader": "Prapor",
+    "objectives": [
+      "Visit the specified location",
+      "Visit the specified location",
+      "Extract from the location"
+    ],
+    "position": [
+      559,
+      275
+    ]
+  },
+  {
+    "id": "639282134ed9512be67647ed",
+    "name": "Road Closed",
+    "mapNormalizedName": "streets-of-tarkov",
+    "trader": "Peacekeeper",
+    "objectives": [
+      "Visit the specified location",
+      "Visit the specified location",
+      "Extract from the location"
+    ],
+    "position": [
+      559,
+      275
+    ]
+  },
+  {
+    "id": "639136fa9444fb141f4e6eee",
+    "name": "Watching You",
+    "mapNormalizedName": "streets-of-tarkov",
+    "trader": "Mechanic",
+    "objectives": [
+      "Visit the specified location",
+      "Find the quest item",
+      "Hand over the quest item"
+    ],
+    "position": [
+      393,
+      370
+    ]
+  },
+  {
+    "id": "63a511ea30d85e10e375b045",
+    "name": "Broadcast - Part 3",
+    "mapNormalizedName": "streets-of-tarkov",
+    "trader": "Jaeger",
+    "objectives": [
+      "Visit the specified location",
+      "Extract from the location"
+    ],
+    "position": [
+      553,
+      493
+    ]
+  },
+  {
+    "id": "639135a7e705511c8a4a1b78",
+    "name": "Ballet Lover",
+    "mapNormalizedName": "streets-of-tarkov",
+    "trader": "Ragman",
+    "objectives": [
+      "Visit the specified location",
+      "Extract from the location"
+    ],
+    "position": [
+      472,
+      267
+    ]
+  },
+  {
+    "id": "5a68665c86f774255929b4c7",
+    "name": "Health Care Privacy - Part 3",
+    "mapNormalizedName": "woods",
+    "trader": "Therapist",
+    "objectives": [
+      "Visit the specified location",
+      "Find the quest item",
+      "Hand over the quest item",
+      "Extract from the location"
+    ],
+    "position": [
+      1094,
+      715
+    ]
+  },
+  {
+    "id": "5a68669a86f774255929b4d4",
+    "name": "Health Care Privacy - Part 5",
+    "mapNormalizedName": "factory",
+    "trader": "Therapist",
+    "objectives": [
+      "Visit the specified location",
+      "Plant 3x specified item"
+    ],
+    "position": [
+      56,
+      33
+    ]
+  },
+  {
+    "id": "608a768d82e40b3c727fd17d",
+    "name": "Pest Control",
+    "mapNormalizedName": "reserve",
+    "trader": "Jaeger",
+    "objectives": [
+      "10x eliminate targets"
+    ],
+    "position": [
+      438,
+      705
+    ]
+  },
+  {
+    "id": "673f2cd5d3346c2167020484",
+    "name": "Shipping Delay - Part 2",
+    "mapNormalizedName": "woods",
+    "trader": "BTR Driver",
+    "objectives": [
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "[taskStatus]"
+    ],
+    "position": [
+      1003,
+      1278
+    ]
+  },
+  {
+    "id": "673f4e956f1b89c7bc0f56ef",
+    "name": "Hot Wheels",
+    "mapNormalizedName": "reserve",
+    "trader": "BTR Driver",
+    "objectives": [
+      "Plant the specified item"
+    ],
+    "position": [
+      479,
+      241
+    ]
+  },
+  {
+    "id": "673f5a4976553f78350bdac1",
+    "name": "Hot Wheels - Let's Try Again",
+    "mapNormalizedName": "reserve",
+    "trader": "BTR Driver",
+    "objectives": [
+      "Plant the specified item"
+    ],
+    "position": [
+      479,
+      241
+    ]
+  },
+  {
+    "id": "673f61a066e6a521aa04b62b",
+    "name": "Order From Outside",
+    "mapNormalizedName": "woods",
+    "trader": "Lightkeeper",
+    "objectives": [
+      "Find the quest item",
+      "[plantQuestItem]"
+    ],
+    "position": [
+      365,
+      671
+    ]
+  },
+  {
+    "id": "6740a02a69a58fceba0ff399",
+    "name": "Natural Exchange",
+    "mapNormalizedName": "shoreline",
+    "trader": "BTR Driver",
+    "objectives": [
+      "Plant the specified item",
+      "Plant the specified item"
+    ],
+    "position": [
+      179,
+      1302
+    ]
+  },
+  {
+    "id": "674492b6909d2013670a347a",
+    "name": "Ask for Directions",
+    "mapNormalizedName": "lighthouse",
+    "trader": "BTR Driver",
+    "objectives": [
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker"
+    ],
+    "position": [
+      953,
+      858
+    ]
+  },
+  {
+    "id": "6744aca8d3346c216702c583",
+    "name": "Discombobulate",
+    "mapNormalizedName": "woods",
+    "trader": "BTR Driver",
+    "objectives": [
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item"
+    ],
+    "position": [
+      736,
+      567
+    ]
+  },
+  {
+    "id": "6745fdddd3346c216702e0bf",
+    "name": "Simple Side Job",
+    "mapNormalizedName": "woods",
+    "trader": "Lightkeeper",
+    "objectives": [
+      "Find the quest item",
+      "[plantQuestItem]"
+    ],
+    "position": [
+      1115,
+      184
+    ]
+  },
+  {
+    "id": "674600a366e6a521aa05eb66",
+    "name": "Route Deviation",
+    "mapNormalizedName": "streets-of-tarkov",
+    "trader": "Skier",
+    "objectives": [
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker"
+    ],
+    "position": [
+      514,
+      339
+    ]
+  },
+  {
+    "id": "674602307e3818d5bb069489",
+    "name": "Hindsight 20/20",
+    "mapNormalizedName": "woods",
+    "trader": "Skier",
+    "objectives": [
+      "Visit the specified location",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item"
+    ],
+    "position": [
+      451,
+      897
+    ]
+  },
+  {
+    "id": "6740b60c60a98cad1b0e0aa0",
+    "name": "Another Shipping Delay",
+    "mapNormalizedName": "woods",
+    "trader": "Ragman",
+    "objectives": [
+      "Visit the specified location",
+      "Extract from the location"
+    ],
+    "position": [
+      617,
+      654
+    ]
+  },
+  {
+    "id": "6744af0969a58fceba101fed",
+    "name": "The Price of Independence",
+    "mapNormalizedName": "reserve",
+    "trader": "BTR Driver",
+    "objectives": [
+      "Find the quest item",
+      "Extract from the location",
+      "[plantQuestItem]",
+      "Extract from the location",
+      "3x eliminate targets",
+      "Extract from the location",
+      "Use the specified item",
+      "Use the specified item",
+      "10x eliminate targets",
+      "Extract from the location"
+    ],
+    "position": [
+      296,
+      651
+    ]
+  },
+  {
+    "id": "6744af0969a58fceba101fed",
+    "name": "The Price of Independence",
+    "mapNormalizedName": "lighthouse",
+    "trader": "BTR Driver",
+    "objectives": [
+      "Find the quest item",
+      "Extract from the location",
+      "[plantQuestItem]",
+      "Extract from the location",
+      "3x eliminate targets",
+      "Extract from the location",
+      "Use the specified item",
+      "Use the specified item",
+      "10x eliminate targets",
+      "Extract from the location"
+    ],
+    "position": [
+      573,
+      562
+    ]
+  },
+  {
+    "id": "6745cbee909d2013670a4a55",
+    "name": "The Price of Independence",
+    "mapNormalizedName": "reserve",
+    "trader": "BTR Driver",
+    "objectives": [
+      "Find the quest item",
+      "Extract from the location",
+      "[plantQuestItem]",
+      "Extract from the location",
+      "3x eliminate targets",
+      "Extract from the location",
+      "Use the specified item",
+      "Use the specified item",
+      "10x eliminate targets",
+      "Extract from the location"
+    ],
+    "position": [
+      296,
+      651
+    ]
+  },
+  {
+    "id": "6745cbee909d2013670a4a55",
+    "name": "The Price of Independence",
+    "mapNormalizedName": "lighthouse",
+    "trader": "BTR Driver",
+    "objectives": [
+      "Find the quest item",
+      "Extract from the location",
+      "[plantQuestItem]",
+      "Extract from the location",
+      "3x eliminate targets",
+      "Extract from the location",
+      "Use the specified item",
+      "Use the specified item",
+      "10x eliminate targets",
+      "Extract from the location"
+    ],
+    "position": [
+      573,
+      562
+    ]
+  },
+  {
+    "id": "5edab736cc183c769d778bc2",
+    "name": "Colleagues - Part 1",
+    "mapNormalizedName": "shoreline",
+    "trader": "Therapist",
+    "objectives": [
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Extract from the location"
+    ],
+    "position": [
+      537,
+      786
+    ]
+  },
+  {
+    "id": "5eda19f0edce541157209cee",
+    "name": "Anesthesia",
+    "mapNormalizedName": "shoreline",
+    "trader": "Prapor",
+    "objectives": [
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker"
+    ],
+    "position": [
+      540,
+      787
+    ]
+  },
+  {
+    "id": "5edabd13218d181e29451442",
+    "name": "Rigged Game",
+    "mapNormalizedName": "shoreline",
+    "trader": "Skier",
+    "objectives": [
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item"
+    ],
+    "position": [
+      540,
+      785
+    ]
+  },
+  {
+    "id": "64e7b99017ab941a6f7bf9d7",
+    "name": "Gendarmerie - Mall Cop",
+    "mapNormalizedName": "streets-of-tarkov",
+    "trader": "Prapor",
+    "objectives": [
+      "15x eliminate targets"
+    ],
+    "position": [
+      310,
+      402
+    ]
+  },
+  {
+    "id": "64e7b9a4aac4cd0a726562cb",
+    "name": "Gendarmerie - Tickets, Please",
+    "mapNormalizedName": "streets-of-tarkov",
+    "trader": "Prapor",
+    "objectives": [
+      "25x eliminate targets"
+    ],
+    "position": [
+      696,
+      471
+    ]
+  },
+  {
+    "id": "64e7b9bffd30422ed03dad38",
+    "name": "Gendarmerie - District Patrol",
+    "mapNormalizedName": "streets-of-tarkov",
+    "trader": "Prapor",
+    "objectives": [
+      "30x eliminate targets"
+    ],
+    "position": [
+      241,
+      190
+    ]
+  },
+  {
+    "id": "64f5aac4b63b74469b6c14c2",
+    "name": "Glory to CPSU - Part 2",
+    "mapNormalizedName": "streets-of-tarkov",
+    "trader": "Prapor",
+    "objectives": [
+      "Visit the specified location",
+      "Find the quest item",
+      "Hand over the quest item"
+    ],
+    "position": [
+      380,
+      90
+    ]
+  },
+  {
+    "id": "6573397ef3f8344c4575cd87",
+    "name": "Properties All Around",
+    "mapNormalizedName": "streets-of-tarkov",
+    "trader": "Prapor",
+    "objectives": [
+      "Visit the specified location",
+      "Find the quest item",
+      "Hand over the quest item"
+    ],
+    "position": [
+      748,
+      362
+    ]
+  },
+  {
+    "id": "5f04886a3937dc337a6b8238",
+    "name": "Chemistry Closet",
+    "mapNormalizedName": "shoreline",
+    "trader": "Mechanic",
+    "objectives": [
+      "Visit the specified location",
+      "Extract from the location"
+    ],
+    "position": [
+      301,
+      972
+    ]
+  },
+  {
+    "id": "639136df4b15ca31f76bc31f",
+    "name": "The Huntsman Path - Administrator",
+    "mapNormalizedName": "streets-of-tarkov",
+    "trader": "Jaeger",
+    "objectives": [
+      "20x eliminate targets",
+      "Use the specified item"
+    ],
+    "position": [
+      434,
+      370
+    ]
+  },
+  {
+    "id": "5edac63b930f5454f51e128b",
+    "name": "TerraGroup Employee",
+    "mapNormalizedName": "the-lab",
+    "trader": "Peacekeeper",
+    "objectives": [
+      "Visit the specified location",
+      "Find the quest item",
+      "Hand over the quest item"
+    ],
+    "position": [
+      880,
+      728
+    ]
+  },
+  {
+    "id": "5b478d0f86f7744d190d91b5",
+    "name": "Minibus",
+    "mapNormalizedName": "interchange",
+    "trader": "Ragman",
+    "objectives": [
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker"
+    ],
+    "position": [
+      640,
+      577
+    ]
+  },
+  {
+    "id": "5b47926a86f7747ccc057c15",
+    "name": "Informed Means Armed",
+    "mapNormalizedName": "woods",
+    "trader": "Skier",
+    "objectives": [
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item"
+    ],
+    "position": [
+      956,
+      581
+    ]
+  },
+  {
+    "id": "5b47926a86f7747ccc057c15",
+    "name": "Informed Means Armed",
+    "mapNormalizedName": "customs",
+    "trader": "Skier",
+    "objectives": [
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item"
+    ],
+    "position": [
+      393,
+      624
+    ]
+  },
+  {
+    "id": "5b47926a86f7747ccc057c15",
+    "name": "Informed Means Armed",
+    "mapNormalizedName": "interchange",
+    "trader": "Skier",
+    "objectives": [
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item"
+    ],
+    "position": [
+      472,
+      610
+    ]
+  },
+  {
+    "id": "5b4795fb86f7745876267770",
+    "name": "Chumming",
+    "mapNormalizedName": "interchange",
+    "trader": "Skier",
+    "objectives": [
+      "Plant 3x specified item",
+      "Plant 3x specified item",
+      "Plant 3x specified item",
+      "5x eliminate targets"
+    ],
+    "position": [
+      517,
+      677
+    ]
+  },
+  {
+    "id": "5b4795fb86f7745876267770",
+    "name": "Chumming",
+    "mapNormalizedName": "customs",
+    "trader": "Skier",
+    "objectives": [
+      "Plant 3x specified item",
+      "Plant 3x specified item",
+      "Plant 3x specified item",
+      "5x eliminate targets"
+    ],
+    "position": [
+      469,
+      488
+    ]
+  },
+  {
+    "id": "5b4795fb86f7745876267770",
+    "name": "Chumming",
+    "mapNormalizedName": "woods",
+    "trader": "Skier",
+    "objectives": [
+      "Plant 3x specified item",
+      "Plant 3x specified item",
+      "Plant 3x specified item",
+      "5x eliminate targets"
+    ],
+    "position": [
+      795,
+      620
+    ]
+  },
+  {
+    "id": "658027799634223183395339",
+    "name": "No Swiping",
+    "mapNormalizedName": "shoreline",
+    "trader": "Skier",
+    "objectives": [
+      "Visit the specified location",
+      "10x eliminate targets"
+    ],
+    "position": [
+      221,
+      1302
+    ]
+  },
+  {
+    "id": "66d9cbb67b491f9d5304f6e6",
+    "name": "Is This a Reference?",
+    "mapNormalizedName": "streets-of-tarkov",
+    "trader": "Fence",
+    "objectives": [
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item"
+    ],
+    "position": [
+      509,
+      240
+    ]
+  },
+  {
+    "id": "66d9cbb67b491f9d5304f6e6",
+    "name": "Is This a Reference?",
+    "mapNormalizedName": "ground-zero",
+    "trader": "Fence",
+    "objectives": [
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item"
+    ],
+    "position": [
+      409,
+      345
+    ]
+  },
+  {
+    "id": "66d9cbb67b491f9d5304f6e6",
+    "name": "Is This a Reference?",
+    "mapNormalizedName": "ground-zero-21",
+    "trader": "Fence",
+    "objectives": [
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item"
+    ],
+    "position": [
+      409,
+      345
+    ]
+  },
+  {
+    "id": "66d9cbb67b491f9d5304f6e6",
+    "name": "Is This a Reference?",
+    "mapNormalizedName": "lighthouse",
+    "trader": "Fence",
+    "objectives": [
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item"
+    ],
+    "position": [
+      927,
+      542
+    ]
+  },
+  {
+    "id": "66d9cbb67b491f9d5304f6e6",
+    "name": "Is This a Reference?",
+    "mapNormalizedName": "reserve",
+    "trader": "Fence",
+    "objectives": [
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item"
+    ],
+    "position": [
+      358,
+      433
+    ]
+  },
+  {
+    "id": "66d9cbb67b491f9d5304f6e6",
+    "name": "Is This a Reference?",
+    "mapNormalizedName": "customs",
+    "trader": "Fence",
+    "objectives": [
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item"
+    ],
+    "position": [
+      297,
+      242
+    ]
+  },
+  {
+    "id": "66d9cbb67b491f9d5304f6e6",
+    "name": "Is This a Reference?",
+    "mapNormalizedName": "factory",
+    "trader": "Fence",
+    "objectives": [
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item"
+    ],
+    "position": [
+      58,
+      49
+    ]
+  },
+  {
+    "id": "66d9cbb67b491f9d5304f6e6",
+    "name": "Is This a Reference?",
+    "mapNormalizedName": "woods",
+    "trader": "Fence",
+    "objectives": [
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item"
+    ],
+    "position": [
+      400,
+      736
+    ]
+  },
+  {
+    "id": "66d9cbb67b491f9d5304f6e6",
+    "name": "Is This a Reference?",
+    "mapNormalizedName": "shoreline",
+    "trader": "Fence",
+    "objectives": [
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item"
+    ],
+    "position": [
+      678,
+      607
+    ]
+  },
+  {
+    "id": "6179b3a12153c15e937d52bc",
+    "name": "Energy Crisis",
+    "mapNormalizedName": "lighthouse",
+    "trader": "Mechanic",
+    "objectives": [
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker"
+    ],
+    "position": [
+      373,
+      748
+    ]
+  },
+  {
+    "id": "5c0bbaa886f7746941031d82",
+    "name": "Bullshit",
+    "mapNormalizedName": "customs",
+    "trader": "Skier",
+    "objectives": [
+      "Find the quest item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "[plantQuestItem]"
+    ],
+    "position": [
+      458,
+      479
+    ]
+  },
+  {
+    "id": "65733403eefc2c312a759ddb",
+    "name": "Developer's Secrets - Part 1",
+    "mapNormalizedName": "streets-of-tarkov",
+    "trader": "Mechanic",
+    "objectives": [
+      "Visit the specified location",
+      "Visit the specified location",
+      "Extract from the location"
+    ],
+    "position": [
+      476,
+      163
+    ]
+  },
+  {
+    "id": "6573382e557ff128bf3da536",
+    "name": "Developer's Secrets - Part 2",
+    "mapNormalizedName": "streets-of-tarkov",
+    "trader": "Mechanic",
+    "objectives": [
+      "Visit the specified location",
+      "Extract from the location"
+    ],
+    "position": [
+      603,
+      499
+    ]
+  },
+  {
+    "id": "639135bbc115f907b14700a6",
+    "name": "Audiophile",
+    "mapNormalizedName": "streets-of-tarkov",
+    "trader": "Ragman",
+    "objectives": [
+      "Visit the specified location",
+      "Find the quest item",
+      "Hand over the quest item"
+    ],
+    "position": [
+      470,
+      271
+    ]
+  },
+  {
+    "id": "6179afd0bca27a099552e040",
+    "name": "Lost Contact",
+    "mapNormalizedName": "lighthouse",
+    "trader": "Therapist",
+    "objectives": [
+      "Visit the specified location",
+      "Extract from the location"
+    ],
+    "position": [
+      1161,
+      736
+    ]
+  },
+  {
+    "id": "626bd75b05f287031503c7f6",
+    "name": "Drug Trafficking",
+    "mapNormalizedName": "lighthouse",
+    "trader": "Therapist",
+    "objectives": [
+      "Visit the specified location",
+      "Plant the specified item"
+    ],
+    "position": [
+      248,
+      796
+    ]
+  },
+  {
+    "id": "6391372c8ba6894d155e77d7",
+    "name": "Broadcast - Part 4",
+    "mapNormalizedName": "streets-of-tarkov",
+    "trader": "Jaeger",
+    "objectives": [
+      "Visit the specified location",
+      "Extract from the location"
+    ],
+    "position": [
+      578,
+      427
+    ]
+  },
+  {
+    "id": "64ee99639878a0569d6ec8c9",
+    "name": "Broadcast - Part 5",
+    "mapNormalizedName": "streets-of-tarkov",
+    "trader": "Jaeger",
+    "objectives": [
+      "Eliminate targets",
+      "Visit the specified location",
+      "Plant the specified item"
+    ],
+    "position": [
+      538,
+      141
+    ]
+  },
+  {
+    "id": "666314b8312343839d032d24",
+    "name": "Airmail",
+    "mapNormalizedName": "woods",
+    "trader": "Mechanic",
+    "objectives": [
+      "Use the specified item"
+    ],
+    "position": [
+      686,
+      1153
+    ]
+  },
+  {
+    "id": "666314bd920800278d0f6748",
+    "name": "Viewer",
+    "mapNormalizedName": "woods",
+    "trader": "Prapor",
+    "objectives": [
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item"
+    ],
+    "position": [
+      643,
+      842
+    ]
+  },
+  {
+    "id": "666314bd920800278d0f6748",
+    "name": "Viewer",
+    "mapNormalizedName": "shoreline",
+    "trader": "Prapor",
+    "objectives": [
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item"
+    ],
+    "position": [
+      929,
+      1124
+    ]
+  },
+  {
+    "id": "666314bd920800278d0f6748",
+    "name": "Viewer",
+    "mapNormalizedName": "factory",
+    "trader": "Prapor",
+    "objectives": [
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item"
+    ],
+    "position": [
+      45,
+      37
+    ]
+  },
+  {
+    "id": "666314c3acf8442f8b0531a3",
+    "name": "Proper Comeback",
+    "mapNormalizedName": "woods",
+    "trader": "Skier",
+    "objectives": [
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item"
+    ],
+    "position": [
+      648,
+      842
+    ]
+  },
+  {
+    "id": "666314c3acf8442f8b0531a3",
+    "name": "Proper Comeback",
+    "mapNormalizedName": "shoreline",
+    "trader": "Skier",
+    "objectives": [
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item"
+    ],
+    "position": [
+      927,
+      1125
+    ]
+  },
+  {
+    "id": "666314c3acf8442f8b0531a3",
+    "name": "Proper Comeback",
+    "mapNormalizedName": "factory",
+    "trader": "Skier",
+    "objectives": [
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item"
+    ],
+    "position": [
+      47,
+      37
+    ]
+  },
+  {
+    "id": "5d25e4ad86f77443e625e387",
+    "name": "Nostalgia",
+    "mapNormalizedName": "shoreline",
+    "trader": "Jaeger",
+    "objectives": [
+      "Visit the specified location",
+      "Find the quest item",
+      "Hand over the quest item"
+    ],
+    "position": [
+      290,
+      867
+    ]
+  },
+  {
+    "id": "6572e876dc0d635f633a5714",
+    "name": "Pyramid Scheme",
+    "mapNormalizedName": "streets-of-tarkov",
+    "trader": "Skier",
+    "objectives": [
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Visit the specified location"
+    ],
+    "position": [
+      398,
+      311
+    ]
+  },
+  {
+    "id": "66ab9da7eb102b9bcd08591c",
+    "name": "Forester's Duty",
+    "mapNormalizedName": "lighthouse",
+    "trader": "Jaeger",
+    "objectives": [
+      "5x eliminate targets",
+      "Extract from the location",
+      "5x eliminate targets"
+    ],
+    "position": [
+      768,
+      739
+    ]
+  },
+  {
+    "id": "66ab9da7eb102b9bcd08591c",
+    "name": "Forester's Duty",
+    "mapNormalizedName": "shoreline",
+    "trader": "Jaeger",
+    "objectives": [
+      "5x eliminate targets",
+      "Extract from the location",
+      "5x eliminate targets"
+    ],
+    "position": [
+      509,
+      188
+    ]
+  },
+  {
+    "id": "5b478b1886f7744d1b23c57d",
+    "name": "Hot Delivery",
+    "mapNormalizedName": "interchange",
+    "trader": "Ragman",
+    "objectives": [
+      "Plant 2x specified item",
+      "Plant 2x specified item",
+      "Plant 2x specified item"
+    ],
+    "position": [
+      518,
+      576
+    ]
+  },
+  {
+    "id": "6179b4f16e9dd54ac275e407",
+    "name": "Missing Cargo",
+    "mapNormalizedName": "lighthouse",
+    "trader": "Skier",
+    "objectives": [
+      "Visit the specified location",
+      "Find the quest item",
+      "Hand over the quest item"
+    ],
+    "position": [
+      1320,
+      805
+    ]
+  },
+  {
+    "id": "5c10f94386f774227172c572",
+    "name": "The Blood of War - Part 3",
+    "mapNormalizedName": "woods",
+    "trader": "Ragman",
+    "objectives": [
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker"
+    ],
+    "position": [
+      779,
+      672
+    ]
+  },
+  {
+    "id": "639dbaf17c898a131e1cffff",
+    "name": "Debtor",
+    "mapNormalizedName": "streets-of-tarkov",
+    "trader": "Skier",
+    "objectives": [
+      "Visit the specified location",
+      "Extract from the location"
+    ],
+    "position": [
+      379,
+      382
+    ]
+  },
+  {
+    "id": "65734c186dc1e402c80dc19e",
+    "name": "Dandies",
+    "mapNormalizedName": "streets-of-tarkov",
+    "trader": "Ragman",
+    "objectives": [
+      "30x eliminate targets",
+      "Plant the specified item",
+      "Plant the specified item"
+    ],
+    "position": [
+      705,
+      121
+    ]
+  },
+  {
+    "id": "639135c3744e452011470807",
+    "name": "House Arrest - Part 1",
+    "mapNormalizedName": "streets-of-tarkov",
+    "trader": "Skier",
+    "objectives": [
+      "Visit the specified location",
+      "Extract from the location"
+    ],
+    "position": [
+      544,
+      196
+    ]
+  },
+  {
+    "id": "625d6ffaf7308432be1d44c5",
+    "name": "Network Provider - Part 2",
+    "mapNormalizedName": "lighthouse",
+    "trader": "Mechanic",
+    "objectives": [
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker"
+    ],
+    "position": [
+      1089,
+      653
+    ]
+  },
+  {
+    "id": "625d6ffcaa168e51321d69d7",
+    "name": "Assessment - Part 1",
+    "mapNormalizedName": "lighthouse",
+    "trader": "Mechanic",
+    "objectives": [
+      "15x eliminate targets"
+    ],
+    "position": [
+      1142,
+      686
+    ]
+  },
+  {
+    "id": "625d6fff4149f1149b5b12c9",
+    "name": "Assessment - Part 2",
+    "mapNormalizedName": "woods",
+    "trader": "Mechanic",
+    "objectives": [
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker"
+    ],
+    "position": [
+      581,
+      521
+    ]
+  },
+  {
+    "id": "625d7005a4eb80027c4f2e09",
+    "name": "Knock-Knock",
+    "mapNormalizedName": "lighthouse",
+    "trader": "Mechanic",
+    "objectives": [
+      "Visit the specified location",
+      "Extract from the location"
+    ],
+    "position": [
+      1525,
+      503
+    ]
+  },
+  {
+    "id": "625d700cc48e6c62a440fab5",
+    "name": "Getting Acquainted",
+    "mapNormalizedName": "lighthouse",
+    "trader": "Mechanic",
+    "objectives": [
+      "Find the quest item",
+      "Find the specified item",
+      "Hand over the quest item",
+      "Visit the specified location"
+    ],
+    "position": [
+      1469,
+      106
+    ]
+  },
+  {
+    "id": "639135cd8ba6894d155e77cb",
+    "name": "House Arrest - Part 2",
+    "mapNormalizedName": "streets-of-tarkov",
+    "trader": "Skier",
+    "objectives": [
+      "Visit the specified location",
+      "Visit the specified location",
+      "Extract from the location"
+    ],
+    "position": [
+      539,
+      213
+    ]
+  },
+  {
+    "id": "6391d90f4ed9512be67647df",
+    "name": "Make Amends",
+    "mapNormalizedName": "lighthouse",
+    "trader": "Mechanic",
+    "objectives": [
+      "Find the quest item",
+      "Find the specified item",
+      "Hand over the quest item",
+      "Visit the specified location"
+    ],
+    "position": [
+      1469,
+      106
+    ]
+  },
+  {
+    "id": "63966faeea19ac7ed845db2c",
+    "name": "Information Source",
+    "mapNormalizedName": "streets-of-tarkov",
+    "trader": "Lightkeeper",
+    "objectives": [
+      "Extract from the location",
+      "Extract from the location",
+      "Extract from the location",
+      "Extract from the location",
+      "Extract from the location",
+      "Mark the specified location with an MS2000 Marker",
+      "Mark the specified location with an MS2000 Marker"
+    ],
+    "position": [
+      684,
+      264
+    ]
+  },
+  {
+    "id": "63966fbeea19ac7ed845db2e",
+    "name": "Missing Informant",
+    "mapNormalizedName": "streets-of-tarkov",
+    "trader": "Lightkeeper",
+    "objectives": [
+      "Visit the specified location",
+      "Find the quest item",
+      "Hand over the quest item"
+    ],
+    "position": [
+      693,
+      426
+    ]
+  },
+  {
+    "id": "63966fccac6f8f3c677b9d89",
+    "name": "Snatch",
+    "mapNormalizedName": "reserve",
+    "trader": "Lightkeeper",
+    "objectives": [
+      "Extract from the location",
+      "Find the quest item",
+      "Find the quest item",
+      "[plantQuestItem]",
+      "Hand over the quest item"
+    ],
+    "position": [
+      535,
+      255
+    ]
+  },
+  {
+    "id": "63966fd9ea19ac7ed845db30",
+    "name": "Payback",
+    "mapNormalizedName": "reserve",
+    "trader": "Lightkeeper",
+    "objectives": [
+      "Eliminate targets",
+      "6x eliminate targets",
+      "Use the specified item",
+      "Extract from the location"
+    ],
+    "position": [
+      666,
+      533
+    ]
+  },
+  {
+    "id": "63966fe7ea74a47c2d3fc0e6",
+    "name": "Return the Favor",
+    "mapNormalizedName": "woods",
+    "trader": "Lightkeeper",
+    "objectives": [
+      "15x eliminate targets",
+      "Plant the specified item",
+      "Plant the specified item"
+    ],
+    "position": [
+      451,
+      475
+    ]
+  },
+  {
+    "id": "63966ff54c3ef01b6f3ffad8",
+    "name": "Provocation",
+    "mapNormalizedName": "interchange",
+    "trader": "Lightkeeper",
+    "objectives": [
+      "20x eliminate targets",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Extract from the location"
+    ],
+    "position": [
+      591,
+      597
+    ]
+  },
+  {
+    "id": "639670029113f06a7c3b2377",
+    "name": "Following the Bread Crumbs",
+    "mapNormalizedName": "the-lab",
+    "trader": "Lightkeeper",
+    "objectives": [
+      "20x eliminate targets",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Find the quest item",
+      "Hand over the quest item"
+    ],
+    "position": [
+      498,
+      738
+    ]
+  },
+  {
+    "id": "6396700fea19ac7ed845db32",
+    "name": "Spotter",
+    "mapNormalizedName": "streets-of-tarkov",
+    "trader": "Lightkeeper",
+    "objectives": [
+      "Visit the specified location",
+      "Plant the specified item",
+      "Visit the specified location",
+      "Plant the specified item",
+      "Extract from the location"
+    ],
+    "position": [
+      613,
+      167
+    ]
+  },
+  {
+    "id": "63967028c4a91c5cb76abd81",
+    "name": "Trouble in the Big City",
+    "mapNormalizedName": "streets-of-tarkov",
+    "trader": "Lightkeeper",
+    "objectives": [
+      "Visit the specified location",
+      "50x eliminate targets",
+      "Mark the specified location with an MS2000 Marker",
+      "Use the specified item",
+      "Extract from the location"
+    ],
+    "position": [
+      532,
+      299
+    ]
+  },
+  {
+    "id": "626148334149f1149b5b12ca",
+    "name": "Make Amends - Security",
+    "mapNormalizedName": "lighthouse",
+    "trader": "Mechanic",
+    "objectives": [
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item"
+    ],
+    "position": [
+      548,
+      711
+    ]
+  },
+  {
+    "id": "6261483dc4874104f230c0cd",
+    "name": "Make Amends - Quarantine",
+    "mapNormalizedName": "the-lab",
+    "trader": "Mechanic",
+    "objectives": [
+      "Plant the specified item"
+    ],
+    "position": [
+      924,
+      572
+    ]
+  },
+  {
+    "id": "626bd75d5bef5d7d590bd415",
+    "name": "Top Secret",
+    "mapNormalizedName": "lighthouse",
+    "trader": "Skier",
+    "objectives": [
+      "Visit the specified location",
+      "Find the quest item",
+      "Hand over the quest item"
+    ],
+    "position": [
+      1550,
+      215
+    ]
+  },
+  {
+    "id": "67e993b1ac26bf29380a320b",
+    "name": "Surprise Gift",
+    "mapNormalizedName": "customs",
+    "trader": "Lightkeeper",
+    "objectives": [
+      "Visit the specified location",
+      "Find the quest item",
+      "Hand over the quest item"
+    ],
+    "position": [
+      461,
+      480
+    ]
+  },
+  {
+    "id": "60e71b9bbd90872cb85440f3",
+    "name": "Capturing Outposts",
+    "mapNormalizedName": "customs",
+    "trader": "Prapor",
+    "objectives": [
+      "8x eliminate targets",
+      "8x eliminate targets",
+      "8x eliminate targets"
+    ],
+    "position": [
+      141,
+      459
+    ]
+  },
+  {
+    "id": "60e71b9bbd90872cb85440f3",
+    "name": "Capturing Outposts",
+    "mapNormalizedName": "woods",
+    "trader": "Prapor",
+    "objectives": [
+      "8x eliminate targets",
+      "8x eliminate targets",
+      "8x eliminate targets"
+    ],
+    "position": [
+      1107,
+      810
+    ]
+  },
+  {
+    "id": "60e71b9bbd90872cb85440f3",
+    "name": "Capturing Outposts",
+    "mapNormalizedName": "shoreline",
+    "trader": "Prapor",
+    "objectives": [
+      "8x eliminate targets",
+      "8x eliminate targets",
+      "8x eliminate targets"
+    ],
+    "position": [
+      279,
+      894
+    ]
+  },
+  {
+    "id": "684009026ceedc792c09b2a7",
+    "name": "Hobby Club",
+    "mapNormalizedName": "customs",
+    "trader": "Mechanic",
+    "objectives": [
+      "Find the quest item",
+      "Find the quest item",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Plant the specified item",
+      "[plantQuestItem]",
+      "[plantQuestItem]",
+      "[plantQuestItem]",
+      "Find the specified item"
+    ],
+    "position": [
+      362,
+      167
+    ]
+  },
+  {
+    "id": "684009026ceedc792c09b2a7",
+    "name": "Hobby Club",
+    "mapNormalizedName": "reserve",
+    "trader": "Mechanic",
+    "objectives": [
+      "Find the quest item",
+      "Find the quest item",
+      "Visit the specified location",
+      "Visit the specified location",
+      "Plant the specified item",
+      "[plantQuestItem]",
+      "[plantQuestItem]",
+      "[plantQuestItem]",
+      "Find the specified item"
+    ],
+    "position": [
+      228,
+      279
+    ]
+  },
+  {
+    "id": "68400953506db3b4db0700e7",
+    "name": "Fair Price - Part 2",
+    "mapNormalizedName": "woods",
+    "trader": "Skier",
+    "objectives": [
+      "Visit the specified location",
+      "Find the quest item",
+      "[taskStatus]"
+    ],
+    "position": [
+      664,
+      1178
+    ]
+  },
+  {
+    "id": "60e71dc0a94be721b065bbfc",
+    "name": "Long Line",
+    "mapNormalizedName": "interchange",
+    "trader": "Ragman",
+    "objectives": [
+      "20x eliminate targets"
+    ],
+    "position": [
+      415,
+      616
+    ]
+  },
+  {
+    "id": "60e71d6d7fcf9c556f325055",
+    "name": "The Courier",
+    "mapNormalizedName": "customs",
+    "trader": "Mechanic",
+    "objectives": [
+      "Plant the specified item",
+      "Plant the specified item"
+    ],
+    "position": [
+      237,
+      371
+    ]
+  },
+  {
+    "id": "66631493312343839d032d22",
+    "name": "Small Business - Part 3",
+    "mapNormalizedName": "shoreline",
+    "trader": "Fence",
+    "objectives": [
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item"
+    ],
+    "position": [
+      282,
+      657
+    ]
+  },
+  {
+    "id": "66631493312343839d032d22",
+    "name": "Small Business - Part 3",
+    "mapNormalizedName": "woods",
+    "trader": "Fence",
+    "objectives": [
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item",
+      "Plant the specified item"
+    ],
+    "position": [
+      503,
+      558
+    ]
+  }
+];
+
+
+// ==================== APPLICATION ====================
+
+// State
+let currentMap = null;
+let currentOverlay = null;
+let markersLayer = null;
+let currentLayerStyle = localStorage.getItem('tarkovMapStyle') || 'satellite';
+
+// UI refs
+const mapElement = document.getElementById('map');
+const mapSelect = document.getElementById('map-select');
+const sidebar = document.getElementById('sidebar');
+const searchPanel = document.getElementById('search-panel');
+const questList = document.getElementById('quest-list');
+const searchInput = document.getElementById('search-input');
+const questCount = document.getElementById('quest-count');
+
+// Initialize map with CRS.Simple
+const map = L.map('map', {
+    crs: L.CRS.Simple,
+    minZoom: -2,
+    maxZoom: 6,
+    zoomSnap: 0.5,
+    zoomDelta: 0.5,
+    zoomControl: true,
+    attributionControl: false
+});
+
+// Set initial view (will be adjusted per map)
+map.setView([0, 0], 0);
+
+// Create markers layer group
+markersLayer = L.layerGroup().addTo(map);
+
+// Helper: get display name (Chinese if available, fallback to English)
+function getDisplayName(quest) {
+    return CN_QUEST_NAMES[quest.id] || quest.name;
+}
+
+// Populate map selector
+MAPS_DATA.forEach(m => {
+    const opt = document.createElement('option');
+    opt.value = m.normalizedName;
+    opt.textContent = m.name;
+    mapSelect.appendChild(opt);
+});
+
+function switchMap(normalizedName) {
+    if (currentMap === normalizedName) return;
+    currentMap = normalizedName;
+
+    // Remove old image overlay
+    if (currentOverlay) {
+        map.removeLayer(currentOverlay);
+        currentOverlay = null;
+    }
+
+    // Get current layer
+    const mapData = MAP_LAYERS[normalizedName];
+    if (!mapData) return;
+
+        const layer = mapData;
+    const crsW = layer.crsW;
+    const crsH = layer.crsH;
+    
+    // Set bounds using CRS dimensions
+    const imgBounds = [[0, 0], [crsH, crsW]];
+    
+    // Add new image overlay
+    currentOverlay = L.imageOverlay(layer.file, imgBounds).addTo(map);
+    
+    // Fit the map to the image bounds
+    // fitBounds calculates the correct zoom automatically (without padding!)
+    map.fitBounds(imgBounds, {animate: false});
+
+    // Update quest markers
+    updateQuestMarkers(normalizedName);
+
+    // Force map to recalculate dimensions
+    setTimeout(() => map.invalidateSize(), 150);
+}
+
+function updateQuestMarkers(normalizedName) {
+    markersLayer.clearLayers();
+
+    const qm = QUEST_MARKERS.filter(q => q.mapNormalizedName === normalizedName);
+
+    qm.forEach(q => {
+        const color = TRADER_COLORS[q.trader] || '#888';
+        const initial = q.trader.charAt(0);
+
+        const icon = L.divIcon({
+            className: 'trader-marker',
+            html: `<div class="trader-marker" style="background:${color}">${initial}</div>`,
+            iconSize: [64, 64],
+            iconAnchor: [32, 32],
+            popupAnchor: [0, -36]
+        });
+
+        const marker = L.marker(q.position, {icon: icon}).addTo(markersLayer);
+        marker.questId = q.id;
+
+        const displayName = getDisplayName(q);
+        const objHtml = q.objectives.map(o => `<div class="popup-objective">${o}</div>`).join('');
+        marker.bindPopup(`
+            <div class="popup-title">${displayName}</div>
+            <div class="popup-trader">Trader: ${q.trader}</div>
+            ${displayName !== q.name ? `<div style="font-size:11px;color:#888;margin-bottom:6px">EN: ${q.name}</div>` : ''}
+            ${objHtml}
+        `);
+
+        marker.on('click', function() {
+            highlightQuestInList(q.id);
+        });
+    });
+}
+
+function highlightQuestInList(questId) {
+    document.querySelectorAll('.quest-item').forEach(el => el.classList.remove('active'));
+    const el = document.querySelector(`.quest-item[data-id="${questId}"]`);
+    if (el) {
+        el.classList.add('active');
+        el.scrollIntoView({behavior: 'smooth', block: 'nearest'});
+    }
+}
+
+function buildQuestList(searchTerm) {
+    const term = (searchTerm || '').toLowerCase().trim();
+    questList.innerHTML = '';
+
+    let visibleQuests = QUEST_MARKERS;
+    if (term) {
+        visibleQuests = visibleQuests.filter(q => {
+            const cnName = CN_QUEST_NAMES[q.id] || '';
+            return q.name.toLowerCase().includes(term) || 
+                   cnName.toLowerCase().includes(term) ||
+                   q.trader.toLowerCase().includes(term) ||
+                   q.objectives.some(o => o.toLowerCase().includes(term));
+        });
+    }
+
+    // Sort: current map first, then rest
+    visibleQuests.sort((a, b) => {
+        const aCurrent = a.mapNormalizedName === currentMap ? 0 : 1;
+        const bCurrent = b.mapNormalizedName === currentMap ? 0 : 1;
+        if (aCurrent !== bCurrent) return aCurrent - bCurrent;
+        return getDisplayName(a).localeCompare(getDisplayName(b));
+    });
+
+    visibleQuests.forEach(q => {
+        const div = document.createElement('div');
+        div.className = 'quest-item';
+        div.dataset.id = q.id;
+
+        const mapName = MAPS_DATA.find(m => m.normalizedName === q.mapNormalizedName)?.name || q.mapNormalizedName;
+
+        const displayName = getDisplayName(q);
+        div.innerHTML = `
+            <div class="q-name">${displayName}</div>
+            <div class="q-trader">🧑‍💼 ${q.trader}</div>
+            <div class="q-map">🗺️ ${mapName}</div>
+            <div class="q-objectives">${q.objectives.slice(0, 3).map(o => `<div>${o}</div>`).join('')}${q.objectives.length > 3 ? `<div style="color:#666">... +${q.objectives.length - 3} more</div>` : ''}</div>
+        `;
+
+        div.addEventListener('click', function() {
+            // Switch to the quest's map
+            mapSelect.value = q.mapNormalizedName;
+            switchMap(q.mapNormalizedName);
+
+            // Highlight the marker, open popup, and pan straight to it
+            setTimeout(() => {
+                markersLayer.eachLayer(layer => {
+                    if (layer instanceof L.Marker && layer.questId === q.id) {
+                        layer.openPopup();
+                        highlightQuestInList(q.id);
+                        map.setView(layer.getLatLng(), Math.max(0, map.getZoom() + 4), {animate: true});
+                    }
+                });
+            }, 500);
+        });
+
+        questList.appendChild(div);
+    });
+
+    questCount.textContent = `${visibleQuests.length} quests displayed`;
+}
+
+// ==================== EVENT HANDLERS ====================
+
+// Map selection
+mapSelect.addEventListener('change', function() {
+    switchMap(this.value);
+});
+
+// Search
+searchInput.addEventListener('input', function() {
+    buildQuestList(this.value);
+});
+
+// Filter checkboxes
+document.querySelectorAll('.filter-cb').forEach(cb => {
+    cb.addEventListener('change', function() {
+        if (this.dataset.filter === 'quests') {
+            if (this.checked) {
+                markersLayer.addTo(map);
+            } else {
+                map.removeLayer(markersLayer);
+            }
+        }
+    });
+});
+
+// Sidebar collapse
+const collapseBtn = document.getElementById('collapse-btn');
+let sidebarCollapsed = false;
+collapseBtn.addEventListener('click', function() {
+    sidebarCollapsed = !sidebarCollapsed;
+    sidebar.classList.toggle('collapsed');
+    collapseBtn.textContent = sidebarCollapsed ? '▶' : '◀';
+    setTimeout(() => map.invalidateSize(), 350);
+});
+
+// Search panel collapse
+const searchCollapseBtn = document.querySelector('.search-collapse-btn');
+let searchCollapsed = false;
+searchCollapseBtn.addEventListener('click', function() {
+    searchCollapsed = !searchCollapsed;
+    searchPanel.classList.toggle('collapsed');
+    searchCollapseBtn.textContent = searchCollapsed ? '◀' : '▶';
+    setTimeout(() => map.invalidateSize(), 350);
+});
+
+
+// Style toggle
+function applyStyleStyle(style) {
+    currentLayerStyle = style;
+    localStorage.setItem('tarkovMapStyle', style);
+    document.querySelectorAll('.style-btn').forEach(b => {
+        b.classList.toggle('active', b.id === 'style-' + style);
+        b.style.color = b.id === 'style-' + style ? '#c7c5b3' : '#666';
+    });
+    // Refresh current map
+    if (currentMap) {
+        switchMap(currentMap);
+    }
+}
+
+if (document.getElementById('style-sat')) {
+    document.getElementById('style-sat').addEventListener('click', function() {
+        applyStyleStyle('satellite');
+    });
+}
+
+if (document.getElementById('style-abs')) {
+    document.getElementById('style-abs').addEventListener('click', function() {
+        applyStyleStyle('abstract');
+    });
+}
+
+// Initialize style button state
+
+
+// ==================== INIT ====================
+
+// Load first map
+if (MAPS_DATA.length > 0) {
+    // Use original position data from QUEST_MARKERS (not grid-computed)
+    mapSelect.value = MAPS_DATA[0].normalizedName;
+    switchMap(MAPS_DATA[0].normalizedName);
+    buildQuestList('');
+}
+
+// Ensure map renders properly after all layout is settled
+setTimeout(() => map.invalidateSize(), 300);
+
+// Handle resize
+window.addEventListener('resize', () => map.invalidateSize());
+
+</script>
+</body>
+</html>

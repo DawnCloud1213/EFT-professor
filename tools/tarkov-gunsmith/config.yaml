@@ -1,0 +1,34 @@
+# Tarkov Gunsmith 弹道图生成工具配置
+# 武器/口径/枪管/弹药 映射表
+# 用于 tarkov-gunsmith SKILL 的脚本参考
+
+# === 配置文件说明 ===
+# caliber: 网站上的口径名称
+# weapon: 网站上的武器名称
+# barrel: 枪管选项文本
+# ammos: 要生成的弹药名称列表（同口径下）
+# output_dir: 输出子目录名
+
+weapons:
+  # --- 7.62×51mm ---
+  - caliber: "7.62x51mm"
+    weapon: "M700"
+    barrel: "M700 20\" stainless steel"
+    ammos: ["M80", "M62", "M993"]
+    output_dir: "M700"
+    note: "需要选不锈钢枪管"
+
+  - caliber: "7.62x51mm"
+    weapon: "G28"
+    barrel: "417 16.5\""
+    ammos: ["M80", "M62", "M993"]
+    output_dir: "G28"
+    note: "G28只有一个枪管"
+
+  # --- .338 LM AXMC ---
+  - caliber: ".338 LM"
+    weapon: "AXMC"
+    barrel: "AXMC .338LM 28\""
+    ammos: ["AP", "FMJ", "TAC-X", "UCW"]
+    output_dir: "AXMC"
+    note: "AXMC有3种.308枪管，但.338LM只有28寸管"
