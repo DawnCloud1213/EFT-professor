@@ -153,25 +153,17 @@ for e in entries:
                 cz = nz - 0.5
 
                 # Apply coordinateToCardinalRotation (clockwise per API spec).
-                # After CW rotation: rx = east-west, ry = north-south in cardinal space.
+                # After CW rotation: rx, ry are in cardinal space.
                 rad = math.radians(rot)
                 cos_r = math.cos(rad)
                 sin_r = math.sin(rad)
-                rx = cx * cos_r + cz * sin_r   # clockwise rotation
-                ry = -cx * sin_r + cz * cos_r  # clockwise rotation
+                rx = cx * cos_r + cz * sin_r   # clockwise
+                ry = -cx * sin_r + cz * cos_r  # clockwise
 
-                # Map to CRS image pixels.
-                # For 180° rotation maps (majority): game X=east? west?, game Z=south.
-                # 180° CW rotation negates both axes, flipping east↔west AND north↔south.
-                # The net effect: neither X nor Y needs transform — direct nx→img_x, nz→img_y.
-                # For non-180° maps (Factory/Lab), full rotation handles axis swapping.
+                # Map to CRS image pixels. No extra Y-flip — rotation handles alignment.
                 margin = 0.10
-                if abs(rot - 180.0) < 0.01:
-                    img_x = round(w * (margin + (1 - 2 * margin) * (cx + 0.5)))
-                    img_y = round(h * (margin + (1 - 2 * margin) * (cz + 0.5)))
-                else:
-                    img_x = round(w * (margin + (1 - 2 * margin) * (rx + 0.5)))
-                    img_y = round(h * (margin + (1 - 2 * margin) * (ry + 0.5)))
+                img_x = round(w * (margin + (1 - 2 * margin) * (rx + 0.5)))
+                img_y = round(h * (margin + (1 - 2 * margin) * (ry + 0.5)))
 
                 e["position"] = [img_y, img_x]
                 continue
