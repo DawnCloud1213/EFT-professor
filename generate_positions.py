@@ -28,11 +28,11 @@ ml_start = html.find("const MAP_LAYERS = {")
 ml_end = html.find("};", ml_start) + 2
 map_layers_js = html[ml_start:ml_end]
 
-MAP_DIMS = {}   # (width, height, offset_x, offset_y) in pixels
+MAP_DIMS = {}   # (width, height, offset_x, offset_y) in CRS pixels for marker placement
 ROTATION = {}
+TILE_INFO = {}  # extra tile info for frontend {tw, th, tx0, ty0}
 
 # Parse MAP_LAYERS with proper brace tracking (URLs contain { } that break simple regex)
-pos = map_layers_js.find("{") + 1
 for m in re.finditer(r'"([^"]+)":\s*\{', map_layers_js):
     name = m.group(1)
     i = m.end()  # after opening {
@@ -48,27 +48,54 @@ for m in re.finditer(r'"([^"]+)":\s*\{', map_layers_js):
         i += 1
     body = map_layers_js[m.end():i-1]
 
-    # Extract fields
-    def getf(key, type=float):
-        fm = re.search(rf'{key}:\s*([\d.-]+|"[^"]*")', body)
+    def getf(key, type=float, text=None):
+        fm = re.search(rf'{key}:\s*([\d.-]+|"[^"]*")', text or body)
         if fm:
             v = fm.group(1).strip('"')
             try: return type(v)
             except: return v
         return None
 
+    # Extract tile params (top-level)
     rot = getf('rot') or 0
     tx0 = getf('tx0')
     if tx0 is not None:
         tx1 = getf('tx1'); ty0 = getf('ty0'); ty1 = getf('ty1')
-        tw = (tx1 - tx0 + 1) * 256; th = (ty1 - ty0 + 1) * 256
-        MAP_DIMS[name] = (tw, th, tx0 * 256, ty0 * 256)
-    else:
-        crsW = getf('crsW') or 1000; crsH = getf('crsH') or 1000
-        MAP_DIMS[name] = (crsW, crsH, 0, 0)
+        TILE_INFO[name] = {
+            'tw': (tx1 - tx0 + 1) * 256,
+            'th': (ty1 - ty0 + 1) * 256,
+            'tx0': tx0, 'ty0': ty0
+        }
+
+    # Extract abstract block for CRS dimensions (nested inside { abstract: { ... } })
+    abs_match = re.search(r'abstract:\s*\{', body)
+    abs_body = body
+    if abs_match:
+        # Track braces to extract the nested abstract block
+        j = abs_match.end()
+        ad = 1
+        ai = j
+        astr = False
+        while ai < len(body) and ad > 0:
+            ch = body[ai]
+            if ch == '"' and (ai == 0 or body[ai-1] != '\\'):
+                astr = not astr
+            elif not astr:
+                if ch == '{': ad += 1
+                elif ch == '}': ad -= 1
+            ai += 1
+        abs_body = body[j:ai-1]
+
+    crsW = getf('crsW', text=abs_body) or getf('crsW') or 1000
+    crsH = getf('crsH', text=abs_body) or getf('crsH') or 1000
+    rot_abs = getf('rot', text=abs_body)
+    if rot_abs is not None:
+        rot = rot_abs
+
+    MAP_DIMS[name] = (crsW, crsH, 0, 0)
     ROTATION[name] = rot
 
-print(f"Parsed {len(MAP_DIMS)} maps from MAP_LAYERS ({sum(1 for v in MAP_DIMS.values() if v[2]!=0 or v[3]!=0)} tile, {sum(1 for v in MAP_DIMS.values() if v[2]==0 and v[3]==0)} file)")
+print(f"Parsed {len(MAP_DIMS)} maps ({len(TILE_INFO)} with tile config)")
 
 # Parse QUEST_MARKERS — find the LAST definition (JS uses last if duplicates exist)
 idx = html.rfind("const QUEST_MARKERS = [")
@@ -151,16 +178,17 @@ for name, coords in by_map.items():
     xs = [c[0] for c in coords]
     zs = [c[1] for c in coords]
     map_bounds[name] = (min(xs), max(xs), min(zs), max(zs))
-    w, h, ox, oy = MAP_DIMS.get(name, (1000, 1000, 0, 0))
+    w, h, _, _ = MAP_DIMS.get(name, (1000, 1000, 0, 0))
     rot = ROTATION.get(name, 0)
-    print(f"{name}: X [{min(xs):.0f}, {max(xs):.0f}] Z [{min(zs):.0f}, {max(zs):.0f}] -> {w}x{h} off=({ox},{oy}) rot={rot}")
+    ti = TILE_INFO.get(name, {})
+    print(f"{name}: X [{min(xs):.0f}, {max(xs):.0f}] Z [{min(zs):.0f}, {max(zs):.0f}] -> CRS {w}x{h} rot={rot}" + (f" tile={ti['tw']}x{ti['th']}" if ti else ""))
 
 # Assign positions to quest markers
 for e in entries:
     map_name = e["mapNormalizedName"]
     if map_name not in MAP_DIMS:
         continue
-    w, h, ox, oy = MAP_DIMS[map_name]
+    w, h, _, _ = MAP_DIMS[map_name]
     bounds = map_bounds.get(map_name)
     rot = ROTATION.get(map_name, 0)
 
