@@ -387,10 +387,6 @@ body {
             <h2>🗺️ EFT Maps</h2>
             
             <select id="map-select"></select>
-            <div style="display:flex;gap:6px;margin-bottom:12px">
-                <button id="style-sat" class="style-btn active" style="flex:1;padding:6px 8px;background:#1a1a1c;border:1px solid #3a3a3d;color:#c7c5b3;border-radius:4px;cursor:pointer;font-size:12px;transition:all 0.2s">🛰️ 卫星图</button>
-                <button id="style-abs" class="style-btn" style="flex:1;padding:6px 8px;background:#1a1a1c;border:1px solid #3a3a3d;color:#666;border-radius:4px;cursor:pointer;font-size:12px;transition:all 0.2s">🎨 抽象图</button>
-            </div>
             
             <div class="sidebar-section">
                 <div class="sidebar-section-title">过滤器 / Filters</div>
@@ -751,7 +747,6 @@ const QUEST_MARKERS = [
 let currentMap = null;
 let currentOverlay = null;
 let markersLayer = null;
-let currentLayerStyle = localStorage.getItem('tarkovMapStyle') || 'satellite';
 
 // UI refs
 const mapElement = document.getElementById('map');
@@ -807,11 +802,34 @@ function switchMap(normalizedName) {
 
     let imgBounds;
     if (mapData.tileUrl) {
-        // Satellite map: use pre-stitched PNG from local maps/satellite/
         const tw = (mapData.tx1 - mapData.tx0 + 1) * 256;
         const th = (mapData.ty1 - mapData.ty0 + 1) * 256;
         imgBounds = [[0, 0], [th, tw]];
-        currentOverlay = L.imageOverlay(`maps/satellite/${normalizedName}.png`, imgBounds).addTo(map);
+
+        // Custom TileLayer: maps Leaflet tile coords to tarkov.dev tiles.
+        // Tiles are only available at tileZoom; for higher zooms, scale coords back.
+        const TileLayer = L.TileLayer.extend({
+            getTileUrl: function(coords) {
+                var zDiff = coords.z - mapData.tileZoom;
+                var scale = Math.pow(2, Math.max(0, zDiff));
+                var z = coords.z;
+                var x = Math.floor((coords.x + mapData.tx0 * scale) / scale);
+                var y = Math.floor((coords.y + mapData.ty0 * scale) / scale);
+                // Always request from the native tile zoom level
+                return mapData.tileUrl
+                    .replace('{z}', mapData.tileZoom)
+                    .replace('{x}', x)
+                    .replace('{y}', y);
+            }
+        });
+        currentOverlay = new TileLayer('', {
+            tileSize: 256,
+            minZoom: 0,
+            maxZoom: mapData.tileZoom + 2,
+            bounds: imgBounds,
+            noWrap: true,
+            maxNativeZoom: mapData.tileZoom
+        }).addTo(map);
     } else {
         // File-based fallback (lighthouse, streets, terminal, icebreaker)
         imgBounds = [[0, 0], [mapData.crsH, mapData.crsW]];
@@ -973,37 +991,6 @@ searchCollapseBtn.addEventListener('click', function() {
     setTimeout(() => map.invalidateSize(), 350);
 });
 
-
-// Style toggle
-function applyStyleStyle(style) {
-    currentLayerStyle = style;
-    localStorage.setItem('tarkovMapStyle', style);
-    document.querySelectorAll('.style-btn').forEach(b => {
-        b.classList.toggle('active', b.id === 'style-' + style);
-        b.style.color = b.id === 'style-' + style ? '#c7c5b3' : '#666';
-    });
-    // Refresh current map
-    if (currentMap) {
-        switchMap(currentMap);
-    }
-}
-
-if (document.getElementById('style-sat')) {
-    document.getElementById('style-sat').addEventListener('click', function() {
-        applyStyleStyle('satellite');
-    });
-}
-
-if (document.getElementById('style-abs')) {
-    document.getElementById('style-abs').addEventListener('click', function() {
-        applyStyleStyle('abstract');
-    });
-}
-
-// Initialize style button state
-
-
-// ==================== INIT ====================
 
 // Load first map
 if (MAPS_DATA.length > 0) {
