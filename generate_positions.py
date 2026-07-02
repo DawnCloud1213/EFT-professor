@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
-"""Generate quest marker positions from game 3D coordinates."""
-import json, math, re
-from collections import defaultdict
+"""Generate quest marker positions using tarkov.dev's transform formula.
 
-# Map ID → normalized name mapping
+Output: rotated game coordinates [rz, rx]
+Frontend applies L.Transformation automatically via L.CRS.Simple.
+"""
+import json, math, re
+
 MAP_IDS = {
     "55f2d3fd4bdc2d5f408b4567": "factory",
     "56f40101d2720b2a4d8b45d6": "customs",
@@ -18,86 +20,20 @@ MAP_IDS = {
     "6733700029c367a3d40b02af": "the-labyrinth",
 }
 
-# Read current HTML (needed for MAP_LAYERS + QUEST_MARKERS)
 HTML_PATH = r"A:\JUST_DO_IT\EFT-professor\tarkov-map.html"
+TRANSFORM_PATH = r"A:\JUST_DO_IT\EFT-professor\knowledge\tarkov-map\transform_config.json"
+
+# Read HTML
 with open(HTML_PATH, "r", encoding="utf-8") as f:
     html = f.read()
 
-# Parse MAP_LAYERS from HTML — single source of truth for dimensions + rotation
-ml_start = html.find("const MAP_LAYERS = {")
-ml_end = html.find("};", ml_start) + 2
-map_layers_js = html[ml_start:ml_end]
+# Read transform config
+with open(TRANSFORM_PATH, "r", encoding="utf-8") as f:
+    transforms = json.load(f)
 
-MAP_DIMS = {}   # (width, height, offset_x, offset_y) in CRS pixels for marker placement
-ROTATION = {}
-TILE_INFO = {}  # extra tile info for frontend {tw, th, tx0, ty0}
+print(f"Loaded {len(transforms)} transform configs")
 
-# Parse MAP_LAYERS with proper brace tracking (URLs contain { } that break simple regex)
-for m in re.finditer(r'"([^"]+)":\s*\{', map_layers_js):
-    name = m.group(1)
-    i = m.end()  # after opening {
-    depth = 1
-    in_str = False
-    while i < len(map_layers_js) and depth > 0:
-        ch = map_layers_js[i]
-        if ch == '"' and (i == 0 or map_layers_js[i-1] != '\\'):
-            in_str = not in_str
-        elif not in_str:
-            if ch == '{': depth += 1
-            elif ch == '}': depth -= 1
-        i += 1
-    body = map_layers_js[m.end():i-1]
-
-    def getf(key, type=float, text=None):
-        fm = re.search(rf'{key}:\s*([\d.-]+|"[^"]*")', text or body)
-        if fm:
-            v = fm.group(1).strip('"')
-            try: return type(v)
-            except: return v
-        return None
-
-    # Extract tile params (top-level)
-    rot = getf('rot') or 0
-    tx0 = getf('tx0')
-    if tx0 is not None:
-        tx1 = getf('tx1'); ty0 = getf('ty0'); ty1 = getf('ty1')
-        TILE_INFO[name] = {
-            'tw': (tx1 - tx0 + 1) * 256,
-            'th': (ty1 - ty0 + 1) * 256,
-            'tx0': tx0, 'ty0': ty0
-        }
-
-    # Extract abstract block for CRS dimensions (nested inside { abstract: { ... } })
-    abs_match = re.search(r'abstract:\s*\{', body)
-    abs_body = body
-    if abs_match:
-        # Track braces to extract the nested abstract block
-        j = abs_match.end()
-        ad = 1
-        ai = j
-        astr = False
-        while ai < len(body) and ad > 0:
-            ch = body[ai]
-            if ch == '"' and (ai == 0 or body[ai-1] != '\\'):
-                astr = not astr
-            elif not astr:
-                if ch == '{': ad += 1
-                elif ch == '}': ad -= 1
-            ai += 1
-        abs_body = body[j:ai-1]
-
-    crsW = getf('crsW', text=abs_body) or getf('crsW') or 1000
-    crsH = getf('crsH', text=abs_body) or getf('crsH') or 1000
-    rot_abs = getf('rot', text=abs_body)
-    if rot_abs is not None:
-        rot = rot_abs
-
-    MAP_DIMS[name] = (crsW, crsH, 0, 0)
-    ROTATION[name] = rot
-
-print(f"Parsed {len(MAP_DIMS)} maps ({len(TILE_INFO)} with tile config)")
-
-# Parse QUEST_MARKERS — find the LAST definition (JS uses last if duplicates exist)
+# Parse QUEST_MARKERS
 idx = html.rfind("const QUEST_MARKERS = [")
 end_idx = html.find("];\n\nconst CN_QUEST_NAMES", idx)
 if end_idx == -1:
@@ -112,7 +48,16 @@ entries = []
 brace_depth = 0
 current = ""
 in_string = False
+escape_next = False
 for ch in section:
+    if escape_next:
+        escape_next = False
+        current += ch
+        continue
+    if ch == '\\' and in_string:
+        escape_next = True
+        current += ch
+        continue
     if ch == '"' and not in_string:
         in_string = True
     elif ch == '"' and in_string:
@@ -124,7 +69,6 @@ for ch in section:
             brace_depth -= 1
     current += ch
     if brace_depth == 0 and current.strip().endswith("},"):
-        # Extract JSON from first "{" — strips any non-JSON prefix (e.g. "const QUEST_MARKERS = [\n")
         json_start = current.find("{")
         if json_start >= 0:
             try:
@@ -133,7 +77,6 @@ for ch in section:
                 pass
         current = ""
     elif brace_depth == 0 and current.strip().endswith("}"):
-        # Last entry (no trailing comma)
         json_start = current.find("{")
         if json_start >= 0:
             try:
@@ -144,13 +87,13 @@ for ch in section:
 
 print(f"Parsed {len(entries)} quests")
 
-# Read game coordinates from tarkov.dev API dump
+# Read game coordinates
 with open(r"A:\JUST_DO_IT\EFT-professor\knowledge\tarkov-map\all_tasks_full.json", "r", encoding="utf-8") as f:
     tasks_raw = json.load(f)
 
 tasks = tasks_raw['data']['tasks']
 
-# Build lookup: zone position per task objective
+# Build lookup
 task_coords = {}
 for tid, task in tasks.items():
     zones_found = []
@@ -166,87 +109,49 @@ for tid, task in tasks.items():
     if zones_found:
         task_coords[tid] = zones_found
 
-# Group game coords by map to find ranges
-by_map = defaultdict(list)
-for tid, coords_list in task_coords.items():
-    for norm_name, x, z in coords_list:
-        by_map[norm_name].append((x, z))
-
-# Calculate bounds per map
-map_bounds = {}
-for name, coords in by_map.items():
-    xs = [c[0] for c in coords]
-    zs = [c[1] for c in coords]
-    map_bounds[name] = (min(xs), max(xs), min(zs), max(zs))
-    w, h, _, _ = MAP_DIMS.get(name, (1000, 1000, 0, 0))
-    rot = ROTATION.get(name, 0)
-    ti = TILE_INFO.get(name, {})
-    print(f"{name}: X [{min(xs):.0f}, {max(xs):.0f}] Z [{min(zs):.0f}, {max(zs):.0f}] -> CRS {w}x{h} rot={rot}" + (f" tile={ti['tw']}x{ti['th']}" if ti else ""))
-
-# Assign positions to quest markers
+# Assign rotated game coordinates
 for e in entries:
     map_name = e["mapNormalizedName"]
-    if map_name not in MAP_DIMS:
+    if map_name not in transforms:
         continue
-    w, h, _, _ = MAP_DIMS[map_name]
-    bounds = map_bounds.get(map_name)
-    rot = ROTATION.get(map_name, 0)
+
+    rot = transforms[map_name]['rotation']
+    rad = rot * math.pi / 180
+    cos_r = math.cos(rad)
+    sin_r = math.sin(rad)
 
     tid = e["id"]
     if tid in task_coords:
         coords = task_coords[tid]
-        match = [c for c in coords if c[0] == map_name]
+        match = [co for co in coords if co[0] == map_name]
         if match:
             gx, gz = match[0][1], match[0][2]
-            if bounds:
-                min_x, max_x, min_z, max_z = bounds
-                span_x = max(max_x - min_x, 1)
-                span_z = max(max_z - min_z, 1)
 
-                # Normalize game coords to [0, 1]
-                nx = (gx - min_x) / span_x
-                nz = (gz - min_z) / span_z
+            # CW rotation
+            rx = gx * cos_r + gz * sin_r
+            rz = -gx * sin_r + gz * cos_r
 
-                # Center around 0.5 before rotation
-                cx = nx - 0.5
-                cz = nz - 0.5
+            # Output: [rz, rx] for Leaflet [y, x]
+            e["position"] = [round(rz), round(rx)]
+            continue
 
-                # Apply coordinateToCardinalRotation (clockwise per API spec).
-                # After CW rotation: rx, ry are in cardinal space.
-                rad = math.radians(rot)
-                cos_r = math.cos(rad)
-                sin_r = math.sin(rad)
-                rx = cx * cos_r + cz * sin_r   # clockwise
-                ry = -cx * sin_r + cz * cos_r  # clockwise
-
-                # Map to CRS image pixels. No extra Y-flip — rotation handles alignment.
-                margin = 0.10
-                img_x = round(w * (margin + (1 - 2 * margin) * (rx + 0.5)))
-                img_y = round(h * (margin + (1 - 2 * margin) * (ry + 0.5)))
-
-                e["position"] = [img_y, img_x]
-                continue
-
-# Grid fallback for quests without game coordinates
+# Grid fallback
+from collections import defaultdict
 by_map_quests = defaultdict(list)
 for e in entries:
     by_map_quests[e["mapNormalizedName"]].append(e)
 
 for map_name, quests in by_map_quests.items():
-    if map_name not in MAP_DIMS:
+    if map_name not in transforms:
         continue
-    w, h, _, _ = MAP_DIMS[map_name]
     total = len(quests)
-    cols = max(1, math.ceil(math.sqrt(total * w / h)))
+    cols = max(1, math.ceil(math.sqrt(total)))
     rows = math.ceil(total / cols)
-    margin = 0.12
     for i, q in enumerate(quests):
         if "position" not in q:
             col = i % cols
             row = i // cols
-            y = round(h * (margin + (1 - 2 * margin) * (row + 0.5) / rows))
-            x = round(w * (margin + (1 - 2 * margin) * (col + 0.5) / cols))
-            q["position"] = [y, x]
+            q["position"] = [row * 100, col * 100]
 
 # Write back to HTML
 new_entries_lines = []

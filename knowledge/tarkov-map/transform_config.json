@@ -1,0 +1,132 @@
+{
+  "streets-of-tarkov": {
+    "transform": [
+      0.38,
+      0.0,
+      0.38,
+      0.0
+    ],
+    "rotation": 180,
+    "tilePath": "https://assets.tarkov.dev/maps/streets_0.16/main/{z}/{x}/{y}.png"
+  },
+  "ground-zero": {
+    "transform": [
+      0.524,
+      167.3,
+      0.524,
+      65.1
+    ],
+    "rotation": 180,
+    "tilePath": "https://assets.tarkov.dev/maps/groundzero/main_summer/{z}/{x}/{y}.png"
+  },
+  "customs": {
+    "transform": [
+      0.239,
+      168.65,
+      0.239,
+      136.35
+    ],
+    "rotation": 180,
+    "tilePath": "https://assets.tarkov.dev/maps/customs_0.16/main/{z}/{x}/{y}.png"
+  },
+  "factory": {
+    "transform": [
+      1.629,
+      119.9,
+      1.629,
+      139.3
+    ],
+    "rotation": 90,
+    "tilePath": "https://assets.tarkov.dev/maps/factory/main/{z}/{x}/{y}.png"
+  },
+  "icebreaker": {
+    "transform": [
+      0.265,
+      150.6,
+      0.265,
+      134.6
+    ],
+    "rotation": 180,
+    "tilePath": "https://assets.tarkov.dev/maps/icebreaker/main/{z}/{x}/{y}.png"
+  },
+  "interchange": {
+    "transform": [
+      0.265,
+      150.6,
+      0.265,
+      134.6
+    ],
+    "rotation": 180,
+    "tilePath": "https://assets.tarkov.dev/maps/interchange/main/{z}/{x}/{y}.png"
+  },
+  "the-lab": {
+    "transform": [
+      0.575,
+      281.2,
+      0.575,
+      193.7
+    ],
+    "rotation": 270,
+    "tilePath": "https://assets.tarkov.dev/maps/labs_v4/1st/{z}/{x}/{y}.png"
+  },
+  "the-labyrinth": {
+    "transform": [
+      2.115,
+      85.5,
+      2.115,
+      128.0
+    ],
+    "rotation": 270,
+    "tilePath": "https://assets.tarkov.dev/maps/labyrinth/main/{z}/{x}/{y}.png"
+  },
+  "lighthouse": {
+    "transform": [
+      0.2,
+      0.0,
+      0.2,
+      0.0
+    ],
+    "rotation": 180,
+    "tilePath": "https://assets.tarkov.dev/maps/lighthouse/main_summer/{z}/{x}/{y}.png"
+  },
+  "reserve": {
+    "transform": [
+      0.395,
+      122.0,
+      0.395,
+      137.65
+    ],
+    "rotation": 180,
+    "tilePath": "https://assets.tarkov.dev/maps/reserve/main/{z}/{x}/{y}.png"
+  },
+  "shoreline": {
+    "transform": [
+      0.16,
+      83.2,
+      0.16,
+      111.1
+    ],
+    "rotation": 180,
+    "tilePath": "https://assets.tarkov.dev/maps/shoreline/main_summer/{z}/{x}/{y}.png"
+  },
+  "terminal": {
+    "transform": [
+      0.2,
+      0.0,
+      0.2,
+      0.0
+    ],
+    "rotation": 180,
+    "tilePath": "https://assets.tarkov.dev/maps/terminal/main/{z}/{x}/{y}.png"
+  },
+  "woods": {
+    "transform": [
+      0.1855,
+      112.95,
+      0.1855,
+      167.85
+    ],
+    "rotation": 180,
+    "tilePath": "https://assets.tarkov.dev/maps/woods/main_0.16/{z}/{x}/{y}.png"
+  }
+}
