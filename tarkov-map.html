@@ -446,13 +446,13 @@ const MAP_LAYERS = {
     "customs": { rotation: 180, transform: [0.2390, 168.65, 0.2390, 136.35], bounds: [[698, -307], [-372, 237]], tileUrl: "https://assets.tarkov.dev/maps/customs_0.16/main/{z}/{x}/{y}.png", minZoom: 2, maxZoom: 6, svgUrl: "https://assets.tarkov.dev/maps/svg/Customs.svg" },
     "factory": { rotation: 90, transform: [1.6290, 119.90, 1.6290, 139.30], bounds: [[77, -64], [-66, 67]], tileUrl: "https://assets.tarkov.dev/maps/factory/main/{z}/{x}/{y}.png", minZoom: 2, maxZoom: 6, svgUrl: "https://assets.tarkov.dev/maps/svg/Factory.svg" },
     "ground-zero": { rotation: 180, transform: [0.5240, 167.30, 0.5240, 65.10], bounds: [[249, -124], [-99, 364]], tileUrl: "https://assets.tarkov.dev/maps/groundzero/main_summer/{z}/{x}/{y}.png", minZoom: 1, maxZoom: 5 },
-    "icebreaker": { rotation: 180, transform: [0.2650, 150.60, 0.2650, 134.60], bounds: [[598, -442], [-433, 426]], tileUrl: "https://assets.tarkov.dev/maps/icebreaker/main/{z}/{x}/{y}.png", minZoom: 1, maxZoom: 5 },
-    "interchange": { rotation: 180, transform: [0.2650, 150.60, 0.2650, 134.60], bounds: [[598, -442], [-433, 426]], tileUrl: "https://assets.tarkov.dev/maps/interchange/main/{z}/{x}/{y}.png", minZoom: 2, maxZoom: 6, svgUrl: "https://assets.tarkov.dev/maps/svg/Interchange.svg" },
+    "icebreaker": { rotation: 180, transform: [0.2650, 150.60, 0.2650, 134.60], bounds: [[598, -442], [-433, 426]], file: "maps/2d/Icebreaker.jpg", minZoom: 1, maxZoom: 5 },
+    "interchange": { rotation: 180, transform: [0.2650, 150.60, 0.2650, 134.60], bounds: [[598, -442], [-433, 426]], svgUrl: "https://assets.tarkov.dev/maps/svg/Interchange.svg", tileUrl: "https://assets.tarkov.dev/maps/interchange/main/{z}/{x}/{y}.png", minZoom: 2, maxZoom: 6 },
     "lighthouse": { rotation: 180, transform: [0.2000, 0.00, 0.2000, 0.00], bounds: [[515, -998], [-545, 725]], svgUrl: "https://assets.tarkov.dev/maps/svg/Lighthouse.svg", minZoom: 1, maxZoom: 5 },
-    "reserve": { rotation: 180, transform: [0.3950, 122.00, 0.3950, 137.65], bounds: [[289, -293], [-303, 244]], tileUrl: "https://assets.tarkov.dev/maps/reserve/main/{z}/{x}/{y}.png", minZoom: 2, maxZoom: 6, svgUrl: "https://assets.tarkov.dev/maps/svg/Reserve.svg" },
-    "shoreline": { rotation: 180, transform: [0.1600, 83.20, 0.1600, 111.10], bounds: [[504, -415], [-1056, 618]], tileUrl: "https://assets.tarkov.dev/maps/shoreline/main_summer/{z}/{x}/{y}.png", minZoom: 2, maxZoom: 6, svgUrl: "https://assets.tarkov.dev/maps/svg/Shoreline.svg" },
-    "streets-of-tarkov": { rotation: 180, transform: [0.3800, 0.00, 0.3800, 0.00], bounds: [[323, -295], [-280, 532]], tileUrl: "https://assets.tarkov.dev/maps/streets_0.16/main/{z}/{x}/{y}.png", minZoom: 1, maxZoom: 5 },
-    "terminal": { rotation: 180, transform: [0.2000, 0.00, 0.2000, 0.00], bounds: [[463, -580], [-433, 475]], tileUrl: "https://assets.tarkov.dev/maps/terminal/main/{z}/{x}/{y}.png", minZoom: 1, maxZoom: 5 },
+    "reserve": { rotation: 180, transform: [0.3950, 122.00, 0.3950, 137.65], bounds: [[289, -293], [-303, 244]], svgUrl: "https://assets.tarkov.dev/maps/svg/Reserve.svg", tileUrl: "https://assets.tarkov.dev/maps/reserve/main/{z}/{x}/{y}.png", minZoom: 2, maxZoom: 6 },
+    "shoreline": { rotation: 180, transform: [0.1600, 83.20, 0.1600, 111.10], bounds: [[504, -415], [-1056, 618]], svgUrl: "https://assets.tarkov.dev/maps/svg/Shoreline.svg", tileUrl: "https://assets.tarkov.dev/maps/shoreline/main_summer/{z}/{x}/{y}.png", minZoom: 2, maxZoom: 6 },
+    "streets-of-tarkov": { rotation: 180, transform: [0.3800, 0.00, 0.3800, 0.00], bounds: [[323, -295], [-280, 532]], svgUrl: "https://assets.tarkov.dev/maps/svg/StreetsOfTarkov.svg", minZoom: 1, maxZoom: 5 },
+    "terminal": { rotation: 180, transform: [0.2000, 0.00, 0.2000, 0.00], bounds: [[463, -580], [-433, 475]], svgUrl: "https://assets.tarkov.dev/maps/svg/Terminal.svg", minZoom: 1, maxZoom: 5 },
     "the-lab": { rotation: 270, transform: [0.5750, 281.20, 0.5750, 193.70], bounds: [[-80, -477], [-287, -193]], tileUrl: "https://assets.tarkov.dev/maps/labs_v4/1st/{z}/{x}/{y}.png", minZoom: 2, maxZoom: 6 },
     "the-labyrinth": { rotation: 270, transform: [2.1150, 85.50, 2.1150, 128.00], bounds: [[-52, -37], [53, 76]], tileUrl: "https://assets.tarkov.dev/maps/labyrinth/main/{z}/{x}/{y}.png", minZoom: 1, maxZoom: 5 },
     "woods": { rotation: 180, transform: [0.1855, 112.95, 0.1855, 167.85], bounds: [[646, -914], [-761, 442]], tileUrl: "https://assets.tarkov.dev/maps/woods/main_0.16/{z}/{x}/{y}.png", minZoom: 2, maxZoom: 6, svgUrl: "https://assets.tarkov.dev/maps/svg/Woods.svg" },
@@ -824,6 +824,8 @@ function switchMap(normalizedName) {
         }).addTo(map);
     } else if (mapData.svgUrl) {
         L.imageOverlay(mapData.svgUrl, mapData.bounds).addTo(map);
+    } else if (mapData.file) {
+        L.imageOverlay(mapData.file, [[0, 0], [1000, 1000]]).addTo(map);
     }
 
     // Fit to bounds
