@@ -812,7 +812,9 @@ function switchMap(normalizedName) {
     if (style === 'satellite' && mapData.tileUrl) {
         const tw = (mapData.tx1 - mapData.tx0 + 1) * 256;
         const th = (mapData.ty1 - mapData.ty0 + 1) * 256;
-        imgBounds = [[0, 0], [th, tw]];
+        const ox = mapData.tx0 * 256;
+        const oy = mapData.ty0 * 256;
+        imgBounds = [[oy, ox], [oy + th, ox + tw]];
         currentOverlay = L.imageOverlay(`maps/satellite/${normalizedName}.png`, imgBounds).addTo(map);
     } else if (mapData.abstract) {
         const a = mapData.abstract;
@@ -836,12 +838,14 @@ function updateQuestMarkers(normalizedName) {
     const qm = QUEST_MARKERS.filter(q => q.mapNormalizedName === normalizedName);
 
     // Compute position scaling for satellite mode
-    let sx = 1, sy = 1;
+    let sx = 1, sy = 1, ox = 0, oy = 0;
     if (currentLayerStyle === 'satellite' && mapData.tileUrl && mapData.abstract) {
         const tw = (mapData.tx1 - mapData.tx0 + 1) * 256;
         const th = (mapData.ty1 - mapData.ty0 + 1) * 256;
         sx = tw / mapData.abstract.crsW;
         sy = th / mapData.abstract.crsH;
+        ox = mapData.tx0 * 256;
+        oy = mapData.ty0 * 256;
     }
 
     qm.forEach(q => {
@@ -856,7 +860,7 @@ function updateQuestMarkers(normalizedName) {
             popupAnchor: [0, -36]
         });
 
-        const pos = [q.position[0] * sy, q.position[1] * sx];
+        const pos = [q.position[0] * sy + oy, q.position[1] * sx + ox];
         const marker = L.marker(pos, {icon: icon}).addTo(markersLayer);
         marker.questId = q.id;
 
