@@ -23,21 +23,52 @@ HTML_PATH = r"A:\JUST_DO_IT\EFT-professor\tarkov-map.html"
 with open(HTML_PATH, "r", encoding="utf-8") as f:
     html = f.read()
 
-# Parse MAP_LAYERS from HTML to get CRS dimensions and rotation
-# This keeps Python in sync with the HTML definitions — single source of truth
+# Parse MAP_LAYERS from HTML — single source of truth for dimensions + rotation
 ml_start = html.find("const MAP_LAYERS = {")
 ml_end = html.find("};", ml_start) + 2
 map_layers_js = html[ml_start:ml_end]
 
-CRS_SIZES = {}
+MAP_DIMS = {}   # (width, height, offset_x, offset_y) in pixels
 ROTATION = {}
-pattern = r'"([^"]+)":\s*\{[^}]*crsW:\s*([\d.]+)[^}]*crsH:\s*([\d.]+)[^}]*rot:\s*([\d.]+)'
-for m in re.finditer(pattern, map_layers_js):
-    name = m.group(1)
-    CRS_SIZES[name] = (float(m.group(2)), float(m.group(3)))
-    ROTATION[name] = float(m.group(4))
 
-print(f"Parsed {len(CRS_SIZES)} maps from MAP_LAYERS")
+# Parse MAP_LAYERS with proper brace tracking (URLs contain { } that break simple regex)
+pos = map_layers_js.find("{") + 1
+for m in re.finditer(r'"([^"]+)":\s*\{', map_layers_js):
+    name = m.group(1)
+    i = m.end()  # after opening {
+    depth = 1
+    in_str = False
+    while i < len(map_layers_js) and depth > 0:
+        ch = map_layers_js[i]
+        if ch == '"' and (i == 0 or map_layers_js[i-1] != '\\'):
+            in_str = not in_str
+        elif not in_str:
+            if ch == '{': depth += 1
+            elif ch == '}': depth -= 1
+        i += 1
+    body = map_layers_js[m.end():i-1]
+
+    # Extract fields
+    def getf(key, type=float):
+        fm = re.search(rf'{key}:\s*([\d.-]+|"[^"]*")', body)
+        if fm:
+            v = fm.group(1).strip('"')
+            try: return type(v)
+            except: return v
+        return None
+
+    rot = getf('rot') or 0
+    tx0 = getf('tx0')
+    if tx0 is not None:
+        tx1 = getf('tx1'); ty0 = getf('ty0'); ty1 = getf('ty1')
+        tw = (tx1 - tx0 + 1) * 256; th = (ty1 - ty0 + 1) * 256
+        MAP_DIMS[name] = (tw, th, tx0 * 256, ty0 * 256)
+    else:
+        crsW = getf('crsW') or 1000; crsH = getf('crsH') or 1000
+        MAP_DIMS[name] = (crsW, crsH, 0, 0)
+    ROTATION[name] = rot
+
+print(f"Parsed {len(MAP_DIMS)} maps from MAP_LAYERS ({sum(1 for v in MAP_DIMS.values() if v[2]!=0 or v[3]!=0)} tile, {sum(1 for v in MAP_DIMS.values() if v[2]==0 and v[3]==0)} file)")
 
 # Parse QUEST_MARKERS — find the LAST definition (JS uses last if duplicates exist)
 idx = html.rfind("const QUEST_MARKERS = [")
@@ -120,16 +151,16 @@ for name, coords in by_map.items():
     xs = [c[0] for c in coords]
     zs = [c[1] for c in coords]
     map_bounds[name] = (min(xs), max(xs), min(zs), max(zs))
-    w, h = CRS_SIZES.get(name, (1000, 1000))
+    w, h, ox, oy = MAP_DIMS.get(name, (1000, 1000, 0, 0))
     rot = ROTATION.get(name, 0)
-    print(f"{name}: X [{min(xs):.0f}, {max(xs):.0f}] Z [{min(zs):.0f}, {max(zs):.0f}] -> CRS {w}x{h} rot={rot}")
+    print(f"{name}: X [{min(xs):.0f}, {max(xs):.0f}] Z [{min(zs):.0f}, {max(zs):.0f}] -> {w}x{h} off=({ox},{oy}) rot={rot}")
 
 # Assign positions to quest markers
 for e in entries:
     map_name = e["mapNormalizedName"]
-    if map_name not in CRS_SIZES:
+    if map_name not in MAP_DIMS:
         continue
-    w, h = CRS_SIZES[map_name]
+    w, h, ox, oy = MAP_DIMS[map_name]
     bounds = map_bounds.get(map_name)
     rot = ROTATION.get(map_name, 0)
 
@@ -174,9 +205,9 @@ for e in entries:
     by_map_quests[e["mapNormalizedName"]].append(e)
 
 for map_name, quests in by_map_quests.items():
-    if map_name not in CRS_SIZES:
+    if map_name not in MAP_DIMS:
         continue
-    w, h = CRS_SIZES[map_name]
+    w, h, _, _ = MAP_DIMS[map_name]
     total = len(quests)
     cols = max(1, math.ceil(math.sqrt(total * w / h)))
     rows = math.ceil(total / cols)
