@@ -832,7 +832,17 @@ function switchMap(normalizedName) {
 function updateQuestMarkers(normalizedName) {
     markersLayer.clearLayers();
 
+    const mapData = MAP_LAYERS[normalizedName];
     const qm = QUEST_MARKERS.filter(q => q.mapNormalizedName === normalizedName);
+
+    // Compute position scaling for satellite mode
+    let sx = 1, sy = 1;
+    if (currentLayerStyle === 'satellite' && mapData.tileUrl && mapData.abstract) {
+        const tw = (mapData.tx1 - mapData.tx0 + 1) * 256;
+        const th = (mapData.ty1 - mapData.ty0 + 1) * 256;
+        sx = tw / mapData.abstract.crsW;
+        sy = th / mapData.abstract.crsH;
+    }
 
     qm.forEach(q => {
         const color = TRADER_COLORS[q.trader] || '#888';
@@ -846,7 +856,8 @@ function updateQuestMarkers(normalizedName) {
             popupAnchor: [0, -36]
         });
 
-        const marker = L.marker(q.position, {icon: icon}).addTo(markersLayer);
+        const pos = [q.position[0] * sy, q.position[1] * sx];
+        const marker = L.marker(pos, {icon: icon}).addTo(markersLayer);
         marker.questId = q.id;
 
         const displayName = getDisplayName(q);
@@ -986,7 +997,10 @@ function setLayerStyle(style) {
     localStorage.setItem('tarkovMapStyle', style);
     document.getElementById('style-sat').style.color = style === 'satellite' ? '#c7c5b3' : '#666';
     document.getElementById('style-abs').style.color = style === 'abstract' ? '#c7c5b3' : '#666';
-    if (currentMap) switchMap(currentMap);
+    // Force reload: clear currentMap to bypass short-circuit
+    const prev = currentMap;
+    currentMap = null;
+    if (prev) switchMap(prev);
 }
 document.getElementById('style-sat').addEventListener('click', function() { setLayerStyle('satellite'); });
 document.getElementById('style-abs').addEventListener('click', function() { setLayerStyle('abstract'); });
