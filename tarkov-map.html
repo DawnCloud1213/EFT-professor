@@ -790,6 +790,7 @@ MAPS_DATA.forEach(m => {
 function switchMap(normalizedName) {
     if (currentMap === normalizedName) return;
     currentMap = normalizedName;
+    mapSelect.value = normalizedName;
 
     // Remove old layer
     if (currentOverlay) {
@@ -806,30 +807,7 @@ function switchMap(normalizedName) {
         const th = (mapData.ty1 - mapData.ty0 + 1) * 256;
         imgBounds = [[0, 0], [th, tw]];
 
-        // Custom TileLayer: maps Leaflet tile coords to tarkov.dev tiles.
-        // Tiles are only available at tileZoom; for higher zooms, scale coords back.
-        const TileLayer = L.TileLayer.extend({
-            getTileUrl: function(coords) {
-                var zDiff = coords.z - mapData.tileZoom;
-                var scale = Math.pow(2, Math.max(0, zDiff));
-                var z = coords.z;
-                var x = Math.floor((coords.x + mapData.tx0 * scale) / scale);
-                var y = Math.floor((coords.y + mapData.ty0 * scale) / scale);
-                // Always request from the native tile zoom level
-                return mapData.tileUrl
-                    .replace('{z}', mapData.tileZoom)
-                    .replace('{x}', x)
-                    .replace('{y}', y);
-            }
-        });
-        currentOverlay = new TileLayer('', {
-            tileSize: 256,
-            minZoom: 0,
-            maxZoom: mapData.tileZoom + 2,
-            bounds: imgBounds,
-            noWrap: true,
-            maxNativeZoom: mapData.tileZoom
-        }).addTo(map);
+        currentOverlay = L.imageOverlay(`maps/satellite/${normalizedName}.png`, imgBounds).addTo(map);
     } else {
         // File-based fallback (lighthouse, streets, terminal, icebreaker)
         imgBounds = [[0, 0], [mapData.crsH, mapData.crsW]];
