@@ -12,7 +12,7 @@ os.makedirs(OUT_DIR, exist_ok=True)
 TILE_PARAMS = {
     "factory":       {"url": "https://assets.tarkov.dev/maps/factory/main/{z}/{x}/{y}.png",          "z": 1, "x0": 0,  "x1": 1,  "y0": 0,  "y1": 1},
     "customs":       {"url": "https://assets.tarkov.dev/maps/customs_0.16/main/{z}/{x}/{y}.png",      "z": 2, "x0": 1,  "x1": 3,  "y0": 0,  "y1": 3},
-    "woods":         {"url": "https://assets.tarkov.dev/maps/woods/main_0.16/{z}/{x}/{y}.png",        "z": 2, "x0": -1, "x1": 3,  "y0": 0,  "y1": 3},
+    "woods":         {"url": "https://assets.tarkov.dev/maps/woods/main_0.16/{z}/{x}/{y}.png",        "z": 2, "x0": 0, "x1": 3,  "y0": 0,  "y1": 3},
     "shoreline":     {"url": "https://assets.tarkov.dev/maps/shoreline/main_summer/{z}/{x}/{y}.png",   "z": 2, "x0": 0,  "x1": 3,  "y0": 0,  "y1": 3},
     "reserve":       {"url": "https://assets.tarkov.dev/maps/reserve/main/{z}/{x}/{y}.png",            "z": 2, "x0": 0,  "x1": 3,  "y0": 0,  "y1": 3},
     "interchange":   {"url": "https://assets.tarkov.dev/maps/interchange/main/{z}/{x}/{y}.png",        "z": 1, "x0": -1, "x1": 2,  "y0": 0,  "y1": 1},
