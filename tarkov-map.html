@@ -443,19 +443,19 @@ const MAPS_DATA = [
 
 const MAP_LAYERS = {
     // tarkov.dev official transform config — rotation + transform + bounds + tileUrl
-    "customs": { rotation: 180, transform: [0.2390, 168.65, 0.2390, 136.35], bounds: [[698, -307], [-372, 237]], tileUrl: "https://assets.tarkov.dev/maps/customs_0.16/main/{z}/{x}/{y}.png", svgUrl: "https://assets.tarkov.dev/maps/svg/Customs.svg", minZoom: 2, maxZoom: 6 },
-    "factory": { rotation: 90, transform: [1.6290, 119.90, 1.6290, 139.30], bounds: [[77, -64], [-66, 67]], tileUrl: "https://assets.tarkov.dev/maps/factory/main/{z}/{x}/{y}.png", svgUrl: "https://assets.tarkov.dev/maps/svg/Factory.svg", minZoom: 2, maxZoom: 6 },
-    "ground-zero": { rotation: 180, transform: [0.5240, 167.30, 0.5240, 65.10], bounds: [[249, -124], [-99, 364]], tileUrl: "https://assets.tarkov.dev/maps/groundzero/main_summer/{z}/{x}/{y}.png", minZoom: 1, maxZoom: 5 },
-    "icebreaker": { rotation: 180, transform: [0.2650, 150.60, 0.2650, 134.60], bounds: [[598, -442], [-433, 426]], file: "maps/2d/Icebreaker.jpg", minZoom: 1, maxZoom: 5 },
-    "interchange": { rotation: 180, transform: [0.2650, 150.60, 0.2650, 134.60], bounds: [[598, -442], [-433, 426]], svgUrl: "https://assets.tarkov.dev/maps/svg/Interchange.svg", tileUrl: "https://assets.tarkov.dev/maps/interchange/main/{z}/{x}/{y}.png", minZoom: 2, maxZoom: 6 },
-    "lighthouse": { rotation: 180, transform: [0.2000, 0.00, 0.2000, 0.00], bounds: [[515, -998], [-545, 725]], svgUrl: "https://assets.tarkov.dev/maps/svg/Lighthouse.svg", minZoom: 1, maxZoom: 5 },
-    "reserve": { rotation: 180, transform: [0.3950, 122.00, 0.3950, 137.65], bounds: [[289, -293], [-303, 244]], svgUrl: "https://assets.tarkov.dev/maps/svg/Reserve.svg", tileUrl: "https://assets.tarkov.dev/maps/reserve/main/{z}/{x}/{y}.png", minZoom: 2, maxZoom: 6 },
-    "shoreline": { rotation: 180, transform: [0.1600, 83.20, 0.1600, 111.10], bounds: [[504, -415], [-1056, 618]], svgUrl: "https://assets.tarkov.dev/maps/svg/Shoreline.svg", tileUrl: "https://assets.tarkov.dev/maps/shoreline/main_summer/{z}/{x}/{y}.png", minZoom: 2, maxZoom: 6 },
-    "streets-of-tarkov": { rotation: 180, transform: [0.3800, 0.00, 0.3800, 0.00], bounds: [[323, -295], [-280, 532]], svgUrl: "https://assets.tarkov.dev/maps/svg/StreetsOfTarkov.svg", minZoom: 1, maxZoom: 5 },
-    "terminal": { rotation: 180, transform: [0.2000, 0.00, 0.2000, 0.00], bounds: [[463, -580], [-433, 475]], svgUrl: "https://assets.tarkov.dev/maps/svg/Terminal.svg", minZoom: 1, maxZoom: 5 },
-    "the-lab": { rotation: 270, transform: [0.5750, 281.20, 0.5750, 193.70], bounds: [[-80, -477], [-287, -193]], tileUrl: "https://assets.tarkov.dev/maps/labs_v4/1st/{z}/{x}/{y}.png", minZoom: 2, maxZoom: 6 },
-    "the-labyrinth": { rotation: 270, transform: [2.1150, 85.50, 2.1150, 128.00], bounds: [[-52, -37], [53, 76]], tileUrl: "https://assets.tarkov.dev/maps/labyrinth/main/{z}/{x}/{y}.png", minZoom: 1, maxZoom: 5 },
-    "woods": { rotation: 180, transform: [0.1855, 112.95, 0.1855, 167.85], bounds: [[646, -914], [-761, 442]], tileUrl: "https://assets.tarkov.dev/maps/woods/main_0.16/{z}/{x}/{y}.png", svgUrl: "https://assets.tarkov.dev/maps/svg/Woods.svg", minZoom: 2, maxZoom: 6 },
+    "customs": { rotation: 180, transform: [0.2390, 168.65, 0.2390, 136.35], bounds: [[698, -307], [-372, 237]], tileUrl: "https://assets.tarkov.dev/maps/customs_0.16/main/{z}/{x}/{y}.png", svgUrl: "https://assets.tarkov.dev/maps/svg/Customs.svg", svgW: 1062.48, svgH: 535.17, minZoom: 2, maxZoom: 6 },
+    "factory": { rotation: 90, transform: [1.6290, 119.90, 1.6290, 139.30], bounds: [[77, -64], [-66, 67]], tileUrl: "https://assets.tarkov.dev/maps/factory/main/{z}/{x}/{y}.png", svgUrl: "https://assets.tarkov.dev/maps/svg/Factory.svg", svgW: 130.82, svgH: 141.23, minZoom: 2, maxZoom: 6 },
+    "ground-zero": { rotation: 180, transform: [0.5240, 167.30, 0.5240, 65.10], bounds: [[249, -124], [-99, 364]], tileUrl: "https://assets.tarkov.dev/maps/groundzero/main_summer/{z}/{x}/{y}.png", svgW: 600, svgH: 600, minZoom: 1, maxZoom: 5 },
+    "icebreaker": { rotation: 180, transform: [0.2650, 150.60, 0.2650, 134.60], bounds: [[598, -442], [-433, 426]], file: "maps/2d/Icebreaker.jpg", svgW: 7680, svgH: 4320, minZoom: 1, maxZoom: 5 },
+    "interchange": { rotation: 180, transform: [0.2650, 150.60, 0.2650, 134.60], bounds: [[598, -442], [-433, 426]], svgUrl: "https://assets.tarkov.dev/maps/svg/Interchange.svg", tileUrl: "https://assets.tarkov.dev/maps/interchange/main/{z}/{x}/{y}.png", svgW: 1127.69, svgH: 947.03, minZoom: 2, maxZoom: 6 },
+    "lighthouse": { rotation: 180, transform: [0.2000, 0.00, 0.2000, 0.00], bounds: [[515, -998], [-545, 725]], svgUrl: "https://assets.tarkov.dev/maps/svg/Lighthouse.svg", svgW: 1059.38, svgH: 1722.95, minZoom: 1, maxZoom: 5 },
+    "reserve": { rotation: 180, transform: [0.3950, 122.00, 0.3950, 137.65], bounds: [[289, -293], [-303, 244]], svgUrl: "https://assets.tarkov.dev/maps/svg/Reserve.svg", tileUrl: "https://assets.tarkov.dev/maps/reserve/main/{z}/{x}/{y}.png", svgW: 827.29, svgH: 761.16, minZoom: 2, maxZoom: 6 },
+    "shoreline": { rotation: 180, transform: [0.1600, 83.20, 0.1600, 111.10], bounds: [[504, -415], [-1056, 618]], svgUrl: "https://assets.tarkov.dev/maps/svg/Shoreline.svg", tileUrl: "https://assets.tarkov.dev/maps/shoreline/main_summer/{z}/{x}/{y}.png", svgW: 1559.57, svgH: 1032.49, minZoom: 2, maxZoom: 6 },
+    "streets-of-tarkov": { rotation: 180, transform: [0.3800, 0.00, 0.3800, 0.00], bounds: [[323, -295], [-280, 532]], svgUrl: "https://assets.tarkov.dev/maps/svg/StreetsOfTarkov.svg", svgW: 605.32, svgH: 831.58, minZoom: 1, maxZoom: 5 },
+    "terminal": { rotation: 180, transform: [0.2000, 0.00, 0.2000, 0.00], bounds: [[463, -580], [-433, 475]], svgUrl: "https://assets.tarkov.dev/maps/svg/Terminal.svg", svgW: 887.70, svgH: 1043.95, minZoom: 1, maxZoom: 5 },
+    "the-lab": { rotation: 270, transform: [0.5750, 281.20, 0.5750, 193.70], bounds: [[-80, -477], [-287, -193]], tileUrl: "https://assets.tarkov.dev/maps/labs_v4/1st/{z}/{x}/{y}.png", svgW: 1238, svgH: 1078, minZoom: 2, maxZoom: 6 },
+    "the-labyrinth": { rotation: 270, transform: [2.1150, 85.50, 2.1150, 128.00], bounds: [[-52, -37], [53, 76]], tileUrl: "https://assets.tarkov.dev/maps/labyrinth/main/{z}/{x}/{y}.png", svgW: 4800, svgH: 4320, minZoom: 1, maxZoom: 5 },
+    "woods": { rotation: 180, transform: [0.1855, 112.95, 0.1855, 167.85], bounds: [[646, -914], [-761, 442]], tileUrl: "https://assets.tarkov.dev/maps/woods/main_0.16/{z}/{x}/{y}.png", svgUrl: "https://assets.tarkov.dev/maps/svg/Woods.svg", svgW: 1472.79, svgH: 1420.60, minZoom: 2, maxZoom: 6 },
 };
 
 const CN_QUEST_NAMES = {
@@ -801,55 +801,67 @@ function switchMap(normalizedName) {
         map = null;
     }
 
-    // Create new map with tarkov.dev CRS (CCW rotation + negated Y scale)
-    const t = mapData.transform;
-    const rot = mapData.rotation;
-    const applyRotation = function(latLng, rotation) {
-        if (!latLng.lng && !latLng.lat) return L.latLng(0, 0);
-        if (!rotation) return latLng;
-        var rad = rotation * Math.PI / 180;
-        var cosA = Math.cos(rad), sinA = Math.sin(rad);
-        var x = latLng.lng, y = latLng.lat;
-        var rX = x * cosA - y * sinA;  // CCW
-        var rY = x * sinA + y * cosA;
-        return L.latLng(rY, rX);
-    };
-    const CustomCRS = L.Util.extend({}, L.CRS.Simple, {
-        transformation: new L.Transformation(t[0], t[1], t[2] * -1, t[3]),
-        projection: L.extend({}, L.Projection.LonLat, {
-            project: function(latLng) {
-                return L.Projection.LonLat.project(applyRotation(latLng, rot));
-            },
-            unproject: function(point) {
-                return applyRotation(L.Projection.LonLat.unproject(point), -rot);
-            },
-        }),
-    });
-
-    map = L.map('map', {
-        crs: CustomCRS,
-        zoomSnap: 0.5,
-        zoomDelta: 0.5,
-    });
-
-    // Add tile layer or SVG based on style
     const style = currentLayerStyle;
-    if (style === 'satellite' && mapData.tileUrl) {
-        L.tileLayer(mapData.tileUrl, {
-            tileSize: 256,
-            minZoom: mapData.minZoom || 1,
-            maxZoom: mapData.maxZoom || 6,
-            noWrap: true,
-        }).addTo(map);
-    } else if (mapData.svgUrl) {
-        L.imageOverlay(mapData.svgUrl, mapData.bounds).addTo(map);
-    } else if (mapData.file) {
-        L.imageOverlay(mapData.file, [[0, 0], [1000, 1000]]).addTo(map);
-    }
 
-    // Fit to bounds (swap lat/lng per tarkov.dev's getBounds)
-    var b = mapData.bounds;
-    map.fitBounds([[b[0][1], b[0][0]], [b[1][1], b[1][0]]], {animate: false});
+    if (style === 'abstract') {
+        // Abstract mode: direct SVG coordinate system, no rotation, no transform
+        map = L.map('map', {
+            crs: L.CRS.Simple,
+            zoomSnap: 0.5,
+            zoomDelta: 0.5,
+        });
+        var svgBounds = [[0, 0], [mapData.svgH, mapData.svgW]];
+        if (mapData.svgUrl) {
+            L.imageOverlay(mapData.svgUrl, svgBounds).addTo(map);
+        } else if (mapData.file) {
+            L.imageOverlay(mapData.file, svgBounds).addTo(map);
+        }
+        map.fitBounds(svgBounds, {animate: false});
+    } else {
+        // Satellite mode: CRS with CCW rotation + negated Y scale
+        const t = mapData.transform;
+        const rot = mapData.rotation;
+        const applyRotation = function(latLng, rotation) {
+            if (!latLng.lng && !latLng.lat) return L.latLng(0, 0);
+            if (!rotation) return latLng;
+            var rad = rotation * Math.PI / 180;
+            var cosA = Math.cos(rad), sinA = Math.sin(rad);
+            var x = latLng.lng, y = latLng.lat;
+            var rX = x * cosA - y * sinA;
+            var rY = x * sinA + y * cosA;
+            return L.latLng(rY, rX);
+        };
+        var CustomCRS = L.Util.extend({}, L.CRS.Simple, {
+            transformation: new L.Transformation(t[0], t[1], t[2] * -1, t[3]),
+            projection: L.extend({}, L.Projection.LonLat, {
+                project: function(latLng) {
+                    return L.Projection.LonLat.project(applyRotation(latLng, rot));
+                },
+                unproject: function(point) {
+                    return applyRotation(L.Projection.LonLat.unproject(point), -rot);
+                },
+            }),
+        });
+        map = L.map('map', {
+            crs: CustomCRS,
+            zoomSnap: 0.5,
+            zoomDelta: 0.5,
+        });
+        if (mapData.tileUrl) {
+            L.tileLayer(mapData.tileUrl, {
+                tileSize: 256,
+                minZoom: mapData.minZoom || 1,
+                maxZoom: mapData.maxZoom || 6,
+                noWrap: true,
+            }).addTo(map);
+        } else if (mapData.svgUrl) {
+            L.imageOverlay(mapData.svgUrl, mapData.bounds).addTo(map);
+        } else if (mapData.file) {
+            L.imageOverlay(mapData.file, [[0, 0], [1000, 1000]]).addTo(map);
+        }
+        var b = mapData.bounds;
+        map.fitBounds([[b[0][1], b[0][0]], [b[1][1], b[1][0]]], {animate: false});
+    }
 
     // Reinitialize markers layer
     markersLayer = L.layerGroup().addTo(map);
@@ -862,7 +874,9 @@ function switchMap(normalizedName) {
 
 function updateQuestMarkers(normalizedName) {
     markersLayer.clearLayers();
+    const mapData = MAP_LAYERS[normalizedName];
     const qm = QUEST_MARKERS.filter(q => q.mapNormalizedName === normalizedName);
+    const style = currentLayerStyle;
 
     qm.forEach(q => {
         const color = TRADER_COLORS[q.trader] || '#888';
@@ -876,9 +890,18 @@ function updateQuestMarkers(normalizedName) {
             popupAnchor: [0, -36]
         });
 
-        // Place marker at raw game coordinates [gz, gx].
-        // CRS handles rotation + transformation via project/applyRotation.
-        const marker = L.marker([q.position[0], q.position[1]], {icon: icon}).addTo(markersLayer);
+        const gz = q.position[0];
+        const gx = q.position[1];
+
+        let marker;
+        if (style === 'abstract') {
+            var b = mapData.bounds;
+            var y = (gz - b[0][0]) / (b[1][0] - b[0][0]) * mapData.svgH;
+            var x = (gx - b[0][1]) / (b[1][1] - b[0][1]) * mapData.svgW;
+            marker = L.marker([y, x], {icon: icon}).addTo(markersLayer);
+        } else {
+            marker = L.marker([gz, gx], {icon: icon}).addTo(markersLayer);
+        }
         marker.questId = q.id;
 
         const displayName = getDisplayName(q);
