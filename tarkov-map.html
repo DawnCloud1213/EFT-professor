@@ -388,8 +388,8 @@ body {
             
             <select id="map-select"></select>
             <div style="display:flex;gap:6px;margin:8px 0 12px">
-                <button id="style-sat" class="style-btn active" style="flex:1;padding:6px 4px;background:#1a1a1c;border:1px solid #3a3a3d;color:#c7c5b3;border-radius:4px;cursor:pointer;font-size:12px">🛰️ 卫星</button>
-                <button id="style-abs" class="style-btn" style="flex:1;padding:6px 4px;background:#1a1a1c;border:1px solid #3a3a3d;color:#666;border-radius:4px;cursor:pointer;font-size:12px">🎨 抽象</button>
+                <button id="style-sat" class="style-btn" style="flex:1;padding:6px 4px;background:#1a1a1c;border:1px solid #3a3a3d;border-radius:4px;cursor:pointer;font-size:12px">🛰️ 卫星</button>
+                <button id="style-abs" class="style-btn" style="flex:1;padding:6px 4px;background:#1a1a1c;border:1px solid #3a3a3d;border-radius:4px;cursor:pointer;font-size:12px">🎨 抽象</button>
             </div>
             
             <div class="sidebar-section">
@@ -995,10 +995,16 @@ searchCollapseBtn.addEventListener('click', function() {
 function setLayerStyle(style) {
     currentLayerStyle = style;
     localStorage.setItem('tarkovMapStyle', style);
-    document.getElementById('style-sat').style.color = style === 'satellite' ? '#c7c5b3' : '#666';
-    document.getElementById('style-abs').style.color = style === 'abstract' ? '#c7c5b3' : '#666';
-    // Force reload: clear currentMap to bypass short-circuit
-    const prev = currentMap;
+    var sat = document.getElementById('style-sat');
+    var abs = document.getElementById('style-abs');
+    sat.classList.toggle('active', style === 'satellite');
+    abs.classList.toggle('active', style === 'abstract');
+    sat.style.color = style === 'satellite' ? '#c7c5b3' : '#666';
+    sat.style.borderColor = style === 'satellite' ? '#c7c5b3' : '#3a3a3d';
+    abs.style.color = style === 'abstract' ? '#c7c5b3' : '#666';
+    abs.style.borderColor = style === 'abstract' ? '#c7c5b3' : '#3a3a3d';
+    // Force reload: clear currentMap to bypass switchMap short-circuit
+    var prev = currentMap;
     currentMap = null;
     if (prev) switchMap(prev);
 }
