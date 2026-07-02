@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Generate quest marker positions using tarkov.dev's transform formula.
+"""Generate quest marker positions using raw game coordinates.
 
-Output: rotated game coordinates [rz, rx]
-Frontend applies L.Transformation automatically via L.CRS.Simple.
+Output: raw game coordinates [gz, gx] — no rotation, no transform.
+CRS on frontend handles CCW rotation + L.Transformation automatically.
 """
-import json, math, re
+import json, re, math
 
 MAP_IDS = {
     "55f2d3fd4bdc2d5f408b4567": "factory",
@@ -115,11 +115,6 @@ for e in entries:
     if map_name not in transforms:
         continue
 
-    rot = transforms[map_name]['rotation']
-    rad = rot * math.pi / 180
-    cos_r = math.cos(rad)
-    sin_r = math.sin(rad)
-
     tid = e["id"]
     if tid in task_coords:
         coords = task_coords[tid]
@@ -127,12 +122,9 @@ for e in entries:
         if match:
             gx, gz = match[0][1], match[0][2]
 
-            # CW rotation
-            rx = gx * cos_r + gz * sin_r
-            rz = -gx * sin_r + gz * cos_r
-
-            # Output: [rz, rx] for Leaflet [y, x]
-            e["position"] = [round(rz), round(rx)]
+            # Output raw game coordinates [gz, gx]
+            # CRS handles rotation + transformation on frontend
+            e["position"] = [round(gz), round(gx)]
             continue
 
 # Grid fallback
