@@ -109,7 +109,7 @@ for tid, task in tasks.items():
     if zones_found:
         task_coords[tid] = zones_found
 
-# Assign rotated game coordinates
+# Assign rotated game coordinates — collect all unique zone positions
 for e in entries:
     map_name = e["mapNormalizedName"]
     if map_name not in transforms:
@@ -120,11 +120,13 @@ for e in entries:
         coords = task_coords[tid]
         match = [co for co in coords if co[0] == map_name]
         if match:
-            gx, gz = match[0][1], match[0][2]
-
+            # Collect all unique positions, dedup by rounded [gz, gx]
+            unique = set()
+            for _, x, z in match:
+                unique.add((round(z), round(x)))
             # Output raw game coordinates [gz, gx]
             # CRS handles rotation + transformation on frontend
-            e["position"] = [round(gz), round(gx)]
+            e["positions"] = sorted(list(unique))
             continue
 
 # Grid fallback
@@ -140,21 +142,21 @@ for map_name, quests in by_map_quests.items():
     cols = max(1, math.ceil(math.sqrt(total)))
     rows = math.ceil(total / cols)
     for i, q in enumerate(quests):
-        if "position" not in q:
+        if "positions" not in q:
             col = i % cols
             row = i // cols
-            q["position"] = [row * 100, col * 100]
+            q["positions"] = [[row * 100, col * 100]]
 
 # Write back to HTML
 new_entries_lines = []
 for e in entries:
     obj_str = json.dumps(e["objectives"], ensure_ascii=False)
-    pos = e["position"]
+    poss = e.get("positions", [[0, 0]])
     new_entries_lines.append(
         f'{{"id": "{e["id"]}", "name": "{e["name"]}", '
         f'"mapNormalizedName": "{e["mapNormalizedName"]}", '
         f'"trader": "{e["trader"]}", "objectives": {obj_str}, '
-        f'"position": [{pos[0]}, {pos[1]}]}}'
+        f'"positions": {json.dumps(poss)}}}'
     )
 
 new_markers = "const QUEST_MARKERS = [\n" + ",\n".join(new_entries_lines) + "\n];"
