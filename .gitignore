@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+
+# Generated maps tiles (can be regenerated)
+maps/satellite/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+
+# Temp files
+tarkov-search.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Generated output
+弹道测试报告/
+
+# IDE
+.idea/
+*.swp
+*.swo
