@@ -896,6 +896,9 @@ function switchMap(normalizedName) {
     // Place markers
     updateQuestMarkers(normalizedName);
 
+    // Rebuild quest list for current map
+    buildQuestList(searchInput.value);
+
     setTimeout(() => map.invalidateSize(), 150);
 }
 
@@ -986,7 +989,7 @@ function toggleAllVisibility(visible) {
 
 function updateQuestCount() {
     const term = (searchInput.value || '').toLowerCase().trim();
-    let allEntries = QUEST_MARKERS;
+    let allEntries = QUEST_MARKERS.filter(q => q.mapNormalizedName === currentMap);
     if (term) {
         allEntries = allEntries.filter(q => {
             const cnName = CN_QUEST_NAMES[q.id] || '';
@@ -1015,10 +1018,23 @@ function buildQuestList(searchTerm) {
     const term = (searchTerm || '').toLowerCase().trim();
     questList.innerHTML = '';
 
+    // --- Quest list ---
+    let visibleQuests = QUEST_MARKERS.filter(q => q.mapNormalizedName === currentMap);
+    if (term) {
+        visibleQuests = visibleQuests.filter(q => {
+            const cnName = CN_QUEST_NAMES[q.id] || '';
+            return q.name.toLowerCase().includes(term) || 
+                   cnName.toLowerCase().includes(term) ||
+                   q.trader.toLowerCase().includes(term) ||
+                   q.objectives.some(o => o.toLowerCase().includes(term));
+        });
+    }
+
+    // Sort by name (all same map)
+    visibleQuests.sort((a, b) => getDisplayName(a).localeCompare(getDisplayName(b)));
+
     // --- Select-all checkbox ---
-    const targetQuests = term
-        ? visibleQuests
-        : QUEST_MARKERS.filter(q => q.mapNormalizedName === currentMap);
+    const targetQuests = visibleQuests;
     const allVisible = targetQuests.every(q => !hiddenQuestIds.has(q.id));
     const allHidden = targetQuests.every(q => hiddenQuestIds.has(q.id));
 
@@ -1038,26 +1054,6 @@ function buildQuestList(searchTerm) {
     selDiv.querySelector('label').addEventListener('click', function() {
         selCb.checked = !selCb.checked;
         selCb.dispatchEvent(new Event('change'));
-    });
-
-    // --- Quest list ---
-    let visibleQuests = QUEST_MARKERS;
-    if (term) {
-        visibleQuests = visibleQuests.filter(q => {
-            const cnName = CN_QUEST_NAMES[q.id] || '';
-            return q.name.toLowerCase().includes(term) || 
-                   cnName.toLowerCase().includes(term) ||
-                   q.trader.toLowerCase().includes(term) ||
-                   q.objectives.some(o => o.toLowerCase().includes(term));
-        });
-    }
-
-    // Sort: current map first, then rest
-    visibleQuests.sort((a, b) => {
-        const aCurrent = a.mapNormalizedName === currentMap ? 0 : 1;
-        const bCurrent = b.mapNormalizedName === currentMap ? 0 : 1;
-        if (aCurrent !== bCurrent) return aCurrent - bCurrent;
-        return getDisplayName(a).localeCompare(getDisplayName(b));
     });
 
     visibleQuests.forEach(q => {
