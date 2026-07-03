@@ -188,8 +188,10 @@ body {
     background: #1a1a1c;
     border: 1px solid #3a3a3d;
     border-radius: 4px;
-    cursor: pointer;
     transition: all 0.2s;
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
 }
 .quest-item:hover {
     border-color: #c7c5b3;
@@ -198,6 +200,44 @@ body {
 .quest-item.active {
     border-color: #c7c5b3;
     background: #2a2a2e;
+}
+.quest-item.hidden {
+    opacity: 0.45;
+}
+.q-checkbox {
+    padding-top: 2px;
+    flex-shrink: 0;
+}
+.q-checkbox input {
+    width: 16px;
+    height: 16px;
+    accent-color: #c7c5b3;
+    cursor: pointer;
+}
+.q-content {
+    flex: 1;
+    min-width: 0;
+    cursor: pointer;
+}
+.select-all {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 0 8px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #3a3a3d;
+    font-size: 12px;
+    color: #c7c5b3;
+    user-select: none;
+}
+.select-all input {
+    width: 16px;
+    height: 16px;
+    accent-color: #c7c5b3;
+    cursor: pointer;
+}
+.select-all label {
+    cursor: pointer;
 }
 .quest-item .q-name {
     font-size: 13px;
@@ -861,7 +901,10 @@ function switchMap(normalizedName) {
 
 function updateQuestMarkers(normalizedName) {
     markersLayer.clearLayers();
-    const qm = QUEST_MARKERS.filter(q => q.mapNormalizedName === normalizedName);
+    const qm = QUEST_MARKERS.filter(q =>
+        q.mapNormalizedName === normalizedName &&
+        !hiddenQuestIds.has(q.id)
+    );
 
     qm.forEach(q => {
         const color = TRADER_COLORS[q.trader] || '#888';
@@ -908,10 +951,96 @@ function highlightQuestInList(questId) {
     }
 }
 
+// === Quest visibility toggle ===
+const hiddenQuestIds = new Set();
+
+function toggleQuestVisibility(questId, visible) {
+    if (visible) hiddenQuestIds.delete(questId);
+    else hiddenQuestIds.add(questId);
+    updateQuestMarkers(currentMap);
+    updateQuestCount();
+}
+
+function toggleAllVisibility(visible) {
+    if (visible) {
+        // Show all: clear everything
+        hiddenQuestIds.clear();
+    } else {
+        // Hide all: only hide currently displayed (search-filtered) quests
+        const term = (searchInput.value || '').toLowerCase().trim();
+        let targetQuests = QUEST_MARKERS;
+        if (term) {
+            targetQuests = targetQuests.filter(q => {
+                const cnName = CN_QUEST_NAMES[q.id] || '';
+                return q.name.toLowerCase().includes(term) || 
+                       cnName.toLowerCase().includes(term) ||
+                       q.trader.toLowerCase().includes(term) ||
+                       q.objectives.some(o => o.toLowerCase().includes(term));
+            });
+        }
+        targetQuests.forEach(q => hiddenQuestIds.add(q.id));
+    }
+    updateQuestMarkers(currentMap);
+    buildQuestList(searchInput.value);
+}
+
+function updateQuestCount() {
+    const term = (searchInput.value || '').toLowerCase().trim();
+    let allEntries = QUEST_MARKERS;
+    if (term) {
+        allEntries = allEntries.filter(q => {
+            const cnName = CN_QUEST_NAMES[q.id] || '';
+            return q.name.toLowerCase().includes(term) || 
+                   cnName.toLowerCase().includes(term) ||
+                   q.trader.toLowerCase().includes(term) ||
+                   q.objectives.some(o => o.toLowerCase().includes(term));
+        });
+    }
+    const total = allEntries.length;
+    const visible = allEntries.filter(q => !hiddenQuestIds.has(q.id)).length;
+    questCount.textContent = `${visible} / ${total} quests visible`;
+}
+
+function updateSelectAllCheckbox() {
+    const cb = document.getElementById('select-all-cb');
+    if (!cb) return;
+    const currentMapQuests = QUEST_MARKERS.filter(q => q.mapNormalizedName === currentMap);
+    const allVisible = currentMapQuests.every(q => !hiddenQuestIds.has(q.id));
+    const allHidden = currentMapQuests.every(q => hiddenQuestIds.has(q.id));
+    cb.checked = allVisible;
+    cb.indeterminate = !allVisible && !allHidden;
+}
+
 function buildQuestList(searchTerm) {
     const term = (searchTerm || '').toLowerCase().trim();
     questList.innerHTML = '';
 
+    // --- Select-all checkbox ---
+    const targetQuests = term
+        ? visibleQuests
+        : QUEST_MARKERS.filter(q => q.mapNormalizedName === currentMap);
+    const allVisible = targetQuests.every(q => !hiddenQuestIds.has(q.id));
+    const allHidden = targetQuests.every(q => hiddenQuestIds.has(q.id));
+
+    const selDiv = document.createElement('div');
+    selDiv.className = 'select-all';
+    selDiv.innerHTML = `
+        <input type="checkbox" id="select-all-cb" ${allVisible ? 'checked' : ''}>
+        <label for="select-all-cb">${allHidden ? '全部显示' : '全部隐藏'}</label>
+    `;
+    questList.appendChild(selDiv);
+
+    const selCb = document.getElementById('select-all-cb');
+    if (!allVisible && !allHidden) selCb.indeterminate = true;
+    selCb.addEventListener('change', function() {
+        toggleAllVisibility(this.checked);
+    });
+    selDiv.querySelector('label').addEventListener('click', function() {
+        selCb.checked = !selCb.checked;
+        selCb.dispatchEvent(new Event('change'));
+    });
+
+    // --- Quest list ---
     let visibleQuests = QUEST_MARKERS;
     if (term) {
         visibleQuests = visibleQuests.filter(q => {
@@ -935,24 +1064,38 @@ function buildQuestList(searchTerm) {
         const div = document.createElement('div');
         div.className = 'quest-item';
         div.dataset.id = q.id;
+        if (hiddenQuestIds.has(q.id)) div.classList.add('hidden');
 
         const mapName = MAPS_DATA.find(m => m.normalizedName === q.mapNormalizedName)?.name || q.mapNormalizedName;
 
         const displayName = getDisplayName(q);
+        const checked = !hiddenQuestIds.has(q.id);
         div.innerHTML = `
-            <div class="q-name">${displayName}</div>
-            <div class="q-trader">🧑‍💼 ${q.trader}</div>
-            <div class="q-map">🗺️ ${mapName}</div>
-            <div class="q-objectives">${q.objectives.slice(0, 3).map(o => `<div>${o}</div>`).join('')}${q.objectives.length > 3 ? `<div style="color:#666">... +${q.objectives.length - 3} more</div>` : ''}</div>
+            <div class="q-checkbox">
+                <input type="checkbox" ${checked ? 'checked' : ''}>
+            </div>
+            <div class="q-content">
+                <div class="q-name">${displayName}</div>
+                <div class="q-trader">🧑‍💼 ${q.trader}</div>
+                <div class="q-map">🗺️ ${mapName}</div>
+                <div class="q-objectives">${q.objectives.slice(0, 3).map(o => `<div>${o}</div>`).join('')}${q.objectives.length > 3 ? `<div style="color:#666">... +${q.objectives.length - 3} more</div>` : ''}</div>
+            </div>
         `;
 
-        div.addEventListener('click', function() {
-            // Switch to the quest's map
+        // Checkbox toggle
+        div.querySelector('.q-checkbox input').addEventListener('change', function(e) {
+            e.stopPropagation();
+            toggleQuestVisibility(q.id, this.checked);
+            div.classList.toggle('hidden', !this.checked);
+            updateSelectAllCheckbox();
+        });
+
+        // Click on content -> navigate to quest
+        div.querySelector('.q-content').addEventListener('click', function() {
             mapSelect.value = q.mapNormalizedName;
             switchMap(q.mapNormalizedName);
 
             setTimeout(() => {
-                // Collect all markers for this quest
                 const matching = [];
                 markersLayer.eachLayer(layer => {
                     if (layer instanceof L.Marker && layer.questId === q.id) {
@@ -967,7 +1110,6 @@ function buildQuestList(searchTerm) {
                 if (matching.length === 1) {
                     map.setView(matching[0].getLatLng(), Math.max(0, map.getZoom() + 4), {animate: true});
                 } else {
-                    // Multi-zone: zoom to bounds of all markers
                     const group = L.featureGroup(matching);
                     map.fitBounds(group.getBounds().pad(0.15), {animate: true, maxZoom: map.getZoom() + 2});
                 }
@@ -977,7 +1119,7 @@ function buildQuestList(searchTerm) {
         questList.appendChild(div);
     });
 
-    questCount.textContent = `${visibleQuests.length} quests displayed`;
+    updateQuestCount();
 }
 
 // ==================== EVENT HANDLERS ====================
