@@ -24,8 +24,8 @@ body {
 
 /* Left Sidebar */
 #sidebar {
-    width: 260px;
-    min-width: 260px;
+    width: 180px;
+    min-width: 180px;
     background: #2d2d2f;
     border-right: 1px solid #3a3a3d;
     display: flex;
@@ -43,7 +43,7 @@ body {
 }
 #sidebar-inner {
     padding: 16px;
-    min-width: 260px;
+    min-width: 180px;
 }
 #sidebar h2 {
     color: #c7c5b3;
@@ -109,7 +109,7 @@ body {
 /* Collapse button */
 #collapse-btn {
     position: absolute;
-    left: 260px;
+    left: 180px;
     top: 10px;
     z-index: 1001;
     background: #2d2d2f;
@@ -432,10 +432,6 @@ body {
                 <button id="style-abs" class="style-btn" style="flex:1;padding:6px 4px;background:#1a1a1c;border:1px solid #3a3a3d;border-radius:4px;cursor:pointer;font-size:12px">🎨 抽象</button>
             </div>
             
-            <div class="sidebar-section">
-                <div class="sidebar-section-title">过滤器 / Filters</div>
-                <label><input type="checkbox" class="filter-cb" data-filter="quests" checked> 任务 Quests <span style="font-size:10px;color:#888">(切换标记)</span></label>
-            </div>
         </div>
     </div>
     <button id="collapse-btn">◀</button>
@@ -1130,18 +1126,6 @@ searchInput.addEventListener('input', function() {
     buildQuestList(this.value);
 });
 
-// Filter checkboxes
-document.querySelectorAll('.filter-cb').forEach(cb => {
-    cb.addEventListener('change', function() {
-        if (this.dataset.filter === 'quests') {
-            if (this.checked) {
-                markersLayer.addTo(map);
-            } else {
-                map.removeLayer(markersLayer);
-            }
-        }
-    });
-});
 
 // Sidebar collapse
 const collapseBtn = document.getElementById('collapse-btn');
