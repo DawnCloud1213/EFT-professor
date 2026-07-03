@@ -24,35 +24,38 @@ body {
 
 /* Left Sidebar */
 #sidebar {
-    width: 180px;
-    min-width: 180px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: auto;
+    min-width: 0;
+    height: auto;
     background: #2d2d2f;
-    border-right: 1px solid #3a3a3d;
+    border-right: none;
+    border-bottom: 1px solid #3a3a3d;
+    border-radius: 0 0 8px 0;
     display: flex;
-    flex-direction: column;
-    overflow-y: auto;
-    transition: margin-left 0.3s ease, min-width 0.3s ease, width 0.3s ease;
     z-index: 1000;
+    transition: transform 0.3s ease, opacity 0.3s ease;
 }
 #sidebar.collapsed {
-    width: 0 !important;
-    min-width: 0 !important;
-    overflow: hidden !important;
-    padding: 0 !important;
-    border: none !important;
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
 }
 #sidebar-inner {
-    padding: 16px;
-    min-width: 180px;
+    padding: 6px 12px 6px 36px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    white-space: nowrap;
 }
 #sidebar h2 {
     color: #c7c5b3;
-    font-size: 15px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 12px;
-    border-bottom: 1px solid #3a3a3d;
-    padding-bottom: 8px;
+    font-size: 13px;
+    margin: 0;
+    border: none;
+    padding: 0;
 }
 #sidebar label {
     display: block;
@@ -95,7 +98,7 @@ body {
     border-radius: 4px;
     font-size: 13px;
     cursor: pointer;
-    margin-bottom: 12px;
+    margin-bottom: 0;
     outline: none;
 }
 #map-select:focus {
@@ -108,21 +111,17 @@ body {
 
 /* Collapse button */
 #collapse-btn {
-    position: absolute;
-    left: 180px;
-    top: 10px;
-    z-index: 1001;
+    position: fixed;
+    left: 4px;
+    top: 4px;
+    z-index: 1002;
     background: #2d2d2f;
     border: 1px solid #3a3a3d;
     color: #c7c5b3;
-    padding: 6px 8px;
+    padding: 4px 8px;
     cursor: pointer;
-    border-radius: 0 4px 4px 0;
-    font-size: 14px;
-    transition: left 0.3s ease;
-}
-#sidebar.collapsed ~ #collapse-btn {
-    left: 0;
+    font-size: 13px;
+    border-radius: 4px;
 }
 
 /* Right Search Panel */
@@ -427,7 +426,7 @@ body {
             <h2>🗺️ EFT Maps</h2>
             
             <select id="map-select"></select>
-            <div style="display:flex;gap:6px;margin:8px 0 12px">
+            <div style="display:flex;gap:6px;margin:0">
                 <button id="style-sat" class="style-btn" style="flex:1;padding:6px 4px;background:#1a1a1c;border:1px solid #3a3a3d;border-radius:4px;cursor:pointer;font-size:12px">🛰️ 卫星</button>
                 <button id="style-abs" class="style-btn" style="flex:1;padding:6px 4px;background:#1a1a1c;border:1px solid #3a3a3d;border-radius:4px;cursor:pointer;font-size:12px">🎨 抽象</button>
             </div>
