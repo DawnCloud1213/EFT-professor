@@ -896,7 +896,7 @@ function updateQuestMarkers(normalizedName) {
         let marker;
         if (style === 'abstract') {
             var b = mapData.bounds;
-            var y = (gz - b[0][0]) / (b[1][0] - b[0][0]) * mapData.svgH;
+            var y = (gz - b[1][0]) / (b[0][0] - b[1][0]) * mapData.svgH;
             var x = (gx - b[0][1]) / (b[1][1] - b[0][1]) * mapData.svgW;
             marker = L.marker([y, x], {icon: icon}).addTo(markersLayer);
         } else {
