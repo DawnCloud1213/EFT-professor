@@ -803,65 +803,52 @@ function switchMap(normalizedName) {
 
     const style = currentLayerStyle;
 
-    if (style === 'abstract') {
-        // Abstract mode: direct SVG coordinate system, no rotation, no transform
-        map = L.map('map', {
-            crs: L.CRS.Simple,
-            zoomSnap: 0.5,
-            zoomDelta: 0.5,
-        });
-        var svgBounds = [[0, 0], [mapData.svgH, mapData.svgW]];
-        if (mapData.svgUrl) {
-            L.imageOverlay(mapData.svgUrl, svgBounds).addTo(map);
-        } else if (mapData.file) {
-            L.imageOverlay(mapData.file, svgBounds).addTo(map);
-        }
-        map.fitBounds(svgBounds, {animate: false});
-    } else {
-        // Satellite mode: CRS with CCW rotation + negated Y scale
-        const t = mapData.transform;
-        const rot = mapData.rotation;
-        const applyRotation = function(latLng, rotation) {
-            if (!latLng.lng && !latLng.lat) return L.latLng(0, 0);
-            if (!rotation) return latLng;
-            var rad = rotation * Math.PI / 180;
-            var cosA = Math.cos(rad), sinA = Math.sin(rad);
-            var x = latLng.lng, y = latLng.lat;
-            var rX = x * cosA - y * sinA;
-            var rY = x * sinA + y * cosA;
-            return L.latLng(rY, rX);
-        };
-        var CustomCRS = L.Util.extend({}, L.CRS.Simple, {
-            transformation: new L.Transformation(t[0], t[1], t[2] * -1, t[3]),
-            projection: L.extend({}, L.Projection.LonLat, {
-                project: function(latLng) {
-                    return L.Projection.LonLat.project(applyRotation(latLng, rot));
-                },
-                unproject: function(point) {
-                    return applyRotation(L.Projection.LonLat.unproject(point), -rot);
-                },
-            }),
-        });
-        map = L.map('map', {
-            crs: CustomCRS,
-            zoomSnap: 0.5,
-            zoomDelta: 0.5,
-        });
-        if (mapData.tileUrl) {
-            L.tileLayer(mapData.tileUrl, {
-                tileSize: 256,
-                minZoom: mapData.minZoom || 1,
-                maxZoom: mapData.maxZoom || 6,
-                noWrap: true,
-            }).addTo(map);
-        } else if (mapData.svgUrl) {
-            L.imageOverlay(mapData.svgUrl, mapData.bounds).addTo(map);
-        } else if (mapData.file) {
-            L.imageOverlay(mapData.file, [[0, 0], [1000, 1000]]).addTo(map);
-        }
-        var b = mapData.bounds;
-        map.fitBounds([[b[0][1], b[0][0]], [b[1][1], b[1][0]]], {animate: false});
+    // Common CRS for both modes: CCW rotation + negated Y scale
+    const t = mapData.transform;
+    const rot = mapData.rotation;
+    const applyRotation = function(latLng, rotation) {
+        if (!latLng.lng && !latLng.lat) return L.latLng(0, 0);
+        if (!rotation) return latLng;
+        var rad = rotation * Math.PI / 180;
+        var cosA = Math.cos(rad), sinA = Math.sin(rad);
+        var x = latLng.lng, y = latLng.lat;
+        var rX = x * cosA - y * sinA;
+        var rY = x * sinA + y * cosA;
+        return L.latLng(rY, rX);
+    };
+    var CustomCRS = L.Util.extend({}, L.CRS.Simple, {
+        transformation: new L.Transformation(t[0], t[1], t[2] * -1, t[3]),
+        projection: L.extend({}, L.Projection.LonLat, {
+            project: function(latLng) {
+                return L.Projection.LonLat.project(applyRotation(latLng, rot));
+            },
+            unproject: function(point) {
+                return applyRotation(L.Projection.LonLat.unproject(point), -rot);
+            },
+        }),
+    });
+    map = L.map('map', {
+        crs: CustomCRS,
+        zoomSnap: 0.5,
+        zoomDelta: 0.5,
+    });
+
+    // Add overlay: tiles for satellite, SVG/image for abstract
+    // Both use the same CRS bounds — only the background layer differs
+    var overlayBounds = [[mapData.bounds[0][1], mapData.bounds[0][0]], [mapData.bounds[1][1], mapData.bounds[1][0]]];
+    if (style === 'satellite' && mapData.tileUrl) {
+        L.tileLayer(mapData.tileUrl, {
+            tileSize: 256,
+            minZoom: mapData.minZoom || 1,
+            maxZoom: mapData.maxZoom || 6,
+            noWrap: true,
+        }).addTo(map);
+    } else if (mapData.svgUrl) {
+        L.imageOverlay(mapData.svgUrl, overlayBounds).addTo(map);
+    } else if (mapData.file) {
+        L.imageOverlay(mapData.file, overlayBounds).addTo(map);
     }
+    map.fitBounds(overlayBounds, {animate: false});
 
     // Reinitialize markers layer
     markersLayer = L.layerGroup().addTo(map);
@@ -874,9 +861,7 @@ function switchMap(normalizedName) {
 
 function updateQuestMarkers(normalizedName) {
     markersLayer.clearLayers();
-    const mapData = MAP_LAYERS[normalizedName];
     const qm = QUEST_MARKERS.filter(q => q.mapNormalizedName === normalizedName);
-    const style = currentLayerStyle;
 
     qm.forEach(q => {
         const color = TRADER_COLORS[q.trader] || '#888';
@@ -890,18 +875,8 @@ function updateQuestMarkers(normalizedName) {
             popupAnchor: [0, -36]
         });
 
-        const gz = q.position[0];
-        const gx = q.position[1];
-
-        let marker;
-        if (style === 'abstract') {
-            var b = mapData.bounds;
-            var y = (gz - b[1][0]) / (b[0][0] - b[1][0]) * mapData.svgH;
-            var x = (gx - b[0][1]) / (b[1][1] - b[0][1]) * mapData.svgW;
-            marker = L.marker([y, x], {icon: icon}).addTo(markersLayer);
-        } else {
-            marker = L.marker([gz, gx], {icon: icon}).addTo(markersLayer);
-        }
+        // Same CRS for both modes: marker at raw game coordinates [gz, gx]
+        const marker = L.marker([q.position[0], q.position[1]], {icon: icon}).addTo(markersLayer);
         marker.questId = q.id;
 
         const displayName = getDisplayName(q);
