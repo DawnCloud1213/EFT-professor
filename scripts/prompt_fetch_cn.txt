@@ -1,0 +1,31 @@
+我需要你帮我完成一个数据处理任务，涉及文件 A:/JUST_DO_IT/EFT-professor/tarkov-map.html。
+
+## 任务目标
+
+把 HTML 文件中的任务名全部替换为中文。目前只有约 43 个任务有中文名（在 CN_QUEST_NAMES 对象中），其余显示英文。
+
+## 数据来源
+
+tarkov.dev 有中文翻译 API：https://json.tarkov.dev/regular/tasks_zh
+这个 API 返回一个扁平 JSON 字典，其中中文任务名的键格式为 "{task_id} name" 或 "{task_id} Name"，值为中文名。
+
+## 具体步骤
+
+1. 创建脚本 A:/JUST_DO_IT/EFT-professor/scripts/fetch_cn_names.py
+   - 用 urllib.request 下载 https://json.tarkov.dev/regular/tasks_zh
+   - 从 tarkov-map.html 的 QUEST_MARKERS 中提取所有任务 ID
+   - 对每个 ID，在翻译字典中按优先级查找："{id} name" -> "{id} Name" -> "{id}"
+   - 生成新的 CN_QUEST_NAMES 映射
+   - 替换 HTML 中旧的 CN_QUEST_NAMES 块（从 "const CN_QUEST_NAMES = {" 到紧接着的 "};"）
+
+2. 运行该脚本（使用 `python` 命令，不是 python3）
+
+3. 运行验证命令：
+```
+python -c "import re; f=open('A:/JUST_DO_IT/EFT-professor/tarkov-map.html'); h=f.read(); idx=h.find('const CN_QUEST_NAMES = {'); end=h.find('};', idx); names=re.findall(r'\"([a-f0-9]+)\":', h[idx:end]); print(f'CN_QUEST_NAMES: {len(names)} entries'); idx2=h.find('const QUEST_MARKERS = ['); end2=h.find('];', idx2); ids=set(re.findall(r'\"id\": \"([a-f0-9]+)\"', h[idx2:end2])); missing=ids-set(names); print(f'QUEST_MARKERS unique IDs: {len(ids)}'); print(f'Missing Chinese names: {len(missing)}')"
+```
+
+## 注意
+- 只改 CN_QUEST_NAMES，不要动任何其他代码
+- 同时处理 "name" 和 "Name" 两种后缀
+- 找不到中文名的任务保留英文（getDisplayName 已有 CN_NAMES[id] || quest.name 回退逻辑）
