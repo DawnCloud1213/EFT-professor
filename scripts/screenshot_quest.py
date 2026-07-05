@@ -99,6 +99,12 @@ def screenshot_quest(name):
             page.goto(f"http://127.0.0.1:{PORT}/tarkov-map.html", wait_until="networkidle", timeout=15000)
             time.sleep(1)
 
+            # Check if map exists in MAP_LAYERS before proceeding
+            has_map = page.evaluate(f"(name) => name in MAP_LAYERS", m)
+            if not has_map:
+                print(f"  ⚠️  No MAP_LAYERS data, skipping.")
+                continue
+
             # All-in-one JS: switchMap → hide all + show target → satellite → resize container
             # NOTE: Python f-string: {{ → {  and  }} → }  in JS code
             js = f"""
