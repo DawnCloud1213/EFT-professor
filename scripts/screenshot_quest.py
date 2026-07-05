@@ -6,7 +6,6 @@ Usage:
   python scripts/screenshot_quest.py "Introduction"
 """
 import sys, os, json, re, time, threading
-from urllib.parse import quote
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 from playwright.sync_api import sync_playwright
 
@@ -62,8 +61,7 @@ def find_quest(name):
 
     en_name = next((e["name"] for e in qm if e["id"] == tid), "?")
     cn_name = cn_data.get(tid, en_name)
-    maps = sorted(set(e["mapNormalizedName"] for e in qm if e["id"] == tid),
-                  key=lambda m: list(e["mapNormalizedName"] for e in qm if e["id"] == tid).index(m))
+    maps = list(dict.fromkeys(e["mapNormalizedName"] for e in qm if e["id"] == tid))
 
     idx3 = h.find("const MAPS_DATA = [")
     end3 = h.find("];", idx3)
@@ -83,10 +81,6 @@ def screenshot_quest(name):
     os.makedirs(OUT_DIR, exist_ok=True)
     server = start_server()
 
-    # Build JS snippet with safe escaping
-    # We use a template where ONLY Python f-string vars are substituted;
-    # all JS curly braces are doubled in the raw string.
-
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
         context = browser.new_context(viewport={"width": 2560, "height": 1440})
@@ -96,17 +90,17 @@ def screenshot_quest(name):
             print(f"\n  [{i+1}/{len(maps)}] {map_display[m]} ({m})...", end=" ", flush=True)
 
             # Fresh page load each map
-            page.goto(f"http://127.0.0.1:{PORT}/tarkov-map.html", wait_until="networkidle", timeout=15000)
+            page.goto(f"http://127.0.0.1:{PORT}/tarkov-map.html",
+                      wait_until="networkidle", timeout=15000)
             time.sleep(1)
 
-            # Check if map exists in MAP_LAYERS before proceeding
-            has_map = page.evaluate(f"(name) => name in MAP_LAYERS", m)
+            # Skip maps without MAP_LAYERS data
+            has_map = page.evaluate("(name) => name in MAP_LAYERS", m)
             if not has_map:
-                print(f"  ⚠️  No MAP_LAYERS data, skipping.")
+                print(f"  ⚠️ No MAP_LAYERS data, skipping.")
                 continue
 
             # All-in-one JS: switchMap → hide all + show target → satellite → resize container
-            # NOTE: Python f-string: {{ → {  and  }} → }  in JS code
             js = f"""
 () => {{
     switchMap('{m}');
@@ -119,8 +113,8 @@ def screenshot_quest(name):
     setLayerStyle('satellite');
     return new Promise(r => setTimeout(() => {{
         const b = MAP_LAYERS[currentMap].bounds;
-        const sw = map.latLngToContainerPoint(L.latLng(b[0][1], b[0][0]));
-        const ne = map.latLngToContainerPoint(L.latLng(b[1][1], b[1][0]));
+        const sw = map.latLngToContainerPoint(L.latLng(b[0][0], b[0][1]));
+        const ne = map.latLngToContainerPoint(L.latLng(b[1][0], b[1][1]));
         const ow = Math.abs(ne.x - sw.x);
         const oh = Math.abs(ne.y - sw.y);
         const mc = document.getElementById('map-container');
@@ -132,18 +126,24 @@ def screenshot_quest(name):
     }}, 2000));
 }}
 """
-            result = json.loads(page.evaluate(js))
-            print(f"  {result['markers']} markers, size {result['w']}x{result['h']}")
+            try:
+                result = json.loads(page.evaluate(js))
+            except Exception as e:
+                print(f"  ❌ JS evaluate failed: {e}")
+                continue
 
+            print(f"  {result['markers']} markers, size {result['w']}x{result['h']}")
             time.sleep(0.5)
 
-            # Screenshot
+            # Screenshot — only the #map element
             out_path = os.path.join(OUT_DIR, f"{m}.png")
-            page.locator("#map").screenshot(path=out_path)
-
-            # Verify no blank via filesize indicator
-            fsize = os.path.getsize(out_path) / 1024
-            print(f"  Saved: {m}.png ({result['w']}x{result['h']}, {fsize:.0f}KB)")
+            try:
+                page.locator("#map").screenshot(path=out_path)
+                fsize = os.path.getsize(out_path) / 1024
+                print(f"  Saved: {m}.png ({result['w']}x{result['h']}, {fsize:.0f}KB)")
+            except Exception as e:
+                print(f"  ❌ Screenshot failed: {e}")
+                continue
 
         browser.close()
         server.shutdown()
@@ -158,6 +158,5 @@ if __name__ == "__main__":
         print("Examples:")
         print("  python scripts/screenshot_quest.py '介绍'")
         print("  python scripts/screenshot_quest.py 'Introduction'")
-        print("  python scripts/screenshot_quest.py '情报就是力量'")
         sys.exit(1)
     screenshot_quest(sys.argv[1])
