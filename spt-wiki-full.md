@@ -459,3 +459,11 @@ build-guid=[some ID]
 > 💡 **提示**：遇到问题先查阅 [FAQ](#10-常见问题-faq) 和 [已知问题](#11-已知问题)，大部分问题更新 SPT 即可解决。最佳获取支持的途径是 [Discord](http://discord.sp-tarkov.com/) 的 `#spt-support` 频道。
 >
 > 📝 本文档汇总自 [SPT Wiki](https://github.com/sp-tarkov/wiki)，适用于 **SPT 4.0.x** 版本。
+
+---
+
+## 13. 中文社区
+
+| 社区 | 网址 | 说明 |
+|------|------|------|
+| ODDBA 塔科夫中文社区 | [sns.oddba.cn](https://sns.oddba.cn/) | 国内最大的 SPT/离线版塔科夫中文社区，含 SPT 版本专区、模组分享、联机组队、问题求助等板块，活跃度高 |

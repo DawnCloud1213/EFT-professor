@@ -1,0 +1,1656 @@
+{
+  "Tagilla": [
+    {
+      "map": "Factory",
+      "chance": 0.5,
+      "locations": [
+        {
+          "name": "Any scav spawn",
+          "chance": 1
+        }
+      ],
+      "escorts": []
+    },
+    {
+      "map": "Interchange",
+      "chance": 0.5,
+      "locations": [
+        {
+          "name": "Tagilla",
+          "chance": 1
+        }
+      ],
+      "escorts": []
+    },
+    {
+      "map": "Night Factory",
+      "chance": 0.75,
+      "locations": [
+        {
+          "name": "Any scav spawn",
+          "chance": 1
+        }
+      ],
+      "escorts": []
+    },
+    {
+      "map": "Terminal",
+      "chance": 0.2,
+      "locations": [
+        {
+          "name": "2ScavPort29",
+          "chance": 1
+        }
+      ],
+      "escorts": []
+    }
+  ],
+  "Reshala": [
+    {
+      "map": "Customs",
+      "chance": 0.75,
+      "locations": [
+        {
+          "name": "Dorms",
+          "chance": 0.33
+        },
+        {
+          "name": "New Gas Station",
+          "chance": 0.33
+        },
+        {
+          "name": "Stronghold",
+          "chance": 0.33
+        }
+      ],
+      "escorts": [
+        "Reshala Guard"
+      ]
+    },
+    {
+      "map": "Terminal",
+      "chance": 0.2,
+      "locations": [
+        {
+          "name": "2ScavPort29",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Reshala Guard"
+      ]
+    }
+  ],
+  "Knight": [
+    {
+      "map": "Customs",
+      "chance": 0.3,
+      "locations": [
+        {
+          "name": "Stronghold",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Big Pipe",
+        "Birdeye"
+      ]
+    },
+    {
+      "map": "Woods",
+      "chance": 0.25,
+      "locations": [
+        {
+          "name": "Northwest Scav Bunker",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Big Pipe",
+        "Birdeye"
+      ]
+    },
+    {
+      "map": "Lighthouse",
+      "chance": 0.3,
+      "locations": [
+        {
+          "name": "Water Treatment North Building",
+          "chance": 0.5
+        },
+        {
+          "name": "Chalet",
+          "chance": 0.5
+        }
+      ],
+      "escorts": [
+        "Big Pipe",
+        "Birdeye"
+      ]
+    },
+    {
+      "map": "Shoreline",
+      "chance": 0.3,
+      "locations": [
+        {
+          "name": "Weather Station",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Big Pipe",
+        "Birdeye"
+      ]
+    },
+    {
+      "map": "Icebreaker",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "Mash_t1",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Rogue"
+      ]
+    }
+  ],
+  "Partisan": [
+    {
+      "map": "Customs",
+      "chance": 0.2,
+      "locations": [],
+      "escorts": []
+    },
+    {
+      "map": "Woods",
+      "chance": 0.2,
+      "locations": [],
+      "escorts": []
+    },
+    {
+      "map": "Lighthouse",
+      "chance": 0.2,
+      "locations": [],
+      "escorts": []
+    },
+    {
+      "map": "Shoreline",
+      "chance": 0.2,
+      "locations": [],
+      "escorts": []
+    }
+  ],
+  "Cultist Priest": [
+    {
+      "map": "Customs",
+      "chance": 0.25,
+      "locations": [
+        {
+          "name": "Stronghold",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Cultist Warrior"
+      ]
+    },
+    {
+      "map": "Woods",
+      "chance": 0.3,
+      "locations": [
+        {
+          "name": "West of Lumber Mill",
+          "chance": 0.5
+        },
+        {
+          "name": "Rundown Village",
+          "chance": 0.5
+        }
+      ],
+      "escorts": [
+        "Cultist Warrior"
+      ]
+    },
+    {
+      "map": "Shoreline",
+      "chance": 0.25,
+      "locations": [
+        {
+          "name": "West Wing",
+          "chance": 0.2
+        },
+        {
+          "name": "East Wing",
+          "chance": 0.2
+        },
+        {
+          "name": "Northeast of Sunken Village",
+          "chance": 0.6
+        }
+      ],
+      "escorts": [
+        "Cultist Warrior"
+      ]
+    },
+    {
+      "map": "Night Factory",
+      "chance": 0.12,
+      "locations": [
+        {
+          "name": "Any scav spawn",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Cultist Warrior"
+      ]
+    },
+    {
+      "map": "Ground Zero 21+",
+      "chance": 0.02,
+      "locations": [
+        {
+          "name": "Any scav spawn",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Cultist Warrior"
+      ]
+    }
+  ],
+  "Shturman": [
+    {
+      "map": "Woods",
+      "chance": 0.75,
+      "locations": [
+        {
+          "name": "Lumber Mill",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Shturman Guard"
+      ]
+    }
+  ],
+  "Zryachiy": [
+    {
+      "map": "Lighthouse",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "Island",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Zryachiy Guard"
+      ]
+    }
+  ],
+  "Rogue": [
+    {
+      "map": "Lighthouse",
+      "chance": 0.8,
+      "locations": [
+        {
+          "name": "Water Treatment Southwest Gate",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Rogue"
+      ]
+    },
+    {
+      "map": "Lighthouse",
+      "chance": 0.8,
+      "locations": [
+        {
+          "name": "Water Treatment North Building",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Rogue"
+      ]
+    },
+    {
+      "map": "Lighthouse",
+      "chance": 0.5,
+      "locations": [
+        {
+          "name": "Water Treatment East Building",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Rogue"
+      ]
+    },
+    {
+      "map": "Lighthouse",
+      "chance": 0.5,
+      "locations": [
+        {
+          "name": "Water Treatment West Building",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Rogue"
+      ]
+    },
+    {
+      "map": "Lighthouse",
+      "chance": 0.8,
+      "locations": [
+        {
+          "name": "Water Treatment East Building Roof",
+          "chance": 1
+        }
+      ],
+      "escorts": []
+    },
+    {
+      "map": "Lighthouse",
+      "chance": 0.8,
+      "locations": [
+        {
+          "name": "Water Treatment West Building Roof",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Rogue"
+      ]
+    },
+    {
+      "map": "Lighthouse",
+      "chance": 0.2,
+      "locations": [
+        {
+          "name": "Water Treatment Helicopter",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Rogue"
+      ]
+    },
+    {
+      "map": "Icebreaker",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "Front",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Rogue"
+      ]
+    },
+    {
+      "map": "Icebreaker",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "Kitchen",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Rogue"
+      ]
+    },
+    {
+      "map": "Icebreaker",
+      "chance": 0.5,
+      "locations": [
+        {
+          "name": "KorrDown1",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Rogue"
+      ]
+    },
+    {
+      "map": "Icebreaker",
+      "chance": 0.5,
+      "locations": [
+        {
+          "name": "Room_Eng",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Rogue"
+      ]
+    },
+    {
+      "map": "Icebreaker",
+      "chance": 0.5,
+      "locations": [
+        {
+          "name": "Room_Eng2",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Rogue"
+      ]
+    },
+    {
+      "map": "Icebreaker",
+      "chance": 0.5,
+      "locations": [
+        {
+          "name": "Front2",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Rogue"
+      ]
+    }
+  ],
+  "Sanitar": [
+    {
+      "map": "Shoreline",
+      "chance": 0.75,
+      "locations": [
+        {
+          "name": "Pier",
+          "chance": 0.5
+        },
+        {
+          "name": "Greenhouses",
+          "chance": 0.5
+        }
+      ],
+      "escorts": [
+        "Sanitar Guard"
+      ]
+    },
+    {
+      "map": "Terminal",
+      "chance": 0.2,
+      "locations": [
+        {
+          "name": "2ScavPort29",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Sanitar Guard"
+      ]
+    }
+  ],
+  "AF": [
+    {
+      "map": "Shoreline",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "GateTowerRight",
+          "chance": 1
+        }
+      ],
+      "escorts": []
+    },
+    {
+      "map": "Shoreline",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "GateTowerLeft",
+          "chance": 1
+        }
+      ],
+      "escorts": []
+    },
+    {
+      "map": "Terminal",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "1VSRFSnipeRoofPort2",
+          "chance": 1
+        }
+      ],
+      "escorts": []
+    },
+    {
+      "map": "Terminal",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "1VSRF1Spawn3",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "AF",
+        "AF"
+      ]
+    },
+    {
+      "map": "Terminal",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "1VSRF1Spawn3",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "AF",
+        "AF"
+      ]
+    },
+    {
+      "map": "Terminal",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "1VSRFStoreAmbush10",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "AF",
+        "AF"
+      ]
+    },
+    {
+      "map": "Terminal",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "1VSRFStoreAmbush10",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "AF",
+        "AF"
+      ]
+    },
+    {
+      "map": "Terminal",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "2VSRFPassMiddle15",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "AF",
+        "AF",
+        "AF"
+      ]
+    },
+    {
+      "map": "Terminal",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "2VSRFColumns22",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "AF"
+      ]
+    },
+    {
+      "map": "Terminal",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "2VSRFContainers24",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "AF"
+      ]
+    },
+    {
+      "map": "Terminal",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "2VSRFExit33",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "AF",
+        "AF",
+        "AF"
+      ]
+    }
+  ],
+  "Glukhar": [
+    {
+      "map": "Reserve",
+      "chance": 0.5,
+      "locations": [
+        {
+          "name": "K Buildings",
+          "chance": 0.25
+        },
+        {
+          "name": "White Knight",
+          "chance": 0.25
+        },
+        {
+          "name": "Barracks",
+          "chance": 0.25
+        },
+        {
+          "name": "Storage Bunker",
+          "chance": 0.25
+        }
+      ],
+      "escorts": [
+        "Glukhar Guard (Assault)",
+        "Glukhar Guard (Security)",
+        "Glukhar Guard (Scout)"
+      ]
+    },
+    {
+      "map": "Terminal",
+      "chance": 0.2,
+      "locations": [
+        {
+          "name": "2ScavPort29",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Glukhar Guard (Assault)",
+        "Glukhar Guard (Security)",
+        "Glukhar Guard (Scout)"
+      ]
+    }
+  ],
+  "Raider": [
+    {
+      "map": "Reserve",
+      "chance": 0.4,
+      "locations": [
+        {
+          "name": "K Buildings",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Raider"
+      ]
+    },
+    {
+      "map": "Reserve",
+      "chance": 0.3,
+      "locations": [
+        {
+          "name": "K Buildings",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Raider"
+      ]
+    },
+    {
+      "map": "Reserve",
+      "chance": 0.3,
+      "locations": [
+        {
+          "name": "Command Bunker",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Raider"
+      ]
+    },
+    {
+      "map": "Reserve",
+      "chance": 0.3,
+      "locations": [
+        {
+          "name": "Command Bunker",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Raider"
+      ]
+    },
+    {
+      "map": "The Lab",
+      "chance": 0.6,
+      "locations": [
+        {
+          "name": "First Floor",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Raider"
+      ]
+    },
+    {
+      "map": "The Lab",
+      "chance": 0.6,
+      "locations": [
+        {
+          "name": "Second Floor",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Raider"
+      ]
+    },
+    {
+      "map": "The Lab",
+      "chance": 0.45,
+      "locations": [
+        {
+          "name": "Basement",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Raider"
+      ]
+    },
+    {
+      "map": "The Lab",
+      "chance": 0.45,
+      "locations": [
+        {
+          "name": "Basement",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Raider"
+      ]
+    },
+    {
+      "map": "The Lab",
+      "chance": 0.4,
+      "locations": [
+        {
+          "name": "Basement",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Raider"
+      ]
+    },
+    {
+      "map": "The Lab",
+      "chance": 0.45,
+      "locations": [
+        {
+          "name": "Second Floor",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Raider"
+      ]
+    },
+    {
+      "map": "The Lab",
+      "chance": 0.35,
+      "locations": [
+        {
+          "name": "First Floor",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Raider"
+      ]
+    },
+    {
+      "map": "The Lab",
+      "chance": 0.35,
+      "locations": [
+        {
+          "name": "Second Floor",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Raider"
+      ]
+    },
+    {
+      "map": "The Lab",
+      "chance": 0.35,
+      "locations": [
+        {
+          "name": "First Floor",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Raider"
+      ]
+    },
+    {
+      "map": "The Lab",
+      "chance": 0.35,
+      "locations": [
+        {
+          "name": "Second Floor",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Raider"
+      ]
+    },
+    {
+      "map": "The Lab",
+      "chance": 0.35,
+      "locations": [
+        {
+          "name": "First Floor",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Raider"
+      ]
+    },
+    {
+      "map": "The Lab",
+      "chance": 0.35,
+      "locations": [
+        {
+          "name": "Second Floor",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Raider"
+      ]
+    },
+    {
+      "map": "The Lab",
+      "chance": 0.35,
+      "locations": [
+        {
+          "name": "First Floor",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Raider"
+      ]
+    },
+    {
+      "map": "The Lab",
+      "chance": 0.35,
+      "locations": [
+        {
+          "name": "Second Floor",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Raider"
+      ]
+    },
+    {
+      "map": "The Lab",
+      "chance": 0.35,
+      "locations": [
+        {
+          "name": "Parking Gate",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Raider"
+      ]
+    },
+    {
+      "map": "The Lab",
+      "chance": 0.45,
+      "locations": [
+        {
+          "name": "Hangar Gate",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Raider"
+      ]
+    }
+  ],
+  "Killa": [
+    {
+      "map": "Interchange",
+      "chance": 0.75,
+      "locations": [
+        {
+          "name": "Center",
+          "chance": 0.4
+        },
+        {
+          "name": "OLI",
+          "chance": 0.2
+        },
+        {
+          "name": "IDEA",
+          "chance": 0.2
+        },
+        {
+          "name": "Goshan",
+          "chance": 0.2
+        }
+      ],
+      "escorts": []
+    },
+    {
+      "map": "Terminal",
+      "chance": 0.2,
+      "locations": [
+        {
+          "name": "2ScavPort29",
+          "chance": 1
+        }
+      ],
+      "escorts": []
+    }
+  ],
+  "Kaban": [
+    {
+      "map": "Streets of Tarkov",
+      "chance": 0.75,
+      "locations": [
+        {
+          "name": "Car Dealership",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Kaban Guard",
+        "Basmach",
+        "Gus",
+        "Kaban Guard (Sniper)"
+      ]
+    }
+  ],
+  "Kollontay": [
+    {
+      "map": "Streets of Tarkov",
+      "chance": 0.75,
+      "locations": [
+        {
+          "name": "Klimov Shopping Mall",
+          "chance": 0.5
+        },
+        {
+          "name": "Ministry of the Interior Academy",
+          "chance": 0.5
+        }
+      ],
+      "escorts": [
+        "Kollontay Guard (Assault)",
+        "Kollontay Guard (Security)"
+      ]
+    }
+  ],
+  "Shadow of Tagilla": [
+    {
+      "map": "The Labyrinth",
+      "chance": 1,
+      "locations": [],
+      "escorts": [
+        "Vengeful Killa"
+      ]
+    }
+  ],
+  "Black Div.": [
+    {
+      "map": "Terminal",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "1BD1PortAmbush1",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Black Div.",
+        "Black Div."
+      ]
+    },
+    {
+      "map": "Terminal",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "1BD1PortAmbush1",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Black Div."
+      ]
+    },
+    {
+      "map": "Terminal",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "1BDGateAmbush13",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Black Div."
+      ]
+    },
+    {
+      "map": "Terminal",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "1BD1HangarAmbush11",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Black Div.",
+        "Black Div."
+      ]
+    },
+    {
+      "map": "Terminal",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "1BD1HangarAmbush11",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Black Div."
+      ]
+    },
+    {
+      "map": "Terminal",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "1BD1HangarAmbush11",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Black Div.",
+        "Black Div."
+      ]
+    },
+    {
+      "map": "Terminal",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "2BDWarehouse18",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Black Div."
+      ]
+    },
+    {
+      "map": "Terminal",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "2BDWarehouse19",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Black Div."
+      ]
+    },
+    {
+      "map": "Terminal",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "2BDColumns23",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Black Div."
+      ]
+    },
+    {
+      "map": "Terminal",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "2BDPort28",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Black Div.",
+        "Black Div."
+      ]
+    },
+    {
+      "map": "Terminal",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "2BDPort30",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Black Div.",
+        "Black Div.",
+        "Black Div."
+      ]
+    },
+    {
+      "map": "Terminal",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "2BDPort31",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Black Div.",
+        "Black Div.",
+        "Black Div."
+      ]
+    },
+    {
+      "map": "Terminal",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "2BDPort32",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Black Div.",
+        "Black Div."
+      ]
+    },
+    {
+      "map": "Terminal",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "1BD1HangarBD11",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Black Div.",
+        "Black Div.",
+        "Black Div."
+      ]
+    }
+  ],
+  "Black Div. Boss": [
+    {
+      "map": "Icebreaker",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "EngineHide",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Black Div. Boss Guard"
+      ]
+    },
+    {
+      "map": "Icebreaker",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "EngineHide",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Black Div. Boss Guard"
+      ]
+    },
+    {
+      "map": "Icebreaker",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "EngineHide",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Black Div. Boss Guard"
+      ]
+    },
+    {
+      "map": "Icebreaker",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "EngineHide",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Black Div. Boss Guard"
+      ]
+    },
+    {
+      "map": "Icebreaker",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "EngineHide",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Black Div. Boss Guard"
+      ]
+    },
+    {
+      "map": "Icebreaker",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "Stern",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Black Div. Boss Guard"
+      ]
+    },
+    {
+      "map": "Icebreaker",
+      "chance": 0.7,
+      "locations": [
+        {
+          "name": "Stern",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Black Div. Boss Guard"
+      ]
+    },
+    {
+      "map": "Icebreaker",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "Stern",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Black Div. Boss Guard"
+      ]
+    },
+    {
+      "map": "Icebreaker",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "Stern",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Black Div. Boss Guard"
+      ]
+    },
+    {
+      "map": "Icebreaker",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "EngineHide",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Black Div. Boss Guard"
+      ]
+    },
+    {
+      "map": "Icebreaker",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "EngineHide",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Black Div. Boss Guard"
+      ]
+    }
+  ],
+  "Black Div. Raider": [
+    {
+      "map": "Icebreaker",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "SternTop",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Black Div. Raider"
+      ]
+    },
+    {
+      "map": "Icebreaker",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "SternTop",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Black Div. Raider"
+      ]
+    },
+    {
+      "map": "Icebreaker",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "SternTop",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Black Div. Raider"
+      ]
+    },
+    {
+      "map": "Icebreaker",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "Stern",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Black Div. Raider"
+      ]
+    },
+    {
+      "map": "Icebreaker",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "Stern",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Black Div. Raider"
+      ]
+    },
+    {
+      "map": "Icebreaker",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "Stern",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Black Div. Raider"
+      ]
+    },
+    {
+      "map": "Icebreaker",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "Outside_t3",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Black Div. Raider"
+      ]
+    },
+    {
+      "map": "Icebreaker",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "Inside_t4",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Black Div. Raider"
+      ]
+    },
+    {
+      "map": "Icebreaker",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "Stern",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Black Div. Raider"
+      ]
+    },
+    {
+      "map": "Icebreaker",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "SternTop",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "Black Div. Raider"
+      ]
+    }
+  ],
+  "The Wedge": [
+    {
+      "map": "Icebreaker",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "RoomsFour",
+          "chance": 1
+        }
+      ],
+      "escorts": []
+    },
+    {
+      "map": "Icebreaker",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "RoomsThird",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "The Wedge"
+      ]
+    },
+    {
+      "map": "Icebreaker",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "RoomsThirdKitchen",
+          "chance": 1
+        }
+      ],
+      "escorts": []
+    },
+    {
+      "map": "Icebreaker",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "RoomsFour",
+          "chance": 1
+        }
+      ],
+      "escorts": []
+    },
+    {
+      "map": "Icebreaker",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "RoomsThirdKitchen",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "The Wedge"
+      ]
+    },
+    {
+      "map": "Icebreaker",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "RoomsThird",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "The Wedge"
+      ]
+    },
+    {
+      "map": "Icebreaker",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "RoomsFour",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "The Wedge"
+      ]
+    },
+    {
+      "map": "Icebreaker",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "RoomsThirdKitchen",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "The Wedge"
+      ]
+    },
+    {
+      "map": "Icebreaker",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "RoomsThird",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "The Wedge"
+      ]
+    },
+    {
+      "map": "Icebreaker",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "RoomsFour",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "The Wedge"
+      ]
+    },
+    {
+      "map": "Icebreaker",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "RoomsThirdKitchen",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "The Wedge"
+      ]
+    },
+    {
+      "map": "Icebreaker",
+      "chance": 1,
+      "locations": [
+        {
+          "name": "RoomsThird",
+          "chance": 1
+        }
+      ],
+      "escorts": [
+        "The Wedge"
+      ]
+    }
+  ]
+}

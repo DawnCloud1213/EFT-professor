@@ -9,7 +9,7 @@ import sys, os, json, re, time, threading
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 from playwright.sync_api import sync_playwright
 
-PROJECT_DIR = r"A:\JUST_DO_IT\EFT-professor"
+PROJECT_DIR = r"E:\JUST_DO_IT\EFT-professor"
 HTML_PATH = os.path.join(PROJECT_DIR, "tarkov-map.html")
 OUT_DIR = os.path.join(PROJECT_DIR, "quest_screenshots")
 PORT = 8765
@@ -67,8 +67,8 @@ def screenshot_quest(name):
             print(f"\n  [{i+1}/{len(maps)}] {map_display[m]} ({m})...", end=" ", flush=True)
 
             page.goto(f"http://127.0.0.1:{PORT}/tarkov-map.html",
-                      wait_until="networkidle", timeout=15000)
-            time.sleep(1)
+                      wait_until="domcontentloaded", timeout=30000)
+            time.sleep(2)
 
             has_map = page.evaluate("(name) => name in MAP_LAYERS", m)
             if not has_map: print("no MAP_LAYERS, skipping."); continue

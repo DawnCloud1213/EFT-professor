@@ -1,0 +1,3319 @@
+{
+  "ammo": [
+    {
+      "caliber": "Caliber556x45NATO",
+      "weight": 0.012,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 54,
+      "armorDamage": 37,
+      "fragmentationChance": 0.5,
+      "penetrationPower": 31,
+      "initialSpeed": 922,
+      "projectileCount": 1,
+      "item": {
+        "id": "54527a984bdc2d4e668b4567",
+        "name": "5.56x45mm M855",
+        "shortName": "M855"
+      }
+    },
+    {
+      "caliber": "Caliber556x45NATO",
+      "weight": 0.012,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 49,
+      "armorDamage": 47,
+      "fragmentationChance": 0.44,
+      "penetrationPower": 44,
+      "initialSpeed": 945,
+      "projectileCount": 1,
+      "item": {
+        "id": "54527ac44bdc2d36668b4567",
+        "name": "5.56x45mm M855A1",
+        "shortName": "M855A1"
+      }
+    },
+    {
+      "caliber": "Caliber12g",
+      "weight": 0.05,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 39,
+      "armorDamage": 26,
+      "fragmentationChance": 0,
+      "penetrationPower": 3,
+      "initialSpeed": 415,
+      "projectileCount": 8,
+      "item": {
+        "id": "560d5e524bdc2d25448b4571",
+        "name": "12/70 7mm buckshot",
+        "shortName": "7mm"
+      }
+    },
+    {
+      "caliber": "Caliber762x54R",
+      "weight": 0.024,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 75,
+      "armorDamage": 87,
+      "fragmentationChance": 0.08,
+      "penetrationPower": 62,
+      "initialSpeed": 875,
+      "projectileCount": 1,
+      "item": {
+        "id": "560d61e84bdc2da74d8b4571",
+        "name": "7.62x54mm R SNB gzh",
+        "shortName": "SNB"
+      }
+    },
+    {
+      "caliber": "Caliber762x39",
+      "weight": 0.016,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 61,
+      "armorDamage": 52,
+      "fragmentationChance": 0.2,
+      "penetrationPower": 35,
+      "initialSpeed": 717,
+      "projectileCount": 1,
+      "item": {
+        "id": "5656d7c34bdc2d9d198b4587",
+        "name": "7.62x39mm PS gzh",
+        "shortName": "PS"
+      }
+    },
+    {
+      "caliber": "Caliber40mmRU",
+      "weight": 0.255,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 199,
+      "armorDamage": 68,
+      "fragmentationChance": 0,
+      "penetrationPower": 0,
+      "initialSpeed": 76,
+      "projectileCount": 1,
+      "item": {
+        "id": "5656eb674bdc2d35148b457c",
+        "name": "40mm VOG-25 grenade",
+        "shortName": "VOG-25"
+      }
+    },
+    {
+      "caliber": "Caliber9x19PARA",
+      "weight": 0.005,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 54,
+      "armorDamage": 33,
+      "fragmentationChance": 0.15,
+      "penetrationPower": 20,
+      "initialSpeed": 457,
+      "projectileCount": 1,
+      "item": {
+        "id": "56d59d3ad2720bdb418b4577",
+        "name": "9x19mm Pst gzh",
+        "shortName": "Pst"
+      }
+    },
+    {
+      "caliber": "Caliber545x39",
+      "weight": 0.01,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 48,
+      "armorDamage": 46,
+      "fragmentationChance": 0.16,
+      "penetrationPower": 45,
+      "initialSpeed": 890,
+      "projectileCount": 1,
+      "item": {
+        "id": "56dfef82d2720bbd668b4567",
+        "name": "5.45x39mm BP gs",
+        "shortName": "BP"
+      }
+    },
+    {
+      "caliber": "Caliber545x39",
+      "weight": 0.01,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 45,
+      "armorDamage": 57,
+      "fragmentationChance": 0.17,
+      "penetrationPower": 54,
+      "initialSpeed": 830,
+      "projectileCount": 1,
+      "item": {
+        "id": "56dff026d2720bb8668b4567",
+        "name": "5.45x39mm BS gs",
+        "shortName": "BS"
+      }
+    },
+    {
+      "caliber": "Caliber545x39",
+      "weight": 0.01,
+      "tracer": true,
+      "tracerColor": "tracerRed",
+      "damage": 54,
+      "armorDamage": 44,
+      "fragmentationChance": 0.164,
+      "penetrationPower": 37,
+      "initialSpeed": 880,
+      "projectileCount": 1,
+      "item": {
+        "id": "56dff061d2720bb5668b4567",
+        "name": "5.45x39mm BT gs",
+        "shortName": "BT"
+      }
+    },
+    {
+      "caliber": "Caliber545x39",
+      "weight": 0.01,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 55,
+      "armorDamage": 38,
+      "fragmentationChance": 0.25,
+      "penetrationPower": 24,
+      "initialSpeed": 884,
+      "projectileCount": 1,
+      "item": {
+        "id": "56dff0bed2720bb0668b4567",
+        "name": "5.45x39mm FMJ",
+        "shortName": "FMJ"
+      }
+    },
+    {
+      "caliber": "Caliber545x39",
+      "weight": 0.01,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 76,
+      "armorDamage": 15,
+      "fragmentationChance": 0.35,
+      "penetrationPower": 9,
+      "initialSpeed": 884,
+      "projectileCount": 1,
+      "item": {
+        "id": "56dff216d2720bbd668b4568",
+        "name": "5.45x39mm HP",
+        "shortName": "HP"
+      }
+    },
+    {
+      "caliber": "Caliber545x39",
+      "weight": 0.01,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 51,
+      "armorDamage": 42,
+      "fragmentationChance": 0.17,
+      "penetrationPower": 34,
+      "initialSpeed": 886,
+      "projectileCount": 1,
+      "item": {
+        "id": "56dff2ced2720bb4668b4567",
+        "name": "5.45x39mm PP gs",
+        "shortName": "PP"
+      }
+    },
+    {
+      "caliber": "Caliber545x39",
+      "weight": 0.01,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 70,
+      "armorDamage": 24,
+      "fragmentationChance": 0.3,
+      "penetrationPower": 13,
+      "initialSpeed": 866,
+      "projectileCount": 1,
+      "item": {
+        "id": "56dff338d2720bbd668b4569",
+        "name": "5.45x39mm PRS gs",
+        "shortName": "PRS"
+      }
+    },
+    {
+      "caliber": "Caliber545x39",
+      "weight": 0.01,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 56,
+      "armorDamage": 40,
+      "fragmentationChance": 0.4,
+      "penetrationPower": 28,
+      "initialSpeed": 890,
+      "projectileCount": 1,
+      "item": {
+        "id": "56dff3afd2720bba668b4567",
+        "name": "5.45x39mm PS gs",
+        "shortName": "PS"
+      }
+    },
+    {
+      "caliber": "Caliber545x39",
+      "weight": 0.01,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 67,
+      "armorDamage": 31,
+      "fragmentationChance": 0.45,
+      "penetrationPower": 15,
+      "initialSpeed": 873,
+      "projectileCount": 1,
+      "item": {
+        "id": "56dff421d2720b5f5a8b4567",
+        "name": "5.45x39mm SP",
+        "shortName": "SP"
+      }
+    },
+    {
+      "caliber": "Caliber545x39",
+      "weight": 0.01,
+      "tracer": true,
+      "tracerColor": "tracerRed",
+      "damage": 59,
+      "armorDamage": 36,
+      "fragmentationChance": 0.16,
+      "penetrationPower": 20,
+      "initialSpeed": 883,
+      "projectileCount": 1,
+      "item": {
+        "id": "56dff4a2d2720bbd668b456a",
+        "name": "5.45x39mm T gs",
+        "shortName": "T"
+      }
+    },
+    {
+      "caliber": "Caliber545x39",
+      "weight": 0.01,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 65,
+      "armorDamage": 33,
+      "fragmentationChance": 0.1,
+      "penetrationPower": 17,
+      "initialSpeed": 303,
+      "projectileCount": 1,
+      "item": {
+        "id": "56dff4ecd2720b5f5a8b4568",
+        "name": "5.45x39mm US gs",
+        "shortName": "US"
+      }
+    },
+    {
+      "caliber": "Caliber762x25TT",
+      "weight": 0.01,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 58,
+      "armorDamage": 32,
+      "fragmentationChance": 0.25,
+      "penetrationPower": 12,
+      "initialSpeed": 425,
+      "projectileCount": 1,
+      "item": {
+        "id": "5735fdcd2459776445391d61",
+        "name": "7.62x25mm TT AKBS",
+        "shortName": "AKBS"
+      }
+    },
+    {
+      "caliber": "Caliber762x25TT",
+      "weight": 0.01,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 60,
+      "armorDamage": 29,
+      "fragmentationChance": 0.25,
+      "penetrationPower": 11,
+      "initialSpeed": 427,
+      "projectileCount": 1,
+      "item": {
+        "id": "5735ff5c245977640e39ba7e",
+        "name": "7.62x25mm TT FMJ43",
+        "shortName": "FMJ43"
+      }
+    },
+    {
+      "caliber": "Caliber762x25TT",
+      "weight": 0.01,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 64,
+      "armorDamage": 28,
+      "fragmentationChance": 0.35,
+      "penetrationPower": 8,
+      "initialSpeed": 375,
+      "projectileCount": 1,
+      "item": {
+        "id": "573601b42459776410737435",
+        "name": "7.62x25mm TT LRN",
+        "shortName": "LRN"
+      }
+    },
+    {
+      "caliber": "Caliber762x25TT",
+      "weight": 0.01,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 66,
+      "armorDamage": 27,
+      "fragmentationChance": 0.35,
+      "penetrationPower": 7,
+      "initialSpeed": 385,
+      "projectileCount": 1,
+      "item": {
+        "id": "573602322459776445391df1",
+        "name": "7.62x25mm TT LRNPC",
+        "shortName": "LRNPC"
+      }
+    },
+    {
+      "caliber": "Caliber762x25TT",
+      "weight": 0.01,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 58,
+      "armorDamage": 32,
+      "fragmentationChance": 0.25,
+      "penetrationPower": 14,
+      "initialSpeed": 430,
+      "projectileCount": 1,
+      "item": {
+        "id": "5736026a245977644601dc61",
+        "name": "7.62x25mm TT P gl",
+        "shortName": "P"
+      }
+    },
+    {
+      "caliber": "Caliber762x25TT",
+      "weight": 0.01,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 50,
+      "armorDamage": 36,
+      "fragmentationChance": 0.2,
+      "penetrationPower": 25,
+      "initialSpeed": 430,
+      "projectileCount": 1,
+      "item": {
+        "id": "573603562459776430731618",
+        "name": "7.62x25mm TT Pst gzh",
+        "shortName": "Pst"
+      }
+    },
+    {
+      "caliber": "Caliber762x25TT",
+      "weight": 0.01,
+      "tracer": true,
+      "tracerColor": "tracerRed",
+      "damage": 55,
+      "armorDamage": 34,
+      "fragmentationChance": 0.166,
+      "penetrationPower": 18,
+      "initialSpeed": 415,
+      "projectileCount": 1,
+      "item": {
+        "id": "573603c924597764442bd9cb",
+        "name": "7.62x25mm TT PT gzh",
+        "shortName": "PT"
+      }
+    },
+    {
+      "caliber": "Caliber9x18PM",
+      "weight": 0.01,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 53,
+      "armorDamage": 28,
+      "fragmentationChance": 0.17,
+      "penetrationPower": 18,
+      "initialSpeed": 325,
+      "projectileCount": 1,
+      "item": {
+        "id": "573718ba2459775a75491131",
+        "name": "9x18mm PM BZhT gzh",
+        "shortName": "BZhT"
+      }
+    },
+    {
+      "caliber": "Caliber9x18PM",
+      "weight": 0.011,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 50,
+      "armorDamage": 16,
+      "fragmentationChance": 0.25,
+      "penetrationPower": 5,
+      "initialSpeed": 302,
+      "projectileCount": 1,
+      "item": {
+        "id": "573719762459775a626ccbc1",
+        "name": "9x18mm PM P gzh",
+        "shortName": "P"
+      }
+    },
+    {
+      "caliber": "Caliber9x18PM",
+      "weight": 0.007,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 40,
+      "armorDamage": 30,
+      "fragmentationChance": 0.16,
+      "penetrationPower": 28,
+      "initialSpeed": 519,
+      "projectileCount": 1,
+      "item": {
+        "id": "573719df2459775a626ccbc2",
+        "name": "9x18mm PM PBM gzh",
+        "shortName": "PBM"
+      }
+    },
+    {
+      "caliber": "Caliber9x18PM",
+      "weight": 0.009,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 58,
+      "armorDamage": 33,
+      "fragmentationChance": 0.17,
+      "penetrationPower": 24,
+      "initialSpeed": 420,
+      "projectileCount": 1,
+      "item": {
+        "id": "57371aab2459775a77142f22",
+        "name": "9x18mm PMM PstM gzh",
+        "shortName": "PstM"
+      }
+    },
+    {
+      "caliber": "Caliber9x18PM",
+      "weight": 0.009,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 61,
+      "armorDamage": 15,
+      "fragmentationChance": 0.35,
+      "penetrationPower": 7,
+      "initialSpeed": 297,
+      "projectileCount": 1,
+      "item": {
+        "id": "57371b192459775a9f58a5e0",
+        "name": "9x18mm PM PPe gzh",
+        "shortName": "PPe"
+      }
+    },
+    {
+      "caliber": "Caliber9x18PM",
+      "weight": 0.01,
+      "tracer": true,
+      "tracerColor": "red",
+      "damage": 59,
+      "armorDamage": 22,
+      "fragmentationChance": 0.166,
+      "penetrationPower": 8,
+      "initialSpeed": 301,
+      "projectileCount": 1,
+      "item": {
+        "id": "57371e4124597760ff7b25f1",
+        "name": "9x18mm PM PPT gzh",
+        "shortName": "PPT"
+      }
+    },
+    {
+      "caliber": "Caliber9x18PM",
+      "weight": 0.011,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 58,
+      "armorDamage": 16,
+      "fragmentationChance": 0.3,
+      "penetrationPower": 6,
+      "initialSpeed": 302,
+      "projectileCount": 1,
+      "item": {
+        "id": "57371eb62459776125652ac1",
+        "name": "9x18mm PM PRS gs",
+        "shortName": "PRS"
+      }
+    },
+    {
+      "caliber": "Caliber9x18PM",
+      "weight": 0.01,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 55,
+      "armorDamage": 16,
+      "fragmentationChance": 0.25,
+      "penetrationPower": 6,
+      "initialSpeed": 330,
+      "projectileCount": 1,
+      "item": {
+        "id": "57371f2b24597761224311f1",
+        "name": "9x18mm PM PS gs PPO",
+        "shortName": "PS PPO"
+      }
+    },
+    {
+      "caliber": "Caliber9x18PM",
+      "weight": 0.008,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 54,
+      "armorDamage": 13,
+      "fragmentationChance": 0.35,
+      "penetrationPower": 5,
+      "initialSpeed": 315,
+      "projectileCount": 1,
+      "item": {
+        "id": "57371f8d24597761006c6a81",
+        "name": "9x18mm PM PSO gzh",
+        "shortName": "PSO"
+      }
+    },
+    {
+      "caliber": "Caliber9x18PM",
+      "weight": 0.01,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 50,
+      "armorDamage": 26,
+      "fragmentationChance": 0.2,
+      "penetrationPower": 12,
+      "initialSpeed": 298,
+      "projectileCount": 1,
+      "item": {
+        "id": "5737201124597760fc4431f1",
+        "name": "9x18mm PM Pst gzh",
+        "shortName": "Pst"
+      }
+    },
+    {
+      "caliber": "Caliber9x18PM",
+      "weight": 0.012,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 69,
+      "armorDamage": 5,
+      "fragmentationChance": 0.4,
+      "penetrationPower": 3,
+      "initialSpeed": 280,
+      "projectileCount": 1,
+      "item": {
+        "id": "5737207f24597760ff7b25f2",
+        "name": "9x18mm PM PSV",
+        "shortName": "PSV"
+      }
+    },
+    {
+      "caliber": "Caliber9x18PM",
+      "weight": 0.011,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 65,
+      "armorDamage": 26,
+      "fragmentationChance": 0.02,
+      "penetrationPower": 13,
+      "initialSpeed": 330,
+      "projectileCount": 1,
+      "item": {
+        "id": "573720e02459776143012541",
+        "name": "9x18mm PM RG028 gzh",
+        "shortName": "RG028"
+      }
+    },
+    {
+      "caliber": "Caliber9x18PM",
+      "weight": 0.011,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 77,
+      "armorDamage": 5,
+      "fragmentationChance": 0.02,
+      "penetrationPower": 2,
+      "initialSpeed": 420,
+      "projectileCount": 1,
+      "item": {
+        "id": "57372140245977611f70ee91",
+        "name": "9x18mm PM SP7 gzh",
+        "shortName": "SP7"
+      }
+    },
+    {
+      "caliber": "Caliber9x18PM",
+      "weight": 0.009,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 67,
+      "armorDamage": 2,
+      "fragmentationChance": 0.6,
+      "penetrationPower": 1,
+      "initialSpeed": 250,
+      "projectileCount": 1,
+      "item": {
+        "id": "5737218f245977612125ba51",
+        "name": "9x18mm PM SP8 gzh",
+        "shortName": "SP8"
+      }
+    },
+    {
+      "caliber": "Caliber9x39",
+      "weight": 0.023,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 71,
+      "armorDamage": 39,
+      "fragmentationChance": 0.2,
+      "penetrationPower": 28,
+      "initialSpeed": 290,
+      "projectileCount": 1,
+      "item": {
+        "id": "57a0dfb82459774d3078b56c",
+        "name": "9x39mm SP-5 gs",
+        "shortName": "SP-5"
+      }
+    },
+    {
+      "caliber": "Caliber9x39",
+      "weight": 0.023,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 60,
+      "armorDamage": 64,
+      "fragmentationChance": 0.1,
+      "penetrationPower": 48,
+      "initialSpeed": 305,
+      "projectileCount": 1,
+      "item": {
+        "id": "57a0e5022459774d1673f889",
+        "name": "9x39mm SP-6 gs",
+        "shortName": "SP-6"
+      }
+    },
+    {
+      "caliber": "Caliber12g",
+      "weight": 0.05,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 167,
+      "armorDamage": 55,
+      "fragmentationChance": 0.2,
+      "penetrationPower": 15,
+      "initialSpeed": 370,
+      "projectileCount": 1,
+      "item": {
+        "id": "58820d1224597753c90aeb13",
+        "name": "12/70 lead slug",
+        "shortName": "Slug"
+      }
+    },
+    {
+      "caliber": "Caliber9x19PARA",
+      "weight": 0.01,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 59,
+      "armorDamage": 32,
+      "fragmentationChance": 0.25,
+      "penetrationPower": 10,
+      "initialSpeed": 340,
+      "projectileCount": 1,
+      "item": {
+        "id": "58864a4f2459770fcc257101",
+        "name": "9x19mm PSO gzh",
+        "shortName": "PSO"
+      }
+    },
+    {
+      "caliber": "Caliber762x54R",
+      "weight": 0.024,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 81,
+      "armorDamage": 78,
+      "fragmentationChance": 0.18,
+      "penetrationPower": 42,
+      "initialSpeed": 865,
+      "projectileCount": 1,
+      "item": {
+        "id": "5887431f2459777e1612938f",
+        "name": "7.62x54mm R LPS gzh",
+        "shortName": "LPS"
+      }
+    },
+    {
+      "caliber": "Caliber762x51",
+      "weight": 0.024,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 80,
+      "armorDamage": 67,
+      "fragmentationChance": 0.17,
+      "penetrationPower": 43,
+      "initialSpeed": 820,
+      "projectileCount": 1,
+      "item": {
+        "id": "58dd3ad986f77403051cba8f",
+        "name": "7.62x51mm M80",
+        "shortName": "M80"
+      }
+    },
+    {
+      "caliber": "Caliber762x39",
+      "weight": 0.016,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 58,
+      "armorDamage": 63,
+      "fragmentationChance": 0.12,
+      "penetrationPower": 47,
+      "initialSpeed": 730,
+      "projectileCount": 1,
+      "item": {
+        "id": "59e0d99486f7744a32234762",
+        "name": "7.62x39mm BP gzh",
+        "shortName": "BP"
+      }
+    },
+    {
+      "caliber": "Caliber762x39",
+      "weight": 0.016,
+      "tracer": true,
+      "tracerColor": "red",
+      "damage": 65,
+      "armorDamage": 46,
+      "fragmentationChance": 0.12,
+      "penetrationPower": 30,
+      "initialSpeed": 720,
+      "projectileCount": 1,
+      "item": {
+        "id": "59e4cf5286f7741778269d8a",
+        "name": "7.62x39mm T-45M1 gzh",
+        "shortName": "T-45M1"
+      }
+    },
+    {
+      "caliber": "Caliber762x39",
+      "weight": 0.02,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 56,
+      "armorDamage": 42,
+      "fragmentationChance": 0.075,
+      "penetrationPower": 29,
+      "initialSpeed": 301,
+      "projectileCount": 1,
+      "item": {
+        "id": "59e4d24686f7741776641ac7",
+        "name": "7.62x39mm US gzh",
+        "shortName": "US"
+      }
+    },
+    {
+      "caliber": "Caliber762x39",
+      "weight": 0.012,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 80,
+      "armorDamage": 20,
+      "fragmentationChance": 0.4,
+      "penetrationPower": 15,
+      "initialSpeed": 754,
+      "projectileCount": 1,
+      "item": {
+        "id": "59e4d3d286f774176a36250a",
+        "name": "7.62x39mm HP",
+        "shortName": "HP"
+      }
+    },
+    {
+      "caliber": "Caliber366TKM",
+      "weight": 0.016,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 98,
+      "armorDamage": 48,
+      "fragmentationChance": 0.25,
+      "penetrationPower": 23,
+      "initialSpeed": 580,
+      "projectileCount": 1,
+      "item": {
+        "id": "59e6542b86f77411dc52a77a",
+        "name": ".366 TKM FMJ",
+        "shortName": "FMJ"
+      }
+    },
+    {
+      "caliber": "Caliber366TKM",
+      "weight": 0.01,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 73,
+      "armorDamage": 40,
+      "fragmentationChance": 0.2,
+      "penetrationPower": 30,
+      "initialSpeed": 770,
+      "projectileCount": 1,
+      "item": {
+        "id": "59e655cb86f77411dc52a77b",
+        "name": ".366 TKM EKO",
+        "shortName": "EKO"
+      }
+    },
+    {
+      "caliber": "Caliber366TKM",
+      "weight": 0.016,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 110,
+      "armorDamage": 38,
+      "fragmentationChance": 0.45,
+      "penetrationPower": 14,
+      "initialSpeed": 550,
+      "projectileCount": 1,
+      "item": {
+        "id": "59e6658b86f77411d949b250",
+        "name": ".366 TKM Geksa",
+        "shortName": "Geksa"
+      }
+    },
+    {
+      "caliber": "Caliber556x45NATO",
+      "weight": 0.012,
+      "tracer": true,
+      "tracerColor": "red",
+      "damage": 60,
+      "armorDamage": 26,
+      "fragmentationChance": 0.328,
+      "penetrationPower": 18,
+      "initialSpeed": 874,
+      "projectileCount": 1,
+      "item": {
+        "id": "59e68f6f86f7746c9f75e846",
+        "name": "5.56x45mm M856",
+        "shortName": "M856"
+      }
+    },
+    {
+      "caliber": "Caliber556x45NATO",
+      "weight": 0.012,
+      "tracer": true,
+      "tracerColor": "red",
+      "damage": 52,
+      "armorDamage": 44,
+      "fragmentationChance": 0.428,
+      "penetrationPower": 38,
+      "initialSpeed": 940,
+      "projectileCount": 1,
+      "item": {
+        "id": "59e6906286f7746c9f75e847",
+        "name": "5.56x45mm M856A1",
+        "shortName": "M856A1"
+      }
+    },
+    {
+      "caliber": "Caliber556x45NATO",
+      "weight": 0.012,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 42,
+      "armorDamage": 52,
+      "fragmentationChance": 0.42,
+      "penetrationPower": 53,
+      "initialSpeed": 1013,
+      "projectileCount": 1,
+      "item": {
+        "id": "59e690b686f7746c9f75e848",
+        "name": "5.56x45mm M995",
+        "shortName": "M995"
+      }
+    },
+    {
+      "caliber": "Caliber556x45NATO",
+      "weight": 0.012,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 72,
+      "armorDamage": 24,
+      "fragmentationChance": 0.03,
+      "penetrationPower": 11,
+      "initialSpeed": 936,
+      "projectileCount": 1,
+      "item": {
+        "id": "59e6918f86f7746c9f75e849",
+        "name": "5.56x45mm MK 255 Mod 0 (RRLP)",
+        "shortName": "RRLP"
+      }
+    },
+    {
+      "caliber": "Caliber556x45NATO",
+      "weight": 0.012,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 57,
+      "armorDamage": 33,
+      "fragmentationChance": 0.5,
+      "penetrationPower": 23,
+      "initialSpeed": 957,
+      "projectileCount": 1,
+      "item": {
+        "id": "59e6920f86f77411d82aa167",
+        "name": "5.56x45mm FMJ",
+        "shortName": "FMJ"
+      }
+    },
+    {
+      "caliber": "Caliber556x45NATO",
+      "weight": 0.012,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 79,
+      "armorDamage": 22,
+      "fragmentationChance": 0.7,
+      "penetrationPower": 7,
+      "initialSpeed": 947,
+      "projectileCount": 1,
+      "item": {
+        "id": "59e6927d86f77411da468256",
+        "name": "5.56x45mm HP",
+        "shortName": "HP"
+      }
+    },
+    {
+      "caliber": "Caliber762x54R",
+      "weight": 0.024,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 84,
+      "armorDamage": 84,
+      "fragmentationChance": 0.083,
+      "penetrationPower": 45,
+      "initialSpeed": 875,
+      "projectileCount": 1,
+      "item": {
+        "id": "59e77a2386f7742ee578960a",
+        "name": "7.62x54mm R PS gzh",
+        "shortName": "PS"
+      }
+    },
+    {
+      "caliber": "Caliber9x21",
+      "weight": 0.011,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 59,
+      "armorDamage": 39,
+      "fragmentationChance": 0.2,
+      "penetrationPower": 22,
+      "initialSpeed": 410,
+      "projectileCount": 1,
+      "item": {
+        "id": "5a269f97c4a282000b151807",
+        "name": "9x21mm PS gzh",
+        "shortName": "PS"
+      }
+    },
+    {
+      "caliber": "Caliber9x21",
+      "weight": 0.0119,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 65,
+      "armorDamage": 44,
+      "fragmentationChance": 0.3,
+      "penetrationPower": 18,
+      "initialSpeed": 413,
+      "projectileCount": 1,
+      "item": {
+        "id": "5a26abfac4a28232980eabff",
+        "name": "9x21mm P gzh",
+        "shortName": "P"
+      }
+    },
+    {
+      "caliber": "Caliber9x21",
+      "weight": 0.01,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 80,
+      "armorDamage": 63,
+      "fragmentationChance": 0.35,
+      "penetrationPower": 15,
+      "initialSpeed": 415,
+      "projectileCount": 1,
+      "item": {
+        "id": "5a26ac06c4a282000c5a90a8",
+        "name": "9x21mm PE gzh",
+        "shortName": "PE"
+      }
+    },
+    {
+      "caliber": "Caliber9x21",
+      "weight": 0.0115,
+      "tracer": true,
+      "tracerColor": "red",
+      "damage": 52,
+      "armorDamage": 42,
+      "fragmentationChance": 0.2,
+      "penetrationPower": 32,
+      "initialSpeed": 410,
+      "projectileCount": 1,
+      "item": {
+        "id": "5a26ac0ec4a28200741e1e18",
+        "name": "9x21mm BT gzh",
+        "shortName": "BT"
+      }
+    },
+    {
+      "caliber": "Caliber20g",
+      "weight": 0.04,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 25,
+      "armorDamage": 14,
+      "fragmentationChance": 0,
+      "penetrationPower": 3,
+      "initialSpeed": 430,
+      "projectileCount": 8,
+      "item": {
+        "id": "5a38ebd9c4a282000d722a5b",
+        "name": "20/70 7.5mm buckshot",
+        "shortName": "7.5mm"
+      }
+    },
+    {
+      "caliber": "Caliber9x19PARA",
+      "weight": 0.015,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 70,
+      "armorDamage": 38,
+      "fragmentationChance": 0.25,
+      "penetrationPower": 10,
+      "initialSpeed": 420,
+      "projectileCount": 1,
+      "item": {
+        "id": "5a3c16fe86f77452b62de32a",
+        "name": "9x19mm Luger CCI",
+        "shortName": "Luger CCI"
+      }
+    },
+    {
+      "caliber": "Caliber762x51",
+      "weight": 0.024,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 73,
+      "armorDamage": 79,
+      "fragmentationChance": 0.14,
+      "penetrationPower": 60,
+      "initialSpeed": 833,
+      "projectileCount": 1,
+      "item": {
+        "id": "5a6086ea4f39f99cd479502f",
+        "name": "7.62x51mm M61",
+        "shortName": "M61"
+      }
+    },
+    {
+      "caliber": "Caliber762x51",
+      "weight": 0.023,
+      "tracer": true,
+      "tracerColor": "green",
+      "damage": 82,
+      "armorDamage": 65,
+      "fragmentationChance": 0.14,
+      "penetrationPower": 42,
+      "initialSpeed": 820,
+      "projectileCount": 1,
+      "item": {
+        "id": "5a608bf24f39f98ffc77720e",
+        "name": "7.62x51mm M62 Tracer",
+        "shortName": "M62"
+      }
+    },
+    {
+      "caliber": "Caliber46x30",
+      "weight": 0.007,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 43,
+      "armorDamage": 41,
+      "fragmentationChance": 0.2,
+      "penetrationPower": 40,
+      "initialSpeed": 620,
+      "projectileCount": 1,
+      "item": {
+        "id": "5ba2678ad4351e44f824b344",
+        "name": "4.6x30mm FMJ SX",
+        "shortName": "FMJ SX"
+      }
+    },
+    {
+      "caliber": "Caliber46x30",
+      "weight": 0.007,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 65,
+      "armorDamage": 28,
+      "fragmentationChance": 0.5,
+      "penetrationPower": 18,
+      "initialSpeed": 690,
+      "projectileCount": 1,
+      "item": {
+        "id": "5ba26812d4351e003201fef1",
+        "name": "4.6x30mm Action SX",
+        "shortName": "Action SX"
+      }
+    },
+    {
+      "caliber": "Caliber46x30",
+      "weight": 0.007,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 35,
+      "armorDamage": 46,
+      "fragmentationChance": 0.1,
+      "penetrationPower": 53,
+      "initialSpeed": 680,
+      "projectileCount": 1,
+      "item": {
+        "id": "5ba26835d4351e0035628ff5",
+        "name": "4.6x30mm AP SX",
+        "shortName": "AP SX"
+      }
+    },
+    {
+      "caliber": "Caliber46x30",
+      "weight": 0.01,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 52,
+      "armorDamage": 33,
+      "fragmentationChance": 0.2,
+      "penetrationPower": 23,
+      "initialSpeed": 290,
+      "projectileCount": 1,
+      "item": {
+        "id": "5ba26844d4351e00334c9475",
+        "name": "4.6x30mm Subsonic SX",
+        "shortName": "Subsonic SX"
+      }
+    },
+    {
+      "caliber": "Caliber9x19PARA",
+      "weight": 0.013,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 102,
+      "armorDamage": 11,
+      "fragmentationChance": 1,
+      "penetrationPower": 2,
+      "initialSpeed": 381,
+      "projectileCount": 1,
+      "item": {
+        "id": "5c0d56a986f774449d5de529",
+        "name": "9x19mm RIP",
+        "shortName": "RIP"
+      }
+    },
+    {
+      "caliber": "Caliber12g",
+      "weight": 0.04,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 265,
+      "armorDamage": 11,
+      "fragmentationChance": 1,
+      "penetrationPower": 2,
+      "initialSpeed": 410,
+      "projectileCount": 1,
+      "item": {
+        "id": "5c0d591486f7744c505b416f",
+        "name": "12/70 RIP",
+        "shortName": "RIP"
+      }
+    },
+    {
+      "caliber": "Caliber556x45NATO",
+      "weight": 0.011,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 88,
+      "armorDamage": 11,
+      "fragmentationChance": 0.9,
+      "penetrationPower": 3,
+      "initialSpeed": 936,
+      "projectileCount": 1,
+      "item": {
+        "id": "5c0d5ae286f7741e46554302",
+        "name": "5.56x45mm Warmageddon",
+        "shortName": "Warmage"
+      }
+    },
+    {
+      "caliber": "Caliber545x39",
+      "weight": 0.011,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 37,
+      "armorDamage": 59,
+      "fragmentationChance": 0.02,
+      "penetrationPower": 62,
+      "initialSpeed": 905,
+      "projectileCount": 1,
+      "item": {
+        "id": "5c0d5e4486f77478390952fe",
+        "name": "5.45x39mm PPBS gs Igolnik",
+        "shortName": "PPBS"
+      }
+    },
+    {
+      "caliber": "Caliber9x39",
+      "weight": 0.023,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 68,
+      "armorDamage": 48,
+      "fragmentationChance": 0.2,
+      "penetrationPower": 35,
+      "initialSpeed": 310,
+      "projectileCount": 1,
+      "item": {
+        "id": "5c0d668f86f7747ccb7f13b2",
+        "name": "9x39mm SPP gs",
+        "shortName": "SPP"
+      }
+    },
+    {
+      "caliber": "Caliber9x39",
+      "weight": 0.023,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 58,
+      "armorDamage": 69,
+      "fragmentationChance": 0.1,
+      "penetrationPower": 54,
+      "initialSpeed": 295,
+      "projectileCount": 1,
+      "item": {
+        "id": "5c0d688c86f77413ae3407b2",
+        "name": "9x39mm BP gs",
+        "shortName": "BP"
+      }
+    },
+    {
+      "caliber": "Caliber9x19PARA",
+      "weight": 0.006,
+      "tracer": true,
+      "tracerColor": "tracerGreen",
+      "damage": 58,
+      "armorDamage": 33,
+      "fragmentationChance": 0.15,
+      "penetrationPower": 14,
+      "initialSpeed": 365,
+      "projectileCount": 1,
+      "item": {
+        "id": "5c3df7d588a4501f290594e5",
+        "name": "9x19mm Green Tracer",
+        "shortName": "GT"
+      }
+    },
+    {
+      "caliber": "Caliber9x19PARA",
+      "weight": 0.009,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 52,
+      "armorDamage": 48,
+      "fragmentationChance": 0.05,
+      "penetrationPower": 30,
+      "initialSpeed": 392,
+      "projectileCount": 1,
+      "item": {
+        "id": "5c925fa22e221601da359b7b",
+        "name": "9x19mm AP 6.3",
+        "shortName": "AP 6.3"
+      }
+    },
+    {
+      "caliber": "Caliber127x55",
+      "weight": 0.07,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 115,
+      "armorDamage": 60,
+      "fragmentationChance": 0.3,
+      "penetrationPower": 28,
+      "initialSpeed": 300,
+      "projectileCount": 1,
+      "item": {
+        "id": "5cadf6ddae9215051e1c23b2",
+        "name": "12.7x55mm PS12",
+        "shortName": "PS12"
+      }
+    },
+    {
+      "caliber": "Caliber127x55",
+      "weight": 0.044,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 165,
+      "armorDamage": 22,
+      "fragmentationChance": 0.7,
+      "penetrationPower": 10,
+      "initialSpeed": 870,
+      "projectileCount": 1,
+      "item": {
+        "id": "5cadf6e5ae921500113bb973",
+        "name": "12.7x55mm PS12A",
+        "shortName": "PS12A"
+      }
+    },
+    {
+      "caliber": "Caliber127x55",
+      "weight": 0.055,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 102,
+      "armorDamage": 57,
+      "fragmentationChance": 0.3,
+      "penetrationPower": 46,
+      "initialSpeed": 570,
+      "projectileCount": 1,
+      "item": {
+        "id": "5cadf6eeae921500134b2799",
+        "name": "12.7x55mm PS12B",
+        "shortName": "PS12B"
+      }
+    },
+    {
+      "caliber": "Caliber57x28",
+      "weight": 0.006,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 49,
+      "armorDamage": 43,
+      "fragmentationChance": 0.2,
+      "penetrationPower": 37,
+      "initialSpeed": 715,
+      "projectileCount": 1,
+      "item": {
+        "id": "5cc80f38e4a949001152b560",
+        "name": "5.7x28mm SS190",
+        "shortName": "SS190"
+      }
+    },
+    {
+      "caliber": "Caliber57x28",
+      "weight": 0.006,
+      "tracer": true,
+      "tracerColor": "red",
+      "damage": 53,
+      "armorDamage": 41,
+      "fragmentationChance": 0.2,
+      "penetrationPower": 33,
+      "initialSpeed": 715,
+      "projectileCount": 1,
+      "item": {
+        "id": "5cc80f53e4a949000e1ea4f8",
+        "name": "5.7x28mm L191",
+        "shortName": "L191"
+      }
+    },
+    {
+      "caliber": "Caliber57x28",
+      "weight": 0.007,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 59,
+      "armorDamage": 37,
+      "fragmentationChance": 0.35,
+      "penetrationPower": 27,
+      "initialSpeed": 299,
+      "projectileCount": 1,
+      "item": {
+        "id": "5cc80f67e4a949035e43bbba",
+        "name": "5.7x28mm SB193",
+        "shortName": "SB193"
+      }
+    },
+    {
+      "caliber": "Caliber57x28",
+      "weight": 0.006,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 70,
+      "armorDamage": 19,
+      "fragmentationChance": 0.8,
+      "penetrationPower": 17,
+      "initialSpeed": 792,
+      "projectileCount": 1,
+      "item": {
+        "id": "5cc80f79e4a949033c7343b2",
+        "name": "5.7x28mm SS198LF",
+        "shortName": "SS198LF"
+      }
+    },
+    {
+      "caliber": "Caliber57x28",
+      "weight": 0.007,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 62,
+      "armorDamage": 22,
+      "fragmentationChance": 0.5,
+      "penetrationPower": 25,
+      "initialSpeed": 594,
+      "projectileCount": 1,
+      "item": {
+        "id": "5cc80f8fe4a949033b0224a2",
+        "name": "5.7x28mm SS197SR",
+        "shortName": "SS197SR"
+      }
+    },
+    {
+      "caliber": "Caliber57x28",
+      "weight": 0.006,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 98,
+      "armorDamage": 7,
+      "fragmentationChance": 1,
+      "penetrationPower": 8,
+      "initialSpeed": 729,
+      "projectileCount": 1,
+      "item": {
+        "id": "5cc86832d7f00c000d3a6e6c",
+        "name": "5.7x28mm R37.F",
+        "shortName": "R37.F"
+      }
+    },
+    {
+      "caliber": "Caliber57x28",
+      "weight": 0.006,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 81,
+      "armorDamage": 9,
+      "fragmentationChance": 0.7,
+      "penetrationPower": 11,
+      "initialSpeed": 724,
+      "projectileCount": 1,
+      "item": {
+        "id": "5cc86840d7f00c002412c56c",
+        "name": "5.7x28mm R37.X",
+        "shortName": "R37.X"
+      }
+    },
+    {
+      "caliber": "Caliber12g",
+      "weight": 0.044,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 37,
+      "armorDamage": 15,
+      "fragmentationChance": 0,
+      "penetrationPower": 1,
+      "initialSpeed": 330,
+      "projectileCount": 8,
+      "item": {
+        "id": "5d6e6772a4b936088465b17c",
+        "name": "12/70 5.25mm buckshot",
+        "shortName": "5.25mm"
+      }
+    },
+    {
+      "caliber": "Caliber12g",
+      "weight": 0.048,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 35,
+      "armorDamage": 26,
+      "fragmentationChance": 0,
+      "penetrationPower": 3,
+      "initialSpeed": 430,
+      "projectileCount": 9,
+      "item": {
+        "id": "5d6e67fba4b9361bc73bc779",
+        "name": "12/70 6.5mm Express buckshot",
+        "shortName": "Express"
+      }
+    },
+    {
+      "caliber": "Caliber12g",
+      "weight": 0.059,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 50,
+      "armorDamage": 26,
+      "fragmentationChance": 0,
+      "penetrationPower": 2,
+      "initialSpeed": 385,
+      "projectileCount": 8,
+      "item": {
+        "id": "5d6e6806a4b936088465b17e",
+        "name": "12/70 8.5mm Magnum buckshot",
+        "shortName": "Magnum"
+      }
+    },
+    {
+      "caliber": "Caliber12g",
+      "weight": 0.055,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 190,
+      "armorDamage": 48,
+      "fragmentationChance": 0.12,
+      "penetrationPower": 12,
+      "initialSpeed": 390,
+      "projectileCount": 1,
+      "item": {
+        "id": "5d6e6869a4b9361c140bcfde",
+        "name": "12/70 Grizzly 40 slug",
+        "shortName": "Grizzly 40"
+      }
+    },
+    {
+      "caliber": "Caliber12g",
+      "weight": 0.044,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 140,
+      "armorDamage": 40,
+      "fragmentationChance": 0.2,
+      "penetrationPower": 17,
+      "initialSpeed": 410,
+      "projectileCount": 1,
+      "item": {
+        "id": "5d6e6891a4b9361bd473feea",
+        "name": "12/70 Poleva-3 slug",
+        "shortName": "Poleva-3"
+      }
+    },
+    {
+      "caliber": "Caliber12g",
+      "weight": 0.048,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 150,
+      "armorDamage": 50,
+      "fragmentationChance": 0.15,
+      "penetrationPower": 20,
+      "initialSpeed": 430,
+      "projectileCount": 1,
+      "item": {
+        "id": "5d6e689ca4b9361bc8618956",
+        "name": "12/70 Poleva-6u slug",
+        "shortName": "Poleva-6u"
+      }
+    },
+    {
+      "caliber": "Caliber12g",
+      "weight": 0.05,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 164,
+      "armorDamage": 65,
+      "fragmentationChance": 0.03,
+      "penetrationPower": 37,
+      "initialSpeed": 510,
+      "projectileCount": 1,
+      "item": {
+        "id": "5d6e68a8a4b9360b6c0d54e2",
+        "name": "12/70 AP-20 armor-piercing slug",
+        "shortName": "AP-20"
+      }
+    },
+    {
+      "caliber": "Caliber12g",
+      "weight": 0.043,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 206,
+      "armorDamage": 46,
+      "fragmentationChance": 0.38,
+      "penetrationPower": 14,
+      "initialSpeed": 442,
+      "projectileCount": 1,
+      "item": {
+        "id": "5d6e68b3a4b9361bca7e50b5",
+        "name": "12/70 Copper Sabot Premier HP slug",
+        "shortName": "CSP"
+      }
+    },
+    {
+      "caliber": "Caliber12g",
+      "weight": 0.055,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 197,
+      "armorDamage": 57,
+      "fragmentationChance": 0.05,
+      "penetrationPower": 26,
+      "initialSpeed": 410,
+      "projectileCount": 1,
+      "item": {
+        "id": "5d6e68c4a4b9361b93413f79",
+        "name": "12/70 makeshift .50 BMG slug",
+        "shortName": ".50 BMG"
+      }
+    },
+    {
+      "caliber": "Caliber12g",
+      "weight": 0.034,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 220,
+      "armorDamage": 12,
+      "fragmentationChance": 0.39,
+      "penetrationPower": 5,
+      "initialSpeed": 594,
+      "projectileCount": 1,
+      "item": {
+        "id": "5d6e68d1a4b93622fe60e845",
+        "name": "12/70 SuperFormance HP slug",
+        "shortName": "SFormance"
+      }
+    },
+    {
+      "caliber": "Caliber12g",
+      "weight": 0.05,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 85,
+      "armorDamage": 65,
+      "fragmentationChance": 0.1,
+      "penetrationPower": 17,
+      "initialSpeed": 415,
+      "projectileCount": 2,
+      "item": {
+        "id": "5d6e68dea4b9361bcc29e659",
+        "name": "12/70 Dual Sabot slug",
+        "shortName": "DualSabot"
+      }
+    },
+    {
+      "caliber": "Caliber12g",
+      "weight": 0.026,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 183,
+      "armorDamage": 50,
+      "fragmentationChance": 0.1,
+      "penetrationPower": 20,
+      "initialSpeed": 480,
+      "projectileCount": 1,
+      "item": {
+        "id": "5d6e68e6a4b9361c140bcfe0",
+        "name": "12/70 FTX Custom Lite slug",
+        "shortName": "FTX"
+      }
+    },
+    {
+      "caliber": "Caliber12g",
+      "weight": 0.04,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 25,
+      "armorDamage": 26,
+      "fragmentationChance": 0,
+      "penetrationPower": 31,
+      "initialSpeed": 320,
+      "projectileCount": 8,
+      "item": {
+        "id": "5d6e6911a4b9361bd5780d52",
+        "name": "12/70 flechette",
+        "shortName": "Flechette"
+      }
+    },
+    {
+      "caliber": "Caliber20g",
+      "weight": 0.028,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 26,
+      "armorDamage": 12,
+      "fragmentationChance": 0,
+      "penetrationPower": 1,
+      "initialSpeed": 340,
+      "projectileCount": 8,
+      "item": {
+        "id": "5d6e695fa4b936359b35d852",
+        "name": "20/70 5.6mm buckshot",
+        "shortName": "5.6mm"
+      }
+    },
+    {
+      "caliber": "Caliber20g",
+      "weight": 0.032,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 22,
+      "armorDamage": 13,
+      "fragmentationChance": 0,
+      "penetrationPower": 2,
+      "initialSpeed": 410,
+      "projectileCount": 8,
+      "item": {
+        "id": "5d6e69b9a4b9361bc8618958",
+        "name": "20/70 6.2mm buckshot",
+        "shortName": "6.2mm"
+      }
+    },
+    {
+      "caliber": "Caliber20g",
+      "weight": 0.032,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 23,
+      "armorDamage": 13,
+      "fragmentationChance": 0,
+      "penetrationPower": 3,
+      "initialSpeed": 475,
+      "projectileCount": 9,
+      "item": {
+        "id": "5d6e69c7a4b9360b6c0d54e4",
+        "name": "20/70 7.3mm buckshot",
+        "shortName": "7.3mm"
+      }
+    },
+    {
+      "caliber": "Caliber20g",
+      "weight": 0.034,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 154,
+      "armorDamage": 42,
+      "fragmentationChance": 0.1,
+      "penetrationPower": 16,
+      "initialSpeed": 415,
+      "projectileCount": 1,
+      "item": {
+        "id": "5d6e6a05a4b93618084f58d0",
+        "name": "20/70 Star slug",
+        "shortName": "Star"
+      }
+    },
+    {
+      "caliber": "Caliber20g",
+      "weight": 0.032,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 135,
+      "armorDamage": 40,
+      "fragmentationChance": 0.15,
+      "penetrationPower": 17,
+      "initialSpeed": 445,
+      "projectileCount": 1,
+      "item": {
+        "id": "5d6e6a42a4b9364f07165f52",
+        "name": "20/70 Poleva-6u slug",
+        "shortName": "Poleva-6u"
+      }
+    },
+    {
+      "caliber": "Caliber20g",
+      "weight": 0.029,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 120,
+      "armorDamage": 35,
+      "fragmentationChance": 0.2,
+      "penetrationPower": 14,
+      "initialSpeed": 425,
+      "projectileCount": 1,
+      "item": {
+        "id": "5d6e6a53a4b9361bd473feec",
+        "name": "20/70 Poleva-3 slug",
+        "shortName": "Poleva-3"
+      }
+    },
+    {
+      "caliber": "Caliber20g",
+      "weight": 0.029,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 198,
+      "armorDamage": 13,
+      "fragmentationChance": 1,
+      "penetrationPower": 5,
+      "initialSpeed": 405,
+      "projectileCount": 1,
+      "item": {
+        "id": "5d6e6a5fa4b93614ec501745",
+        "name": "20/70 Devastator slug",
+        "shortName": "Devastator"
+      }
+    },
+    {
+      "caliber": "Caliber762x54R",
+      "weight": 0.025,
+      "tracer": true,
+      "tracerColor": "green",
+      "damage": 82,
+      "armorDamage": 83,
+      "fragmentationChance": 0.18,
+      "penetrationPower": 41,
+      "initialSpeed": 800,
+      "projectileCount": 1,
+      "item": {
+        "id": "5e023cf8186a883be655e54f",
+        "name": "7.62x54mm R T-46M gzh",
+        "shortName": "T-46M"
+      }
+    },
+    {
+      "caliber": "Caliber762x54R",
+      "weight": 0.024,
+      "tracer": true,
+      "tracerColor": "green",
+      "damage": 78,
+      "armorDamage": 87,
+      "fragmentationChance": 0.081,
+      "penetrationPower": 55,
+      "initialSpeed": 875,
+      "projectileCount": 1,
+      "item": {
+        "id": "5e023d34e8a400319a28ed44",
+        "name": "7.62x54mm R BT gzh",
+        "shortName": "BT"
+      }
+    },
+    {
+      "caliber": "Caliber762x54R",
+      "weight": 0.025,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 72,
+      "armorDamage": 88,
+      "fragmentationChance": 0.083,
+      "penetrationPower": 70,
+      "initialSpeed": 785,
+      "projectileCount": 1,
+      "item": {
+        "id": "5e023d48186a883be655e551",
+        "name": "7.62x54mm R BS gs",
+        "shortName": "BS"
+      }
+    },
+    {
+      "caliber": "Caliber762x51",
+      "weight": 0.023,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 83,
+      "armorDamage": 56,
+      "fragmentationChance": 0.2,
+      "penetrationPower": 37,
+      "initialSpeed": 840,
+      "projectileCount": 1,
+      "item": {
+        "id": "5e023e53d4353e3302577c4c",
+        "name": "7.62x51mm BCP FMJ",
+        "shortName": "BCP FMJ"
+      }
+    },
+    {
+      "caliber": "Caliber762x51",
+      "weight": 0.023,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 85,
+      "armorDamage": 25,
+      "fragmentationChance": 0.35,
+      "penetrationPower": 30,
+      "initialSpeed": 800,
+      "projectileCount": 1,
+      "item": {
+        "id": "5e023e6e34d52a55c3304f71",
+        "name": "7.62x51mm TCW SP",
+        "shortName": "TCW SP"
+      }
+    },
+    {
+      "caliber": "Caliber762x51",
+      "weight": 0.021,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 105,
+      "armorDamage": 40,
+      "fragmentationChance": 0.7,
+      "penetrationPower": 15,
+      "initialSpeed": 800,
+      "projectileCount": 1,
+      "item": {
+        "id": "5e023e88277cce2b522ff2b1",
+        "name": "7.62x51mm Ultra Nosler",
+        "shortName": "Ultra Nosler"
+      }
+    },
+    {
+      "caliber": "Caliber1143x23ACP",
+      "weight": 0.015,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 72,
+      "armorDamage": 36,
+      "fragmentationChance": 0.01,
+      "penetrationPower": 25,
+      "initialSpeed": 340,
+      "projectileCount": 1,
+      "item": {
+        "id": "5e81f423763d9f754677bf2e",
+        "name": ".45 ACP Match FMJ",
+        "shortName": "FMJ"
+      }
+    },
+    {
+      "caliber": "Caliber23x75",
+      "weight": 0.08,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 87,
+      "armorDamage": 20,
+      "fragmentationChance": 0,
+      "penetrationPower": 11,
+      "initialSpeed": 270,
+      "projectileCount": 8,
+      "item": {
+        "id": "5e85a9a6eacf8c039e4e2ac1",
+        "name": "23x75mm Shrapnel-10 buckshot",
+        "shortName": "Shrap-10"
+      }
+    },
+    {
+      "caliber": "Caliber23x75",
+      "weight": 0.07,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 0,
+      "armorDamage": 0,
+      "fragmentationChance": 0.3,
+      "penetrationPower": 0,
+      "initialSpeed": 80,
+      "projectileCount": 1,
+      "item": {
+        "id": "5e85a9f4add9fe03027d9bf1",
+        "name": "23x75mm Zvezda flashbang round",
+        "shortName": "Zvezda"
+      }
+    },
+    {
+      "caliber": "Caliber23x75",
+      "weight": 0.08,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 192,
+      "armorDamage": 75,
+      "fragmentationChance": 0.2,
+      "penetrationPower": 39,
+      "initialSpeed": 420,
+      "projectileCount": 1,
+      "item": {
+        "id": "5e85aa1a988a8701445df1f5",
+        "name": "23x75mm Barrikada slug",
+        "shortName": "Barrikada"
+      }
+    },
+    {
+      "caliber": "Caliber1143x23ACP",
+      "weight": 0.019,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 130,
+      "armorDamage": 12,
+      "fragmentationChance": 1,
+      "penetrationPower": 3,
+      "initialSpeed": 293,
+      "projectileCount": 1,
+      "item": {
+        "id": "5ea2a8e200685063ec28c05a",
+        "name": ".45 ACP RIP",
+        "shortName": "RIP"
+      }
+    },
+    {
+      "caliber": "Caliber40x46",
+      "weight": 0.23,
+      "tracer": false,
+      "tracerColor": "green",
+      "damage": 199,
+      "armorDamage": 95,
+      "fragmentationChance": 0,
+      "penetrationPower": 1,
+      "initialSpeed": 76,
+      "projectileCount": 1,
+      "item": {
+        "id": "5ede4739e0350d05467f73e8",
+        "name": "40x46mm M406 (HE) grenade",
+        "shortName": "M406"
+      }
+    },
+    {
+      "caliber": "Caliber40x46",
+      "weight": 0.23,
+      "tracer": false,
+      "tracerColor": "green",
+      "damage": 199,
+      "armorDamage": 95,
+      "fragmentationChance": 0,
+      "penetrationPower": 1,
+      "initialSpeed": 76,
+      "projectileCount": 1,
+      "item": {
+        "id": "5ede47405b097655935d7d16",
+        "name": "40x46mm M441 (HE) grenade",
+        "shortName": "M441"
+      }
+    },
+    {
+      "caliber": "Caliber40x46",
+      "weight": 0.23,
+      "tracer": false,
+      "tracerColor": "green",
+      "damage": 199,
+      "armorDamage": 95,
+      "fragmentationChance": 0,
+      "penetrationPower": 1,
+      "initialSpeed": 76,
+      "projectileCount": 1,
+      "item": {
+        "id": "5ede474b0c226a66f5402622",
+        "name": "40x46mm M381 (HE) grenade",
+        "shortName": "M381"
+      }
+    },
+    {
+      "caliber": "Caliber40x46",
+      "weight": 0.12,
+      "tracer": false,
+      "tracerColor": "green",
+      "damage": 160,
+      "armorDamage": 95,
+      "fragmentationChance": 0,
+      "penetrationPower": 5,
+      "initialSpeed": 269,
+      "projectileCount": 15,
+      "item": {
+        "id": "5ede475339ee016e8c534742",
+        "name": "40x46mm M576 (MP-APERS) grenade",
+        "shortName": "M576"
+      }
+    },
+    {
+      "caliber": "Caliber40x46",
+      "weight": 0.23,
+      "tracer": false,
+      "tracerColor": "green",
+      "damage": 199,
+      "armorDamage": 95,
+      "fragmentationChance": 0,
+      "penetrationPower": 1,
+      "initialSpeed": 76,
+      "projectileCount": 1,
+      "item": {
+        "id": "5ede475b549eed7c6d5c18fb",
+        "name": "40x46mm M386 (HE) grenade",
+        "shortName": "M386"
+      }
+    },
+    {
+      "caliber": "Caliber762x51",
+      "weight": 0.022,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 70,
+      "armorDamage": 85,
+      "fragmentationChance": 0.13,
+      "penetrationPower": 65,
+      "initialSpeed": 930,
+      "projectileCount": 1,
+      "item": {
+        "id": "5efb0c1bd79ff02a1f5e68d9",
+        "name": "7.62x51mm M993",
+        "shortName": "M993"
+      }
+    },
+    {
+      "caliber": "Caliber1143x23ACP",
+      "weight": 0.015,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 66,
+      "armorDamage": 48,
+      "fragmentationChance": 0.01,
+      "penetrationPower": 38,
+      "initialSpeed": 299,
+      "projectileCount": 1,
+      "item": {
+        "id": "5efb0cabfb3e451d70735af5",
+        "name": ".45 ACP AP",
+        "shortName": "AP"
+      }
+    },
+    {
+      "caliber": "Caliber1143x23ACP",
+      "weight": 0.015,
+      "tracer": true,
+      "tracerColor": "red",
+      "damage": 76,
+      "armorDamage": 37,
+      "fragmentationChance": 0.01,
+      "penetrationPower": 19,
+      "initialSpeed": 290,
+      "projectileCount": 1,
+      "item": {
+        "id": "5efb0d4f4bc50b58e81710f3",
+        "name": ".45 ACP Lasermatch FMJ",
+        "shortName": "Lasermatch"
+      }
+    },
+    {
+      "caliber": "Caliber9x19PARA",
+      "weight": 0.009,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 44,
+      "armorDamage": 55,
+      "fragmentationChance": 0.05,
+      "penetrationPower": 39,
+      "initialSpeed": 560,
+      "projectileCount": 1,
+      "item": {
+        "id": "5efb0da7a29a85116f6ea05f",
+        "name": "9x19mm PBP gzh",
+        "shortName": "PBP"
+      }
+    },
+    {
+      "caliber": "Caliber9x19PARA",
+      "weight": 0.013,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 85,
+      "armorDamage": 22,
+      "fragmentationChance": 0.1,
+      "penetrationPower": 8,
+      "initialSpeed": 290,
+      "projectileCount": 1,
+      "item": {
+        "id": "5efb0e16aeb21837e749c7ff",
+        "name": "9x19mm QuakeMaker",
+        "shortName": "QuakeMaker"
+      }
+    },
+    {
+      "caliber": "Caliber1143x23ACP",
+      "weight": 0.017,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 100,
+      "armorDamage": 30,
+      "fragmentationChance": 0.5,
+      "penetrationPower": 13,
+      "initialSpeed": 274,
+      "projectileCount": 1,
+      "item": {
+        "id": "5efb0fc6aeb21837e749c801",
+        "name": ".45 ACP Hydra-Shok",
+        "shortName": "HydraShok"
+      }
+    },
+    {
+      "caliber": "Caliber366TKM",
+      "weight": 0.019,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 90,
+      "armorDamage": 60,
+      "fragmentationChance": 0.01,
+      "penetrationPower": 42,
+      "initialSpeed": 602,
+      "projectileCount": 1,
+      "item": {
+        "id": "5f0596629e22f464da6bbdd9",
+        "name": ".366 TKM AP-M",
+        "shortName": "AP-M"
+      }
+    },
+    {
+      "caliber": "Caliber40x46",
+      "weight": 0.23,
+      "tracer": false,
+      "tracerColor": "green",
+      "damage": 199,
+      "armorDamage": 95,
+      "fragmentationChance": 0,
+      "penetrationPower": 1,
+      "initialSpeed": 76,
+      "projectileCount": 1,
+      "item": {
+        "id": "5f0c892565703e5c461894e9",
+        "name": "40x46mm M433 (HEDP) grenade",
+        "shortName": "M433"
+      }
+    },
+    {
+      "caliber": "Caliber23x75",
+      "weight": 0.08,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 78,
+      "armorDamage": 20,
+      "fragmentationChance": 0,
+      "penetrationPower": 10,
+      "initialSpeed": 375,
+      "projectileCount": 8,
+      "item": {
+        "id": "5f647f31b6238e5dd066e196",
+        "name": "23x75mm Shrapnel-25 buckshot",
+        "shortName": "Shrap-25"
+      }
+    },
+    {
+      "caliber": "Caliber762x35",
+      "weight": 0.015,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 60,
+      "armorDamage": 36,
+      "fragmentationChance": 0.3,
+      "penetrationPower": 30,
+      "initialSpeed": 605,
+      "projectileCount": 1,
+      "item": {
+        "id": "5fbe3ffdf8b6a877a729ea82",
+        "name": ".300 Blackout BCP FMJ",
+        "shortName": "BCP FMJ"
+      }
+    },
+    {
+      "caliber": "Caliber86x70",
+      "weight": 0.047,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 122,
+      "armorDamage": 83,
+      "fragmentationChance": 0.2,
+      "penetrationPower": 47,
+      "initialSpeed": 900,
+      "projectileCount": 1,
+      "item": {
+        "id": "5fc275cf85fd526b824a571a",
+        "name": ".338 Lapua Magnum FMJ",
+        "shortName": "FMJ"
+      }
+    },
+    {
+      "caliber": "Caliber86x70",
+      "weight": 0.049,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 115,
+      "armorDamage": 89,
+      "fragmentationChance": 0.13,
+      "penetrationPower": 79,
+      "initialSpeed": 849,
+      "projectileCount": 1,
+      "item": {
+        "id": "5fc382a9d724d907e2077dab",
+        "name": ".338 Lapua Magnum AP",
+        "shortName": "AP"
+      }
+    },
+    {
+      "caliber": "Caliber86x70",
+      "weight": 0.044,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 196,
+      "armorDamage": 55,
+      "fragmentationChance": 0.5,
+      "penetrationPower": 18,
+      "initialSpeed": 880,
+      "projectileCount": 1,
+      "item": {
+        "id": "5fc382b6d6fa9c00c571bbc3",
+        "name": ".338 Lapua Magnum TAC-X",
+        "shortName": "TAC-X"
+      }
+    },
+    {
+      "caliber": "Caliber86x70",
+      "weight": 0.045,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 142,
+      "armorDamage": 70,
+      "fragmentationChance": 0.6,
+      "penetrationPower": 32,
+      "initialSpeed": 849,
+      "projectileCount": 1,
+      "item": {
+        "id": "5fc382c1016cce60e8341b20",
+        "name": ".338 Lapua Magnum UCW",
+        "shortName": "UCW"
+      }
+    },
+    {
+      "caliber": "Caliber762x35",
+      "weight": 0.014,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 51,
+      "armorDamage": 65,
+      "fragmentationChance": 0.1,
+      "penetrationPower": 48,
+      "initialSpeed": 635,
+      "projectileCount": 1,
+      "item": {
+        "id": "5fd20ff893a8961fc660a954",
+        "name": ".300 Blackout AP",
+        "shortName": "AP"
+      }
+    },
+    {
+      "caliber": "Caliber556x45NATO",
+      "weight": 0.012,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 53,
+      "armorDamage": 39,
+      "fragmentationChance": 0.35,
+      "penetrationPower": 33,
+      "initialSpeed": 902,
+      "projectileCount": 1,
+      "item": {
+        "id": "60194943740c5d77f6705eea",
+        "name": "5.56x45mm MK 318 Mod 0 (SOST)",
+        "shortName": "SOST"
+      }
+    },
+    {
+      "caliber": "Caliber556x45NATO",
+      "weight": 0.013,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 38,
+      "armorDamage": 58,
+      "fragmentationChance": 0.3,
+      "penetrationPower": 57,
+      "initialSpeed": 1013,
+      "projectileCount": 1,
+      "item": {
+        "id": "601949593ae8f707c4608daa",
+        "name": "5.56x45mm SSA AP",
+        "shortName": "SSA AP"
+      }
+    },
+    {
+      "caliber": "Caliber762x39",
+      "weight": 0.015,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 53,
+      "armorDamage": 76,
+      "fragmentationChance": 0.05,
+      "penetrationPower": 58,
+      "initialSpeed": 875,
+      "projectileCount": 1,
+      "item": {
+        "id": "601aa3d2b2bcb34913271e6d",
+        "name": "7.62x39mm MAI AP",
+        "shortName": "MAI AP"
+      }
+    },
+    {
+      "caliber": "Caliber545x39",
+      "weight": 0.011,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 55,
+      "armorDamage": 45,
+      "fragmentationChance": 0.02,
+      "penetrationPower": 42,
+      "initialSpeed": 915,
+      "projectileCount": 1,
+      "item": {
+        "id": "61962b617c6c7b169525f168",
+        "name": "5.45x39mm 7N40",
+        "shortName": "7N40"
+      }
+    },
+    {
+      "caliber": "Caliber9x39",
+      "weight": 0.024,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 62,
+      "armorDamage": 57,
+      "fragmentationChance": 0.1,
+      "penetrationPower": 43,
+      "initialSpeed": 320,
+      "projectileCount": 1,
+      "item": {
+        "id": "61962d879bb3d20b0946d385",
+        "name": "9x39mm PAB-9 gs",
+        "shortName": "PAB-9"
+      }
+    },
+    {
+      "caliber": "Caliber762x35",
+      "weight": 0.015,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 72,
+      "armorDamage": 25,
+      "fragmentationChance": 0.25,
+      "penetrationPower": 20,
+      "initialSpeed": 723,
+      "projectileCount": 1,
+      "item": {
+        "id": "6196364158ef8c428c287d9f",
+        "name": ".300 Blackout V-Max",
+        "shortName": "V-Max"
+      }
+    },
+    {
+      "caliber": "Caliber762x35",
+      "weight": 0.015,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 90,
+      "armorDamage": 18,
+      "fragmentationChance": 0.35,
+      "penetrationPower": 14,
+      "initialSpeed": 853,
+      "projectileCount": 1,
+      "item": {
+        "id": "6196365d58ef8c428c287da1",
+        "name": ".300 Whisper",
+        "shortName": "Whisper"
+      }
+    },
+    {
+      "caliber": "Caliber762x35",
+      "weight": 0.016,
+      "tracer": true,
+      "tracerColor": "red",
+      "damage": 54,
+      "armorDamage": 40,
+      "fragmentationChance": 0.2,
+      "penetrationPower": 36,
+      "initialSpeed": 442,
+      "projectileCount": 1,
+      "item": {
+        "id": "619636be6db0f2477964e710",
+        "name": ".300 Blackout M62 Tracer",
+        "shortName": "M62"
+      }
+    },
+    {
+      "caliber": "Caliber9x33R",
+      "weight": 0.016,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 70,
+      "armorDamage": 43,
+      "fragmentationChance": 0.01,
+      "penetrationPower": 35,
+      "initialSpeed": 385,
+      "projectileCount": 1,
+      "item": {
+        "id": "62330b3ed4dc74626d570b95",
+        "name": ".357 Magnum FMJ",
+        "shortName": "FMJ"
+      }
+    },
+    {
+      "caliber": "Caliber9x33R",
+      "weight": 0.016,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 99,
+      "armorDamage": 20,
+      "fragmentationChance": 0.6,
+      "penetrationPower": 18,
+      "initialSpeed": 481,
+      "projectileCount": 1,
+      "item": {
+        "id": "62330bfadc5883093563729b",
+        "name": ".357 Magnum HP",
+        "shortName": "HP"
+      }
+    },
+    {
+      "caliber": "Caliber9x33R",
+      "weight": 0.016,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 88,
+      "armorDamage": 28,
+      "fragmentationChance": 0.6,
+      "penetrationPower": 24,
+      "initialSpeed": 425,
+      "projectileCount": 1,
+      "item": {
+        "id": "62330c18744e5e31df12f516",
+        "name": ".357 Magnum JHP",
+        "shortName": "JHP"
+      }
+    },
+    {
+      "caliber": "Caliber9x33R",
+      "weight": 0.015,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 108,
+      "armorDamage": 15,
+      "fragmentationChance": 0.2,
+      "penetrationPower": 12,
+      "initialSpeed": 455,
+      "projectileCount": 1,
+      "item": {
+        "id": "62330c40bdd19b369e1e53d1",
+        "name": ".357 Magnum SP",
+        "shortName": "SP"
+      }
+    },
+    {
+      "caliber": "Caliber26x75",
+      "weight": 0.043,
+      "tracer": true,
+      "tracerColor": "yellow",
+      "damage": 37,
+      "armorDamage": 60,
+      "fragmentationChance": 0,
+      "penetrationPower": 0,
+      "initialSpeed": 80,
+      "projectileCount": 1,
+      "item": {
+        "id": "62389aaba63f32501b1b444f",
+        "name": "26x75mm flare cartridge (Green)",
+        "shortName": "Green"
+      }
+    },
+    {
+      "caliber": "Caliber26x75",
+      "weight": 0.042,
+      "tracer": true,
+      "tracerColor": "yellow",
+      "damage": 37,
+      "armorDamage": 60,
+      "fragmentationChance": 0,
+      "penetrationPower": 0,
+      "initialSpeed": 80,
+      "projectileCount": 1,
+      "item": {
+        "id": "62389ba9a63f32501b1b4451",
+        "name": "26x75mm flare cartridge (Red)",
+        "shortName": "Red"
+      }
+    },
+    {
+      "caliber": "Caliber26x75",
+      "weight": 0.055,
+      "tracer": true,
+      "tracerColor": "yellow",
+      "damage": 37,
+      "armorDamage": 60,
+      "fragmentationChance": 0,
+      "penetrationPower": 0,
+      "initialSpeed": 80,
+      "projectileCount": 1,
+      "item": {
+        "id": "62389bc9423ed1685422dc57",
+        "name": "26x75mm flare cartridge (White)",
+        "shortName": "Flare"
+      }
+    },
+    {
+      "caliber": "Caliber26x75",
+      "weight": 0.05,
+      "tracer": true,
+      "tracerColor": "yellow",
+      "damage": 37,
+      "armorDamage": 60,
+      "fragmentationChance": 0,
+      "penetrationPower": 0,
+      "initialSpeed": 80,
+      "projectileCount": 1,
+      "item": {
+        "id": "62389be94d5d474bf712e709",
+        "name": "26x75mm flare cartridge (Yellow)",
+        "shortName": "Yellow"
+      }
+    },
+    {
+      "caliber": "Caliber26x75",
+      "weight": 0.043,
+      "tracer": true,
+      "tracerColor": "yellow",
+      "damage": 37,
+      "armorDamage": 60,
+      "fragmentationChance": 0,
+      "penetrationPower": 0,
+      "initialSpeed": 80,
+      "projectileCount": 1,
+      "item": {
+        "id": "635267f063651329f75a4ee8",
+        "name": "26x75mm flare cartridge (Acid Green)",
+        "shortName": "AG"
+      }
+    },
+    {
+      "caliber": "Caliber46x30",
+      "weight": 0.007,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 46,
+      "armorDamage": 37,
+      "fragmentationChance": 0.3,
+      "penetrationPower": 32,
+      "initialSpeed": 579,
+      "projectileCount": 1,
+      "item": {
+        "id": "64b6979341772715af0f9c39",
+        "name": "4.6x30mm JSP SX",
+        "shortName": "JSP SX"
+      }
+    },
+    {
+      "caliber": "Caliber762x39",
+      "weight": 0.016,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 59,
+      "armorDamage": 57,
+      "fragmentationChance": 0.15,
+      "penetrationPower": 41,
+      "initialSpeed": 732,
+      "projectileCount": 1,
+      "item": {
+        "id": "64b7af434b75259c590fa893",
+        "name": "7.62x39mm PP gzh",
+        "shortName": "PP"
+      }
+    },
+    {
+      "caliber": "Caliber762x39",
+      "weight": 0.012,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 63,
+      "armorDamage": 33,
+      "fragmentationChance": 0.3,
+      "penetrationPower": 26,
+      "initialSpeed": 775,
+      "projectileCount": 1,
+      "item": {
+        "id": "64b7af5a8532cf95ee0a0dbd",
+        "name": "7.62x39mm FMJ",
+        "shortName": "FMJ"
+      }
+    },
+    {
+      "caliber": "Caliber762x39",
+      "weight": 0.012,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 68,
+      "armorDamage": 27,
+      "fragmentationChance": 0.35,
+      "penetrationPower": 20,
+      "initialSpeed": 772,
+      "projectileCount": 1,
+      "item": {
+        "id": "64b7af734b75259c590fa895",
+        "name": "7.62x39mm SP",
+        "shortName": "SP"
+      }
+    },
+    {
+      "caliber": "Caliber9x19PARA",
+      "weight": 0.005,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 56,
+      "armorDamage": 35,
+      "fragmentationChance": 0.2,
+      "penetrationPower": 18,
+      "initialSpeed": 385,
+      "projectileCount": 1,
+      "item": {
+        "id": "64b7bbb74b75259c590fa897",
+        "name": "9x19mm FMJ M882",
+        "shortName": "M882"
+      }
+    },
+    {
+      "caliber": "Caliber762x35",
+      "weight": 0.015,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 58,
+      "armorDamage": 57,
+      "fragmentationChance": 0.15,
+      "penetrationPower": 43,
+      "initialSpeed": 725,
+      "projectileCount": 1,
+      "item": {
+        "id": "64b8725c4b75259c590fa899",
+        "name": ".300 Blackout CBJ",
+        "shortName": "CBJ"
+      }
+    },
+    {
+      "caliber": "Caliber12g",
+      "weight": 0.05,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 25,
+      "armorDamage": 22,
+      "fragmentationChance": 0,
+      "penetrationPower": 24,
+      "initialSpeed": 310,
+      "projectileCount": 10,
+      "item": {
+        "id": "64b8ee384b75259c590fa89b",
+        "name": "12/70 Piranha",
+        "shortName": "Piranha"
+      }
+    },
+    {
+      "caliber": "Caliber762x54R",
+      "weight": 0.024,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 84,
+      "armorDamage": 63,
+      "fragmentationChance": 0.2,
+      "penetrationPower": 36,
+      "initialSpeed": 760,
+      "projectileCount": 1,
+      "item": {
+        "id": "64b8f7968532cf95ee0a0dbf",
+        "name": "7.62x54mm R FMJ",
+        "shortName": "FMJ"
+      }
+    },
+    {
+      "caliber": "Caliber762x54R",
+      "weight": 0.024,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 92,
+      "armorDamage": 56,
+      "fragmentationChance": 0.24,
+      "penetrationPower": 31,
+      "initialSpeed": 703,
+      "projectileCount": 1,
+      "item": {
+        "id": "64b8f7b5389d7ffd620ccba2",
+        "name": "7.62x54mm R SP BT",
+        "shortName": "SP BT"
+      }
+    },
+    {
+      "caliber": "Caliber762x54R",
+      "weight": 0.024,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 102,
+      "armorDamage": 37,
+      "fragmentationChance": 0.4,
+      "penetrationPower": 26,
+      "initialSpeed": 807,
+      "projectileCount": 1,
+      "item": {
+        "id": "64b8f7c241772715af0f9c3d",
+        "name": "7.62x54mm R HP BT",
+        "shortName": "HP BT"
+      }
+    },
+    {
+      "caliber": "Caliber68x51",
+      "weight": 0.024,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 72,
+      "armorDamage": 58,
+      "fragmentationChance": 0.12,
+      "penetrationPower": 47,
+      "initialSpeed": 914,
+      "projectileCount": 1,
+      "item": {
+        "id": "6529243824cbe3c74a05e5c1",
+        "name": "6.8x51mm SIG Hybrid",
+        "shortName": "Hybrid"
+      }
+    },
+    {
+      "caliber": "Caliber68x51",
+      "weight": 0.024,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 80,
+      "armorDamage": 49,
+      "fragmentationChance": 0.18,
+      "penetrationPower": 36,
+      "initialSpeed": 899,
+      "projectileCount": 1,
+      "item": {
+        "id": "6529302b8c26af6326029fb7",
+        "name": "6.8x51mm SIG FMJ",
+        "shortName": "FMJ"
+      }
+    },
+    {
+      "caliber": "Caliber9x21",
+      "weight": 0.011,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 49,
+      "armorDamage": 47,
+      "fragmentationChance": 0.1,
+      "penetrationPower": 38,
+      "initialSpeed": 400,
+      "projectileCount": 1,
+      "item": {
+        "id": "6576f4708ca9c4381d16cd9d",
+        "name": "9x21mm 7N42 Zubilo",
+        "shortName": "7N42"
+      }
+    },
+    {
+      "caliber": "Caliber9x21",
+      "weight": 0.015,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 53,
+      "armorDamage": 44,
+      "fragmentationChance": 0.25,
+      "penetrationPower": 27,
+      "initialSpeed": 300,
+      "projectileCount": 1,
+      "item": {
+        "id": "6576f93989f0062e741ba952",
+        "name": "9x21mm 7U4",
+        "shortName": "7U4"
+      }
+    },
+    {
+      "caliber": "Caliber9x39",
+      "weight": 0.023,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 75,
+      "armorDamage": 28,
+      "fragmentationChance": 0.3,
+      "penetrationPower": 17,
+      "initialSpeed": 330,
+      "projectileCount": 1,
+      "item": {
+        "id": "6576f96220d53a5b8f3e395e",
+        "name": "9x39mm FMJ",
+        "shortName": "FMJ"
+      }
+    },
+    {
+      "caliber": "Caliber20g",
+      "weight": 0.04,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 155,
+      "armorDamage": 54,
+      "fragmentationChance": 0.02,
+      "penetrationPower": 30,
+      "initialSpeed": 482,
+      "projectileCount": 1,
+      "item": {
+        "id": "660137d8481cc6907a0c5cda",
+        "name": "20/70 TSS Armor Piercing Slug",
+        "shortName": "TSS AP"
+      }
+    },
+    {
+      "caliber": "Caliber20g",
+      "weight": 0.038,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 143,
+      "armorDamage": 47,
+      "fragmentationChance": 0.03,
+      "penetrationPower": 25,
+      "initialSpeed": 476,
+      "projectileCount": 1,
+      "item": {
+        "id": "660137ef76c1b56143052be8",
+        "name": "20/70 Dangerous Game Slug",
+        "shortName": "DGS"
+      }
+    },
+    {
+      "caliber": "Caliber20g",
+      "weight": 0.035,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 20,
+      "armorDamage": 24,
+      "fragmentationChance": 0,
+      "penetrationPower": 24,
+      "initialSpeed": 400,
+      "projectileCount": 8,
+      "item": {
+        "id": "6601380580e77cfd080e3418",
+        "name": "20/70 flechette",
+        "shortName": "Flechette"
+      }
+    },
+    {
+      "caliber": "Caliber20x1mm",
+      "weight": 0.001,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 1,
+      "armorDamage": 0,
+      "fragmentationChance": 0,
+      "penetrationPower": 0,
+      "initialSpeed": 20,
+      "projectileCount": 1,
+      "item": {
+        "id": "6601546f86889319850bd566",
+        "name": "20x1mm disk",
+        "shortName": "Disk"
+      }
+    },
+    {
+      "caliber": "Caliber127x33",
+      "weight": 0.028,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 85,
+      "armorDamage": 50,
+      "fragmentationChance": 0.01,
+      "penetrationPower": 40,
+      "initialSpeed": 440,
+      "projectileCount": 1,
+      "item": {
+        "id": "668fe62ac62660a5d8071446",
+        "name": ".50 AE FMJ",
+        "shortName": "FMJ"
+      }
+    },
+    {
+      "caliber": "Caliber127x33",
+      "weight": 0.029,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 147,
+      "armorDamage": 23,
+      "fragmentationChance": 0.7,
+      "penetrationPower": 12,
+      "initialSpeed": 440,
+      "projectileCount": 1,
+      "item": {
+        "id": "66a0d1c87d0d369e270bb9de",
+        "name": ".50 AE JHP",
+        "shortName": "JHP"
+      }
+    },
+    {
+      "caliber": "Caliber127x33",
+      "weight": 0.035,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 94,
+      "armorDamage": 56,
+      "fragmentationChance": 0.3,
+      "penetrationPower": 33,
+      "initialSpeed": 460,
+      "projectileCount": 1,
+      "item": {
+        "id": "66a0d1e0ed648d72fe064d06",
+        "name": ".50 AE Copper Solid",
+        "shortName": "Copper"
+      }
+    },
+    {
+      "caliber": "Caliber127x33",
+      "weight": 0.038,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 122,
+      "armorDamage": 28,
+      "fragmentationChance": 0.3,
+      "penetrationPower": 26,
+      "initialSpeed": 465,
+      "projectileCount": 1,
+      "item": {
+        "id": "66a0d1f88486c69fce00fdf6",
+        "name": ".50 AE Hawk JSP",
+        "shortName": "Hawk JSP"
+      }
+    },
+    {
+      "caliber": "Caliber26x75",
+      "weight": 0.063,
+      "tracer": true,
+      "tracerColor": "yellow",
+      "damage": 40,
+      "armorDamage": 60,
+      "fragmentationChance": 0,
+      "penetrationPower": 0,
+      "initialSpeed": 80,
+      "projectileCount": 1,
+      "item": {
+        "id": "66d97834d2985e11480d5c1e",
+        "name": "Signal flare (Blue)",
+        "shortName": "Signal flare (Blue)"
+      }
+    },
+    {
+      "caliber": "Caliber26x75",
+      "weight": 0.063,
+      "tracer": true,
+      "tracerColor": "yellow",
+      "damage": 40,
+      "armorDamage": 60,
+      "fragmentationChance": 0,
+      "penetrationPower": 0,
+      "initialSpeed": 80,
+      "projectileCount": 1,
+      "item": {
+        "id": "675ea4891b2579e8fe0250aa",
+        "name": "Signal flare (New Year)",
+        "shortName": "Signal flare (New Year)"
+      }
+    },
+    {
+      "caliber": "Caliber762x51",
+      "weight": 0.022,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 75,
+      "armorDamage": 74,
+      "fragmentationChance": 0.13,
+      "penetrationPower": 55,
+      "initialSpeed": 929,
+      "projectileCount": 1,
+      "item": {
+        "id": "6768c25aa7b238f14a08d3f6",
+        "name": "7.62x51mm M80A1",
+        "shortName": "M80A1"
+      }
+    },
+    {
+      "caliber": "Caliber784x49",
+      "weight": 0.024,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 80,
+      "armorDamage": 78,
+      "fragmentationChance": 0.1,
+      "penetrationPower": 42,
+      "initialSpeed": 838,
+      "projectileCount": 1,
+      "item": {
+        "id": "67c540c3d0538d12ec036c08",
+        "name": ".308 ME",
+        "shortName": "ME"
+      }
+    },
+    {
+      "caliber": "Caliber784x49",
+      "weight": 0.024,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 96,
+      "armorDamage": 55,
+      "fragmentationChance": 0.35,
+      "penetrationPower": 24,
+      "initialSpeed": 838,
+      "projectileCount": 1,
+      "item": {
+        "id": "67c540cfb032bbdb530201b8",
+        "name": ".308 ME LOKT",
+        "shortName": "LOKT"
+      }
+    },
+    {
+      "caliber": "Caliber127x99",
+      "weight": 0.114,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 260,
+      "armorDamage": 22,
+      "fragmentationChance": 0.12,
+      "penetrationPower": 34,
+      "initialSpeed": 880,
+      "projectileCount": 1,
+      "item": {
+        "id": "67d41936f378a36c4706eeb9",
+        "name": ".50 BMG HP",
+        "shortName": "HP"
+      }
+    },
+    {
+      "caliber": "Caliber127x99",
+      "weight": 0.121,
+      "tracer": true,
+      "tracerColor": "red",
+      "damage": 220,
+      "armorDamage": 55,
+      "fragmentationChance": 0.07,
+      "penetrationPower": 45,
+      "initialSpeed": 867,
+      "projectileCount": 1,
+      "item": {
+        "id": "67dc212493ce32834b0fa446",
+        "name": ".50 BMG M21",
+        "shortName": "M21"
+      }
+    },
+    {
+      "caliber": "Caliber127x99",
+      "weight": 0.107,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 190,
+      "armorDamage": 85,
+      "fragmentationChance": 0.05,
+      "penetrationPower": 56,
+      "initialSpeed": 887,
+      "projectileCount": 1,
+      "item": {
+        "id": "67dc255ee3028a8b120efc48",
+        "name": ".50 BMG M33",
+        "shortName": "M33"
+      }
+    },
+    {
+      "caliber": "Caliber127x99",
+      "weight": 0.103,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 160,
+      "armorDamage": 90,
+      "fragmentationChance": 0.01,
+      "penetrationPower": 115,
+      "initialSpeed": 1220,
+      "projectileCount": 1,
+      "item": {
+        "id": "67dc2648ba5b79876906a166",
+        "name": ".50 BMG M903 SLAP",
+        "shortName": "M903"
+      }
+    },
+    {
+      "caliber": "Caliber93x64",
+      "weight": 0.039,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 129,
+      "armorDamage": 55,
+      "fragmentationChance": 0.5,
+      "penetrationPower": 37,
+      "initialSpeed": 697,
+      "projectileCount": 1,
+      "item": {
+        "id": "68aeed8a8906b00bc800fdd6",
+        "name": "9.3x64mm SP",
+        "shortName": "SP"
+      }
+    },
+    {
+      "caliber": "Caliber93x64",
+      "weight": 0.042,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 115,
+      "armorDamage": 55,
+      "fragmentationChance": 0.5,
+      "penetrationPower": 44,
+      "initialSpeed": 793,
+      "projectileCount": 1,
+      "item": {
+        "id": "68bac6ca653ee6b1e406d978",
+        "name": "9.3x64mm FMJ",
+        "shortName": "FMJ"
+      }
+    },
+    {
+      "caliber": "Caliber93x64",
+      "weight": 0.04,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 108,
+      "armorDamage": 55,
+      "fragmentationChance": 0.5,
+      "penetrationPower": 56,
+      "initialSpeed": 790,
+      "projectileCount": 1,
+      "item": {
+        "id": "68bad8376cb22acf1107a586",
+        "name": "9.3x64mm 7N33",
+        "shortName": "7N33"
+      }
+    },
+    {
+      "caliber": "Caliber762x25TT",
+      "weight": 0.013,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 34,
+      "armorDamage": 33,
+      "fragmentationChance": 0.02,
+      "penetrationPower": 31,
+      "initialSpeed": 900,
+      "projectileCount": 1,
+      "item": {
+        "id": "68c15a033173b556890b5959",
+        "name": "7.62x25mm TT M855A1",
+        "shortName": "TT 855A1"
+      }
+    },
+    {
+      "caliber": "Caliber762x25TT",
+      "weight": 0.0132,
+      "tracer": true,
+      "tracerColor": "red",
+      "damage": 36,
+      "armorDamage": 31,
+      "fragmentationChance": 0.08,
+      "penetrationPower": 27,
+      "initialSpeed": 900,
+      "projectileCount": 1,
+      "item": {
+        "id": "68c15b4bb30038a118088bd6",
+        "name": "7.62x25mm TT M856A1",
+        "shortName": "TT 856A1"
+      }
+    },
+    {
+      "caliber": "Caliber762x25TT",
+      "weight": 0.014,
+      "tracer": false,
+      "tracerColor": "red",
+      "damage": 32,
+      "armorDamage": 36,
+      "fragmentationChance": 0.25,
+      "penetrationPower": 37,
+      "initialSpeed": 940,
+      "projectileCount": 1,
+      "item": {
+        "id": "68c15f77ed3d7df9220debd6",
+        "name": "7.62x25mm TT M995",
+        "shortName": "TT 995"
+      }
+    }
+  ]
+}

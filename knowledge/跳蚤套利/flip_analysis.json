@@ -1,0 +1,1374 @@
+{
+  "direct_flips": [],
+  "barter_arb": [
+    {
+      "trader": "Jaeger",
+      "loyalty": 4,
+      "item": "weapon_sog_voodoo_hawk",
+      "materials_cost": 2686279,
+      "sell": 4239814,
+      "profit": 1553535,
+      "margin": 57.8322281490493,
+      "requires": [
+        "weapon_sp-8 x1",
+        "weapon_izhmash_6x5 x1",
+        "weapon_crash_axe x1"
+      ],
+      "cash": 0
+    },
+    {
+      "trader": "Mechanic",
+      "loyalty": 4,
+      "item": "item_container_weaponcase",
+      "materials_cost": 1226741,
+      "sell": 1641857,
+      "profit": 415116,
+      "margin": 33.838927695414114,
+      "requires": [
+        "item_barter_electr_engine x8",
+        "item_barter_electr_wires x15",
+        "item_barter_electr_lcd_Dirt x4",
+        "item_barter_electr_phaseantenna x1"
+      ],
+      "cash": 0
+    },
+    {
+      "trader": "Skier",
+      "loyalty": 4,
+      "item": "weapon_miller_bros_m-2",
+      "materials_cost": 685716,
+      "sell": 1075553,
+      "profit": 389837,
+      "margin": 56.85108703894907,
+      "requires": [
+        "Item_barter_electr_wirelesstranmitter x2",
+        "milbase kpp x1",
+        "item_barter_valuable_prokill x2",
+        "item_barter_electr_phaseantenna x2"
+      ],
+      "cash": 0
+    },
+    {
+      "trader": "Therapist",
+      "loyalty": 4,
+      "item": "item_container_money",
+      "materials_cost": 386198,
+      "sell": 547008,
+      "profit": 160810,
+      "margin": 41.63926276158861,
+      "requires": [
+        "chain_gold x5",
+        "item_barter_valuable_rolex x2",
+        "item_barter_valuable_skullring x2"
+      ],
+      "cash": 0
+    },
+    {
+      "trader": "Peacekeeper",
+      "loyalty": 4,
+      "item": "weapon_colt_m4a1_556x45",
+      "materials_cost": 50671,
+      "sell": 132725,
+      "profit": 82054,
+      "margin": 161.93483452073178,
+      "requires": [
+        "CPU x3",
+        "cooler_fan x1"
+      ],
+      "cash": 0
+    },
+    {
+      "trader": "Mechanic",
+      "loyalty": 4,
+      "item": "weapon_izhmash_mosin_rifle_762x54",
+      "materials_cost": 8912,
+      "sell": 90215,
+      "profit": 81303,
+      "margin": 912.2868043087971,
+      "requires": [
+        "stock_mosin_izhmash_mosin_carabine_sniper_cut_wood x1",
+        "barrel_mosin_izhmash_mosin_std_730mm x1",
+        "cigarettes_wilston x1"
+      ],
+      "cash": 0
+    },
+    {
+      "trader": "Prapor",
+      "loyalty": 4,
+      "item": "weapon_izhmash_akm_762x39",
+      "materials_cost": 66768,
+      "sell": 134538,
+      "profit": 67770,
+      "margin": 101.50071890726096,
+      "requires": [
+        "canned_beef x3"
+      ],
+      "cash": 0
+    },
+    {
+      "trader": "Mechanic",
+      "loyalty": 4,
+      "item": "weapon_colt_m4a1_556x45",
+      "materials_cost": 74340,
+      "sell": 132725,
+      "profit": 58385,
+      "margin": 78.53779930051117,
+      "requires": [
+        "Item_barter_electr_adv_controller x1",
+        "item_barter_electr_thermalmodule x1"
+      ],
+      "cash": 0
+    },
+    {
+      "trader": "Skier",
+      "loyalty": 4,
+      "item": "weapon_sig_mcx_gen1_762x35",
+      "materials_cost": 84683,
+      "sell": 139755,
+      "profit": 55072,
+      "margin": 65.03312353128727,
+      "requires": [
+        "item_barter_electr_gphonex x1",
+        "item_barter_valuable_1gphone x1",
+        "phone x2"
+      ],
+      "cash": 0
+    },
+    {
+      "trader": "Mechanic",
+      "loyalty": 4,
+      "item": "weapon_dsa_sa58_762x51",
+      "materials_cost": 72628,
+      "sell": 125343,
+      "profit": 52715,
+      "margin": 72.58219970259404,
+      "requires": [
+        "item_barter_electr_lens x2",
+        "item_barter_ratkiller x1"
+      ],
+      "cash": 0
+    },
+    {
+      "trader": "Ragman",
+      "loyalty": 4,
+      "item": "item_equipment_armor_6b3",
+      "materials_cost": 57268,
+      "sell": 104866,
+      "profit": 47598,
+      "margin": 83.11447929035413,
+      "requires": [
+        "chain x3",
+        "item_quest_barter_valuable_teapot x1"
+      ],
+      "cash": 0
+    },
+    {
+      "trader": "Mechanic",
+      "loyalty": 4,
+      "item": "mount_m14_ultimak_m8_forward_optic_mount",
+      "materials_cost": 65133,
+      "sell": 108050,
+      "profit": 42917,
+      "margin": 65.89133004774845,
+      "requires": [
+        "item_barter_electr_modem x3"
+      ],
+      "cash": 0
+    },
+    {
+      "trader": "Skier",
+      "loyalty": 4,
+      "item": "item_equipment_plate_SAPI_KibaArms_Titan_4class_frontback",
+      "materials_cost": 20210,
+      "sell": 61817,
+      "profit": 41607,
+      "margin": 205.8733300346363,
+      "requires": [
+        "cigarettes_strike x2"
+      ],
+      "cash": 0
+    },
+    {
+      "trader": "Peacekeeper",
+      "loyalty": 4,
+      "item": "weapon_hk_mp7a2_46x30",
+      "materials_cost": 53470,
+      "sell": 94755,
+      "profit": 41285,
+      "margin": 77.21152047877314,
+      "requires": [
+        "item_barter_electr_gphonex x1",
+        "item_barter_energy_powerbank x1"
+      ],
+      "cash": 0
+    },
+    {
+      "trader": "Jaeger",
+      "loyalty": 4,
+      "item": "weapon_izhmeh_mr133_12g",
+      "materials_cost": 21083,
+      "sell": 53741,
+      "profit": 32658,
+      "margin": 154.90205378741166,
+      "requires": [
+        "item_barter_other_grechka x1"
+      ],
+      "cash": 0
+    },
+    {
+      "trader": "Mechanic",
+      "loyalty": 4,
+      "item": "pistolgrip_val_rotor_43_tube_adapter",
+      "materials_cost": 42251,
+      "sell": 70717,
+      "profit": 28466,
+      "margin": 67.37355328867956,
+      "requires": [
+        "drink_milk x1"
+      ],
+      "cash": 0
+    },
+    {
+      "trader": "Jaeger",
+      "loyalty": 4,
+      "item": "pistolgrip_ax_gtac_ax_pistol_grip_adapter_pb",
+      "materials_cost": 23942,
+      "sell": 51938,
+      "profit": 27996,
+      "margin": 116.93258708545653,
+      "requires": [
+        "item_food_snacker_beef x1"
+      ],
+      "cash": 0
+    },
+    {
+      "trader": "Jaeger",
+      "loyalty": 4,
+      "item": "scope_all_torrey_pines_logic_t12_w_30hz",
+      "materials_cost": 28878,
+      "sell": 55676,
+      "profit": 26798,
+      "margin": 92.79728513054921,
+      "requires": [
+        "item_drink_beer x1"
+      ],
+      "cash": 0
+    },
+    {
+      "trader": "Ragman",
+      "loyalty": 4,
+      "item": "armor_gjel",
+      "materials_cost": 77108,
+      "sell": 102697,
+      "profit": 25589,
+      "margin": 33.185921045805884,
+      "requires": [
+        "chain_gold x1",
+        "item_barter_other_coffee x2"
+      ],
+      "cash": 0
+    },
+    {
+      "trader": "Mechanic",
+      "loyalty": 4,
+      "item": "muzzle_all_yankee_hill_anihilator_flash_hider_multi",
+      "materials_cost": 45513,
+      "sell": 69999,
+      "profit": 24486,
+      "margin": 53.8000131830466,
+      "requires": [
+        "Item_barter_flammable_trotil x1"
+      ],
+      "cash": 0
+    },
+    {
+      "trader": "Mechanic",
+      "loyalty": 4,
+      "item": "handguard_ar15_dd_ris_ii_fsp_9,5",
+      "materials_cost": 9146,
+      "sell": 33411,
+      "profit": 24265,
+      "margin": 265.3072381368904,
+      "requires": [
+        "cooler_fan x2"
+      ],
+      "cash": 0
+    },
+    {
+      "trader": "Skier",
+      "loyalty": 4,
+      "item": "pistolgrip_ar15_tactical_dynamics_skeletonized_anodized",
+      "materials_cost": 70505,
+      "sell": 93298,
+      "profit": 22793,
+      "margin": 32.32820367349834,
+      "requires": [
+        "chain x3",
+        "item_quest_barter_valuable_vase x1"
+      ],
+      "cash": 0
+    },
+    {
+      "trader": "Jaeger",
+      "loyalty": 4,
+      "item": "AMK_Grizzly",
+      "materials_cost": 49839,
+      "sell": 72046,
+      "profit": 22207,
+      "margin": 44.55747506972451,
+      "requires": [
+        "item_food_sausage x1",
+        "Army breadsticks x1"
+      ],
+      "cash": 0
+    },
+    {
+      "trader": "Ragman",
+      "loyalty": 4,
+      "item": "item_equipment_armor_kora_kulon_black",
+      "materials_cost": 32343,
+      "sell": 54495,
+      "profit": 22152,
+      "margin": 68.49086355625637,
+      "requires": [
+        "item_barter_valuable_raven x1"
+      ],
+      "cash": 0
+    },
+    {
+      "trader": "Jaeger",
+      "loyalty": 4,
+      "item": "survival_first_aid_rollup_kit",
+      "materials_cost": 44231,
+      "sell": 66070,
+      "profit": 21839,
+      "margin": 49.37487282675047,
+      "requires": [
+        "item_quest_barter_valuable_vase x1"
+      ],
+      "cash": 0
+    },
+    {
+      "trader": "Peacekeeper",
+      "loyalty": 4,
+      "item": "barrel_416_hk_279mm_556x45",
+      "materials_cost": 8714,
+      "sell": 29190,
+      "profit": 20476,
+      "margin": 234.97819600642643,
+      "requires": [
+        "item_barter_building_hose x1"
+      ],
+      "cash": 0
+    },
+    {
+      "trader": "Mechanic",
+      "loyalty": 4,
+      "item": "item_electr_gasanalyzer",
+      "materials_cost": 4573,
+      "sell": 24836,
+      "profit": 20263,
+      "margin": 443.100809096873,
+      "requires": [
+        "cooler_fan x1"
+      ],
+      "cash": 0
+    },
+    {
+      "trader": "Peacekeeper",
+      "loyalty": 4,
+      "item": "muzzle_ar15_ferfrans_muzzle_brake_556x45",
+      "materials_cost": 5051,
+      "sell": 24948,
+      "profit": 19897,
+      "margin": 393.92199564442683,
+      "requires": [
+        "item_barter_household_wd40_100ml x1"
+      ],
+      "cash": 0
+    },
+    {
+      "trader": "Mechanic",
+      "loyalty": 4,
+      "item": "reciever_p226_sig_stainless_elite",
+      "materials_cost": 23155,
+      "sell": 43009,
+      "profit": 19854,
+      "margin": 85.74389980565753,
+      "requires": [
+        "item_tools_pliers x1"
+      ],
+      "cash": 0
+    },
+    {
+      "trader": "Mechanic",
+      "loyalty": 4,
+      "item": "weapon_molot_op_sks_762x39",
+      "materials_cost": 47667,
+      "sell": 67362,
+      "profit": 19695,
+      "margin": 41.317892881867955,
+      "requires": [
+        "item_barter_other_weaponparts x3"
+      ],
+      "cash": 0
+    }
+  ],
+  "crafts": [
+    {
+      "area": "工作台",
+      "area_level": 0,
+      "out_item": "67600929bd0a0549d70993f6",
+      "out_name": "item_container_plates_case",
+      "out_short": "",
+      "out_count": 1,
+      "out_value": 831309,
+      "in_cost": 110000,
+      "profit": 721309,
+      "profit_margin": 655.7354545454546,
+      "time_min": 291.8333333333333,
+      "required": [
+        {
+          "tpl": "5df8a77486f77412672a1e3f",
+          "name": "item_barter_valuable_nyball_violet",
+          "shortName": "",
+          "count": 13,
+          "unit_price": 0
+        },
+        {
+          "tpl": "5df8a72c86f77412640e2e83",
+          "name": "item_barter_valuable_nyball_silver",
+          "shortName": "",
+          "count": 20,
+          "unit_price": 0
+        },
+        {
+          "tpl": "67586c61a0c49554ed0bb4a8",
+          "name": "item_barter_household_tree_life_extender",
+          "shortName": "",
+          "count": 2,
+          "unit_price": 55000
+        }
+      ]
+    },
+    {
+      "area": "工作台",
+      "area_level": 0,
+      "out_item": "5c0530ee86f774697952d952",
+      "out_name": "Item_barter_medical_transilluminator",
+      "out_short": "",
+      "out_count": 1,
+      "out_value": 713371,
+      "in_cost": 165000,
+      "profit": 548371,
+      "profit_margin": 332.3460606060606,
+      "time_min": 208.33333333333334,
+      "required": [
+        {
+          "tpl": "5df8a72c86f77412640e2e83",
+          "name": "item_barter_valuable_nyball_silver",
+          "shortName": "",
+          "count": 30,
+          "unit_price": 0
+        },
+        {
+          "tpl": "5df8a77486f77412672a1e3f",
+          "name": "item_barter_valuable_nyball_violet",
+          "shortName": "",
+          "count": 2,
+          "unit_price": 0
+        },
+        {
+          "tpl": "67586c61a0c49554ed0bb4a8",
+          "name": "item_barter_household_tree_life_extender",
+          "shortName": "",
+          "count": 3,
+          "unit_price": 55000
+        }
+      ]
+    },
+    {
+      "area": "暖气",
+      "area_level": 0,
+      "out_item": "5c12613b86f7743bbe2c3f76",
+      "out_name": "item_info_intelligence",
+      "out_short": "",
+      "out_count": 1,
+      "out_value": 418264,
+      "in_cost": 292695,
+      "profit": 125569,
+      "profit_margin": 42.9009720015716,
+      "time_min": 1900.0,
+      "required": [
+        {
+          "tpl": "62a0a16d0b9d3c46de5b6e97",
+          "name": "item_barter_info_militaryflash",
+          "shortName": "",
+          "count": 2,
+          "unit_price": 125291
+        },
+        {
+          "tpl": "577e1c9d2459773cd707c525",
+          "name": "copy_paper",
+          "shortName": "",
+          "count": 1,
+          "unit_price": 42113
+        }
+      ]
+    },
+    {
+      "area": "工作台",
+      "area_level": 0,
+      "out_item": "67586bee39b1b82b0d0f9d06",
+      "out_name": "item_barter_flam_christmas_fuel",
+      "out_short": "",
+      "out_count": 4,
+      "out_value": 332620,
+      "in_cost": 227453,
+      "profit": 105167,
+      "profit_margin": 46.23680496630073,
+      "time_min": 266.6666666666667,
+      "required": [
+        {
+          "tpl": "5d40407c86f774318526545a",
+          "name": "item_food_vodka",
+          "shortName": "",
+          "count": 3,
+          "unit_price": 28981
+        },
+        {
+          "tpl": "5d403f9186f7743cac3f229b",
+          "name": "item_food_jack",
+          "shortName": "",
+          "count": 2,
+          "unit_price": 42755
+        },
+        {
+          "tpl": "67586c61a0c49554ed0bb4a8",
+          "name": "item_barter_household_tree_life_extender",
+          "shortName": "",
+          "count": 1,
+          "unit_price": 55000
+        }
+      ]
+    },
+    {
+      "area": "情报中心",
+      "area_level": 0,
+      "out_item": "5751496424597720a27126da",
+      "out_name": "hotrod",
+      "out_short": "",
+      "out_count": 20,
+      "out_value": 294540,
+      "in_cost": 199740,
+      "profit": 94800,
+      "profit_margin": 47.46170021027336,
+      "time_min": 720.0,
+      "required": [
+        {
+          "tpl": "5d1b33a686f7742523398398",
+          "name": "item_food_purewater",
+          "shortName": "",
+          "count": 1,
+          "unit_price": 83272
+        },
+        {
+          "tpl": "59e3577886f774176a362503",
+          "name": "item_food_sugar",
+          "shortName": "",
+          "count": 1,
+          "unit_price": 74840
+        },
+        {
+          "tpl": "5af0484c86f7740f02001f7f",
+          "name": "item_barter_other_coffee",
+          "shortName": "",
+          "count": 1,
+          "unit_price": 21840
+        },
+        {
+          "tpl": "5bc9be8fd4351e00334cae6e",
+          "name": "item_barter_other_tea",
+          "shortName": "",
+          "count": 1,
+          "unit_price": 19788
+        }
+      ]
+    },
+    {
+      "area": "卫生间",
+      "area_level": 0,
+      "out_item": "59d6088586f774275f37482f",
+      "out_name": "weapon_izhmash_akm_762x39",
+      "out_short": "",
+      "out_count": 1,
+      "out_value": 134538,
+      "in_cost": 50595,
+      "profit": 83943,
+      "profit_margin": 165.91165134894752,
+      "time_min": 85.0,
+      "required": [
+        {
+          "tpl": "59e6152586f77473dc057aa1",
+          "name": "weapon_molot_vepr_km_vpo_136_762x39",
+          "shortName": "",
+          "count": 1,
+          "unit_price": 50595
+        },
+        {
+          "tpl": "59d64fc686f774171b243fe2",
+          "name": "muzzle_ak_izhmash_akm_std_762x39",
+          "shortName": "",
+          "count": 1,
+          "unit_price": 0
+        }
+      ]
+    },
+    {
+      "area": "暖气",
+      "area_level": 0,
+      "out_item": "5c94bbff86f7747ee735c08f",
+      "out_name": "item_keycard_lab_single_use",
+      "out_short": "",
+      "out_count": 3,
+      "out_value": 500061,
+      "in_cost": 418264,
+      "profit": 81797,
+      "profit_margin": 19.556308934070348,
+      "time_min": 40.0,
+      "required": [
+        {
+          "tpl": "5c12613b86f7743bbe2c3f76",
+          "name": "item_info_intelligence",
+          "shortName": "",
+          "count": 1,
+          "unit_price": 418264
+        }
+      ]
+    },
+    {
+      "area": "卫生间",
+      "area_level": 0,
+      "out_item": "5c06782b86f77426df5407d2",
+      "out_name": "item_barter_electr_capacitors",
+      "out_short": "",
+      "out_count": 6,
+      "out_value": 94296,
+      "in_cost": 14023,
+      "profit": 80273,
+      "profit_margin": 572.4381373457891,
+      "time_min": 124.16666666666667,
+      "required": [
+        {
+          "tpl": "57347c2e24597744902c94a1",
+          "name": "power_supply_unit",
+          "shortName": "",
+          "count": 1,
+          "unit_price": 14023
+        }
+      ]
+    },
+    {
+      "area": "卫生间",
+      "area_level": 0,
+      "out_item": "5c0530ee86f774697952d952",
+      "out_name": "Item_barter_medical_transilluminator",
+      "out_short": "",
+      "out_count": 1,
+      "out_value": 713371,
+      "in_cost": 648242,
+      "profit": 65129,
+      "profit_margin": 10.047019477293974,
+      "time_min": 2000.0,
+      "required": [
+        {
+          "tpl": "5af0534a86f7743b6f354284",
+          "name": "item_barter_medical_diagset",
+          "shortName": "",
+          "count": 2,
+          "unit_price": 84982
+        },
+        {
+          "tpl": "590a391c86f774385a33c404",
+          "name": "item_barter_electr_magnet",
+          "shortName": "",
+          "count": 3,
+          "unit_price": 38233
+        },
+        {
+          "tpl": "5c052fb986f7746b2101e909",
+          "name": "Item_barter_electr_rfidreader",
+          "shortName": "",
+          "count": 3,
+          "unit_price": 92496
+        },
+        {
+          "tpl": "5af0561e86f7745f5f3ad6ac",
+          "name": "item_barter_energy_powerbank",
+          "shortName": "",
+          "count": 3,
+          "unit_price": 28697
+        },
+        {
+          "tpl": "6389c7750ef44505c87f5996",
+          "name": "Item_barter_electr_adv_controller",
+          "shortName": "",
+          "count": 1,
+          "unit_price": 0
+        }
+      ]
+    },
+    {
+      "area": "卫生间",
+      "area_level": 0,
+      "out_item": "5c06779c86f77426e00dd782",
+      "out_name": "item_barter_electr_wires",
+      "out_short": "",
+      "out_count": 8,
+      "out_value": 119208,
+      "in_cost": 56826,
+      "profit": 62382,
+      "profit_margin": 109.77721465526345,
+      "time_min": 118.33333333333333,
+      "required": [
+        {
+          "tpl": "59e36c6f86f774176c10a2a7",
+          "name": "item_barter_electr_powercord",
+          "shortName": "",
+          "count": 2,
+          "unit_price": 28413
+        }
+      ]
+    },
+    {
+      "area": "卫生间",
+      "area_level": 0,
+      "out_item": "5d6fc87386f77449db3db94e",
+      "out_name": "item_other_powder_red",
+      "out_short": "",
+      "out_count": 3,
+      "out_value": 157908,
+      "in_cost": 97520,
+      "profit": 60388,
+      "profit_margin": 61.92370795734209,
+      "time_min": 112.5,
+      "required": [
+        {
+          "tpl": "5d0379a886f77420407aa271",
+          "name": "item_barter_other_30mmround",
+          "shortName": "",
+          "count": 1,
+          "unit_price": 37216
+        },
+        {
+          "tpl": "590c5a7286f7747884343aea",
+          "name": "item_other_powder",
+          "shortName": "",
+          "count": 2,
+          "unit_price": 30152
+        }
+      ]
+    },
+    {
+      "area": "卫生间",
+      "area_level": 0,
+      "out_item": "590c5a7286f7747884343aea",
+      "out_name": "item_other_powder",
+      "out_short": "",
+      "out_count": 2,
+      "out_value": 60304,
+      "in_cost": 7080,
+      "profit": 53224,
+      "profit_margin": 751.7514124293785,
+      "time_min": 89.16666666666667,
+      "required": [
+        {
+          "tpl": "56dff216d2720bbd668b4568",
+          "name": "patron_545x39_HP",
+          "shortName": "",
+          "count": 120,
+          "unit_price": 59
+        }
+      ]
+    },
+    {
+      "area": "卫生间",
+      "area_level": 0,
+      "out_item": "5ac4cd105acfc40016339859",
+      "out_name": "weapon_izhmash_ak74m_545x39",
+      "out_short": "",
+      "out_count": 1,
+      "out_value": 66309,
+      "in_cost": 15889,
+      "profit": 50420,
+      "profit_margin": 317.3264522625716,
+      "time_min": 83.33333333333333,
+      "required": [
+        {
+          "tpl": "5d1c819a86f774771b0acd6c",
+          "name": "item_barter_other_weaponparts",
+          "shortName": "",
+          "count": 1,
+          "unit_price": 15889
+        },
+        {
+          "tpl": "5648b1504bdc2d9d488b4584",
+          "name": "handguard_ak_izhmash_ak74m_std_plastic",
+          "shortName": "",
+          "count": 1,
+          "unit_price": 0
+        },
+        {
+          "tpl": "5ac50c185acfc400163398d4",
+          "name": "stock_ak74m_izhmash_ak74m_std",
+          "shortName": "",
+          "count": 1,
+          "unit_price": 0
+        }
+      ]
+    },
+    {
+      "area": "卫生间",
+      "area_level": 0,
+      "out_item": "5d6fc87386f77449db3db94e",
+      "out_name": "item_other_powder_red",
+      "out_short": "",
+      "out_count": 3,
+      "out_value": 157908,
+      "in_cost": 107996,
+      "profit": 49912,
+      "profit_margin": 46.21652653801993,
+      "time_min": 35.833333333333336,
+      "required": [
+        {
+          "tpl": "590c5a7286f7747884343aea",
+          "name": "item_other_powder",
+          "shortName": "",
+          "count": 1,
+          "unit_price": 30152
+        },
+        {
+          "tpl": "5d6fc78386f77449d825f9dc",
+          "name": "item_other_powder_green",
+          "shortName": "",
+          "count": 1,
+          "unit_price": 55351
+        },
+        {
+          "tpl": "57347b8b24597737dd42e192",
+          "name": "matches",
+          "shortName": "",
+          "count": 1,
+          "unit_price": 22493
+        }
+      ]
+    },
+    {
+      "area": "卫生间",
+      "area_level": 0,
+      "out_item": "5d6fc78386f77449d825f9dc",
+      "out_name": "item_other_powder_green",
+      "out_short": "",
+      "out_count": 2,
+      "out_value": 110702,
+      "in_cost": 60920,
+      "profit": 49782,
+      "profit_margin": 81.71700590938936,
+      "time_min": 97.83333333333333,
+      "required": [
+        {
+          "tpl": "58d3db5386f77426186285a0",
+          "name": "weapon_grenade_m67",
+          "shortName": "",
+          "count": 2,
+          "unit_price": 23907
+        },
+        {
+          "tpl": "617aa4dd8166f034d57de9c5",
+          "name": "weapon_grenade_m18",
+          "shortName": "",
+          "count": 1,
+          "unit_price": 13106
+        }
+      ]
+    },
+    {
+      "area": "卫生间",
+      "area_level": 0,
+      "out_item": "5c0e531d86f7747fa23f4d42",
+      "out_name": "SJ6_TGLabs",
+      "out_short": "",
+      "out_count": 2,
+      "out_value": 208484,
+      "in_cost": 167953,
+      "profit": 40531,
+      "profit_margin": 24.132346549332254,
+      "time_min": 85.0,
+      "required": [
+        {
+          "tpl": "5c0e531286f7747fa54205c2",
+          "name": "SJ1_TGLabs",
+          "shortName": "",
+          "count": 1,
+          "unit_price": 58776
+        },
+        {
+          "tpl": "5d1b3a5d86f774252167ba22",
+          "name": "item_barter_medical_pile",
+          "shortName": "",
+          "count": 2,
+          "unit_price": 30186
+        },
+        {
+          "tpl": "59e3606886f77417674759a5",
+          "name": "item_barter_medical_nacl",
+          "shortName": "",
+          "count": 1,
+          "unit_price": 26859
+        },
+        {
+          "tpl": "62a0a043cf4a99369e2624a5",
+          "name": "item_barter_medical_vitamins",
+          "shortName": "",
+          "count": 1,
+          "unit_price": 21946
+        }
+      ]
+    },
+    {
+      "area": "情报中心",
+      "area_level": 0,
+      "out_item": "5448fee04bdc2dbc018b4567",
+      "out_name": "Water bottle 0.6",
+      "out_short": "",
+      "out_count": 8,
+      "out_value": 122840,
+      "in_cost": 83272,
+      "profit": 39568,
+      "profit_margin": 47.516572197137094,
+      "time_min": 110.83333333333333,
+      "required": [
+        {
+          "tpl": "5d1b33a686f7742523398398",
+          "name": "item_food_purewater",
+          "shortName": "",
+          "count": 1,
+          "unit_price": 83272
+        }
+      ]
+    },
+    {
+      "area": "工作台",
+      "area_level": 0,
+      "out_item": "674d6121c09f69dfb201a888",
+      "out_name": "weapon_aklys_defense_velociraptor_762x35",
+      "out_short": "",
+      "out_count": 1,
+      "out_value": 93762,
+      "in_cost": 55000,
+      "profit": 38762,
+      "profit_margin": 70.47636363636364,
+      "time_min": 99.16666666666667,
+      "required": [
+        {
+          "tpl": "5df8a72c86f77412640e2e83",
+          "name": "item_barter_valuable_nyball_silver",
+          "shortName": "",
+          "count": 1,
+          "unit_price": 0
+        },
+        {
+          "tpl": "5df8a6a186f77412640e2e80",
+          "name": "item_barter_valuable_nyball_red",
+          "shortName": "",
+          "count": 1,
+          "unit_price": 0
+        },
+        {
+          "tpl": "5df8a77486f77412672a1e3f",
+          "name": "item_barter_valuable_nyball_violet",
+          "shortName": "",
+          "count": 1,
+          "unit_price": 0
+        },
+        {
+          "tpl": "67586c61a0c49554ed0bb4a8",
+          "name": "item_barter_household_tree_life_extender",
+          "shortName": "",
+          "count": 1,
+          "unit_price": 55000
+        }
+      ]
+    },
+    {
+      "area": "卫生间",
+      "area_level": 0,
+      "out_item": "5d1b309586f77425227d1676",
+      "out_name": "item_barter_electr_lcd_Dirt",
+      "out_short": "",
+      "out_count": 4,
+      "out_value": 155580,
+      "in_cost": 117492,
+      "profit": 38088,
+      "profit_margin": 32.41752629966296,
+      "time_min": 22.0,
+      "required": [
+        {
+          "tpl": "5d1b304286f774253763a528",
+          "name": "item_barter_electr_lcd_Clean",
+          "shortName": "",
+          "count": 4,
+          "unit_price": 29373
+        }
+      ]
+    },
+    {
+      "area": "卫生间",
+      "area_level": 0,
+      "out_item": "5d1b3a5d86f774252167ba22",
+      "out_name": "item_barter_medical_pile",
+      "out_short": "",
+      "out_count": 3,
+      "out_value": 90558,
+      "in_cost": 54125,
+      "profit": 36433,
+      "profit_margin": 67.31270207852194,
+      "time_min": 48.0,
+      "required": [
+        {
+          "tpl": "5755356824597772cb798962",
+          "name": "medkit",
+          "shortName": "",
+          "count": 1,
+          "unit_price": 6750
+        },
+        {
+          "tpl": "544fb25a4bdc2dfb738b4567",
+          "name": "bandage",
+          "shortName": "",
+          "count": 1,
+          "unit_price": 2232
+        },
+        {
+          "tpl": "590c695186f7741e566b64a2",
+          "name": "augmentin",
+          "shortName": "",
+          "count": 1,
+          "unit_price": 45143
+        }
+      ]
+    },
+    {
+      "area": "卫生间",
+      "area_level": 0,
+      "out_item": "5644bd2b4bdc2d3b4c8b4572",
+      "out_name": "weapon_izhmash_ak74n_545x39",
+      "out_short": "",
+      "out_count": 1,
+      "out_value": 43816,
+      "in_cost": 15889,
+      "profit": 27927,
+      "profit_margin": 175.76310655170244,
+      "time_min": 81.66666666666667,
+      "required": [
+        {
+          "tpl": "5d1c819a86f774771b0acd6c",
+          "name": "item_barter_other_weaponparts",
+          "shortName": "",
+          "count": 1,
+          "unit_price": 15889
+        },
+        {
+          "tpl": "5648b0744bdc2d363b8b4578",
+          "name": "handguard_ak_izhmash_ak74_std_wood",
+          "shortName": "",
+          "count": 1,
+          "unit_price": 0
+        },
+        {
+          "tpl": "5649b1c04bdc2d16268b457c",
+          "name": "stock_ak74_izhmash_ak74_std_wood",
+          "shortName": "",
+          "count": 1,
+          "unit_price": 0
+        }
+      ]
+    },
+    {
+      "area": "卫生间",
+      "area_level": 0,
+      "out_item": "590a3b0486f7743954552bdb",
+      "out_name": "item_barter_electr_modem",
+      "out_short": "",
+      "out_count": 2,
+      "out_value": 43422,
+      "in_cost": 17882,
+      "profit": 25540,
+      "profit_margin": 142.82518733922382,
+      "time_min": 33.0,
+      "required": [
+        {
+          "tpl": "5734781f24597737e04bf32a",
+          "name": "dvd_drive",
+          "shortName": "",
+          "count": 1,
+          "unit_price": 17882
+        }
+      ]
+    },
+    {
+      "area": "厨房",
+      "area_level": 0,
+      "out_item": "5c13cd2486f774072c757944",
+      "out_name": "item_barter_household_soap",
+      "out_short": "",
+      "out_count": 6,
+      "out_value": 86736,
+      "in_cost": 62525,
+      "profit": 24211,
+      "profit_margin": 38.72211115553779,
+      "time_min": 50.0,
+      "required": [
+        {
+          "tpl": "59faf98186f774067b6be103",
+          "name": "item_barter_household_alkali",
+          "shortName": "",
+          "count": 1,
+          "unit_price": 17092
+        },
+        {
+          "tpl": "62a09ee4cf4a99369e262453",
+          "name": "item_barter_household_salt",
+          "shortName": "",
+          "count": 1,
+          "unit_price": 11480
+        },
+        {
+          "tpl": "635a758bfefc88a93f021b8a",
+          "name": "item_food_sausage",
+          "shortName": "",
+          "count": 1,
+          "unit_price": 33953
+        }
+      ]
+    },
+    {
+      "area": "卫生间",
+      "area_level": 0,
+      "out_item": "55d485be4bdc2d962f8b456f",
+      "out_name": "mag_pm_custom_9x18pm_84",
+      "out_short": "",
+      "out_count": 1,
+      "out_value": 52508,
+      "in_cost": 29476,
+      "profit": 23032,
+      "profit_margin": 78.13814628850591,
+      "time_min": 20.0,
+      "required": [
+        {
+          "tpl": "5ea034f65aad6446a939737e",
+          "name": "mag_ppsh_zis_std_762x25_71",
+          "shortName": "",
+          "count": 1,
+          "unit_price": 17000
+        },
+        {
+          "tpl": "5448c12b4bdc2d02308b456f",
+          "name": "mag_pm_izhmeh_9x18pm_8",
+          "shortName": "",
+          "count": 1,
+          "unit_price": 0
+        },
+        {
+          "tpl": "5e2af22086f7746d3f3c33fa",
+          "name": "item_barter_building_poxeram",
+          "shortName": "",
+          "count": 1,
+          "unit_price": 12476
+        }
+      ]
+    },
+    {
+      "area": "情报中心",
+      "area_level": 0,
+      "out_item": "544fb6cc4bdc2d34748b456e",
+      "out_name": "slippers",
+      "out_short": "",
+      "out_count": 7,
+      "out_value": 107506,
+      "in_cost": 85930,
+      "profit": 21576,
+      "profit_margin": 25.10880949610148,
+      "time_min": 71.66666666666667,
+      "required": [
+        {
+          "tpl": "57505f6224597709a92585a9",
+          "name": "alyonka",
+          "shortName": "",
+          "count": 1,
+          "unit_price": 36784
+        },
+        {
+          "tpl": "57347d90245977448f7b7f65",
+          "name": "oatmeal",
+          "shortName": "",
+          "count": 1,
+          "unit_price": 33260
+        },
+        {
+          "tpl": "5448ff904bdc2d6f028b456e",
+          "name": "Army breadsticks",
+          "shortName": "",
+          "count": 1,
+          "unit_price": 15886
+        }
+      ]
+    },
+    {
+      "area": "卫生间",
+      "area_level": 0,
+      "out_item": "590a3b0486f7743954552bdb",
+      "out_name": "item_barter_electr_modem",
+      "out_short": "",
+      "out_count": 2,
+      "out_value": 43422,
+      "in_cost": 24836,
+      "profit": 18586,
+      "profit_margin": 74.83491705588662,
+      "time_min": 48.333333333333336,
+      "required": [
+        {
+          "tpl": "590a3efd86f77437d351a25b",
+          "name": "item_electr_gasanalyzer",
+          "shortName": "",
+          "count": 1,
+          "unit_price": 24836
+        }
+      ]
+    },
+    {
+      "area": "情报中心",
+      "area_level": 0,
+      "out_item": "5751435d24597720a27126d1",
+      "out_name": "drink_maxenergy",
+      "out_short": "",
+      "out_count": 4,
+      "out_value": 80392,
+      "in_cost": 63409,
+      "profit": 16983,
+      "profit_margin": 26.783264205396712,
+      "time_min": 108.33333333333333,
+      "required": [
+        {
+          "tpl": "57514643245977207f2c2d09",
+          "name": "drink_tarcola",
+          "shortName": "",
+          "count": 1,
+          "unit_price": 26214
+        },
+        {
+          "tpl": "5af0484c86f7740f02001f7f",
+          "name": "item_barter_other_coffee",
+          "shortName": "",
+          "count": 1,
+          "unit_price": 21840
+        },
+        {
+          "tpl": "5448fee04bdc2dbc018b4567",
+          "name": "Water bottle 0.6",
+          "shortName": "",
+          "count": 1,
+          "unit_price": 15355
+        }
+      ]
+    },
+    {
+      "area": "卫生间",
+      "area_level": 0,
+      "out_item": "5d02778e86f774203e7dedbe",
+      "out_name": "core_medical_surgical_kit",
+      "out_short": "",
+      "out_count": 1,
+      "out_value": 49302,
+      "in_cost": 33050,
+      "profit": 16252,
+      "profit_margin": 49.17397881996975,
+      "time_min": 49.166666666666664,
+      "required": [
+        {
+          "tpl": "619cc01e0a7c3a1a2731940c",
+          "name": "item_barter_meds_tools",
+          "shortName": "",
+          "count": 1,
+          "unit_price": 15490
+        },
+        {
+          "tpl": "590c661e86f7741e566b646a",
+          "name": "item_meds_automedkit",
+          "shortName": "",
+          "count": 1,
+          "unit_price": 17560
+        }
+      ]
+    },
+    {
+      "area": "情报中心",
+      "area_level": 0,
+      "out_item": "60098b1705871270cd5352a1",
+      "out_name": "item_drink_waterration",
+      "out_short": "",
+      "out_count": 2,
+      "out_value": 52898,
+      "in_cost": 39599,
+      "profit": 13299,
+      "profit_margin": 33.5841814187227,
+      "time_min": 66.66666666666667,
+      "required": [
+        {
+          "tpl": "5448fee04bdc2dbc018b4567",
+          "name": "Water bottle 0.6",
+          "shortName": "",
+          "count": 1,
+          "unit_price": 15355
+        },
+        {
+          "tpl": "5e2af29386f7746d4159f077",
+          "name": "item_barter_building_kektape",
+          "shortName": "",
+          "count": 1,
+          "unit_price": 24244
+        }
+      ]
+    },
+    {
+      "area": "供水",
+      "area_level": 0,
+      "out_item": "5d1b376e86f774252519444e",
+      "out_name": "item_food_moonshine",
+      "out_short": "",
+      "out_count": 1,
+      "out_value": 245451,
+      "in_cost": 232952,
+      "profit": 12499,
+      "profit_margin": 5.3654830179607815,
+      "time_min": 183.33333333333334,
+      "required": [
+        {
+          "tpl": "59e3577886f774176a362503",
+          "name": "item_food_sugar",
+          "shortName": "",
+          "count": 2,
+          "unit_price": 74840
+        },
+        {
+          "tpl": "5d1b33a686f7742523398398",
+          "name": "item_food_purewater",
+          "shortName": "",
+          "count": 1,
+          "unit_price": 83272
+        }
+      ]
+    }
+  ],
+  "generated": "2026-07-27"
+}
