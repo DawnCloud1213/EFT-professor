@@ -43,26 +43,39 @@ async function sel(ph, opt) {
   await page.waitForTimeout(400);
 }
 
-/** 将 Max Distance 设为 350m */
-async function setMaxDistance350() {
-  await page.evaluate(() => {
+/** 将 Max Distance 设为指定值（默认 350m） */
+async function setMaxDistance(dist = 350) {
+  await page.evaluate((d) => {
     for (const inp of document.querySelectorAll('input'))
       if (inp.value === '200' && inp.type === 'text') {
         const ns = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value').set;
-        ns.call(inp, '350');
+        ns.call(inp, String(d));
         inp.dispatchEvent(new Event('input', { bubbles: true }));
         break;
       }
+  }, dist);
+}
+
+/** 截图前处理: 拉高表格容器显示全部行 + 隐藏固定 footer 防遮挡 */
+async function prepareScreenshot() {
+  await page.evaluate(() => {
+    const el = document.querySelector('.tgMainTableInAppShell');
+    if (el) { el.style.height = '3000px'; el.style.maxHeight = 'none'; }
+    const f = document.querySelector('footer, .mantine-AppShell-footer, [class*="footer"]');
+    if (f) f.style.display = 'none';
   });
+  await page.waitForTimeout(500);
 }
 
 /** 生成所有弹药的弹道表截图 */
-async function generateAllAmmos(ammoList, outputPrefix) {
+async function generateAllAmmos(ammoList, outputPrefix, maxDist = 350) {
+  await setMaxDistance(maxDist);
   for (const ammo of ammoList) {
     console.log(`--- ${ammo} ---`);
     await sel('Step Four', ammo);
     await page.locator('button:has-text("Generate Drop Table")').click();
     await page.waitForTimeout(3000);
+    await prepareScreenshot();
     const fn = `${outputPrefix}_${ammo.toLowerCase().replace(/[-\s]/g,'_')}_drop.png`;
     await page.screenshot({ path: `${OUT_DIR}/${fn}`, fullPage: true });
     console.log(`  Saved: ${fn}`);
@@ -158,6 +171,22 @@ const WEAPON_CONFIGS = {
     barrel: 'AK-50 24"',
     ammos: ['M903', 'M33', 'M21', 'HP'],
     prefix: 'ak50'
+  },
+  'ak12': {
+    caliber: '5.45x39mm',
+    weapon: 'AK-12',
+    barrel: null, // AK-12 无枪管选项 (n/a)
+    ammos: ['BP'],
+    prefix: 'ak12',
+    maxDist: 200
+  },
+  'r11_18': {
+    caliber: '7.62x51mm',
+    weapon: 'RSASS',
+    barrel: 'AR-10 18"',
+    ammos: ['M80'],
+    prefix: 'r11_18',
+    maxDist: 450
   }
 };
 
@@ -167,7 +196,6 @@ async function generateWeapon(config) {
   await page.waitForTimeout(1500);
   await sel('Step One', config.caliber);
   await sel('Step Two', config.weapon);
-  await sel('Step Three', config.barrel);
-  await setMaxDistance350();
-  await generateAllAmmos(config.ammos, config.prefix);
+  if (config.barrel) await sel('Step Three', config.barrel);
+  await generateAllAmmos(config.ammos, config.prefix, config.maxDist || 350);
 }
