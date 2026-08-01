@@ -56,15 +56,34 @@ async function setMaxDistance(dist = 350) {
   }, dist);
 }
 
-/** 截图前处理: 拉高表格容器显示全部行 + 隐藏固定 footer 防遮挡 */
+/** 截图前处理: 表格行高压缩 + 高度=内容实际高度(不多不少) + 隐藏固定 footer 防遮挡 */
 async function prepareScreenshot() {
+  // 第一步: 注入行高压缩 style (等 reflow)
   await page.evaluate(() => {
-    const el = document.querySelector('.tgMainTableInAppShell');
-    if (el) { el.style.height = '3000px'; el.style.maxHeight = 'none'; }
+    if (!document.getElementById('tight-table')) {
+      const style = document.createElement('style');
+      style.id = 'tight-table';
+      style.textContent = `
+        .tgMainTableInAppShell table td, .tgMainTableInAppShell table th {
+          padding: 3px 6px !important;
+        }
+      `;
+      document.head.appendChild(style);
+    }
     const f = document.querySelector('footer, .mantine-AppShell-footer, [class*="footer"]');
     if (f) f.style.display = 'none';
   });
-  await page.waitForTimeout(500);
+  await page.waitForTimeout(400);
+  // 第二步: 重置高度后读取压缩后的内容高度
+  await page.evaluate(() => {
+    const el = document.querySelector('.tgMainTableInAppShell');
+    if (el) {
+      el.style.height = 'auto';
+      el.style.maxHeight = 'none';
+      el.style.height = el.scrollHeight + 'px';
+    }
+  });
+  await page.waitForTimeout(400);
 }
 
 /** 图表 Distance Max 设为指定值 (Mantine NumberInput: 必须真实键盘输入 + Tab blur) */
@@ -96,20 +115,51 @@ async function setChartMaxDistance(dist) {
   return true;
 }
 
-/** 布局调整: 右栏(图表) 47% + 中栏(表格) 28% + 图表容器 maxWidth 解锁 (让下坠图占更宽) */
+/** 布局调整(v8最终版): 外层配置栏16%/右区84% + 隐藏空col + 表格40%(min-width:0)/图表60% + 图表容器maxWidth解锁 */
 async function adjustLayout() {
-  await page.evaluate(() => {
-    const isInnerCol = (c) => !Array.from(c.children).some(ch => ch.classList && ch.classList.contains('mantine-Grid-root'));
-    document.querySelectorAll('.mantine-Grid-col').forEach(c => {
-      if (!isInnerCol(c)) return;
-      if (c.querySelector('.recharts-responsive-container')) {
-        c.style.flex = '0 0 47%';
-        c.style.maxWidth = '47%';
-      } else if (c.querySelector('.tgMainTableInAppShell')) {
-        c.style.flex = '0 0 28%';
-        c.style.maxWidth = '28%';
-      }
+  return await page.evaluate(() => {
+    // 1. 外层 grid: 配置栏 16% / 右区 84%
+    const outerGrid = Array.from(document.querySelectorAll('.mantine-Grid-root')).find(g => {
+      return Array.from(g.children).some(ch => ch.classList && ch.classList.contains('mantine-Grid-col') && ch.querySelector(':scope > .mantine-Grid-root'));
     });
+    if (outerGrid) {
+      Array.from(outerGrid.querySelectorAll(':scope > .mantine-Grid-col')).forEach(c => {
+        const hasGridChild = Array.from(c.children).some(ch => ch.classList && ch.classList.contains('mantine-Grid-root'));
+        if (hasGridChild) { c.style.flex = '0 0 84%'; c.style.maxWidth = '84%'; }
+        else { c.style.flex = '0 0 16%'; c.style.maxWidth = '16%'; }
+      });
+    }
+    // 2. 内层 grid: 隐藏空 col + 表格 40% / 图表 60%
+    const table = document.querySelector('.tgMainTableInAppShell');
+    const chart = document.querySelector('.recharts-responsive-container');
+    if (table && chart) {
+      const findDirectCol = (target) => {
+        let cur = target;
+        while (cur && cur !== document.body) {
+          if (cur.classList && cur.classList.contains('mantine-Grid-col')) {
+            const colsInside = cur.querySelectorAll('.mantine-Grid-col');
+            let hasDirect = true;
+            for (const c of colsInside) { if (c.contains(target)) { hasDirect = false; break; } }
+            if (hasDirect) return cur;
+          }
+          cur = cur.parentElement;
+        }
+        return null;
+      };
+      const tableCol = findDirectCol(table);
+      const chartCol = findDirectCol(chart);
+      if (tableCol && chartCol && tableCol.parentElement === chartCol.parentElement) {
+        Array.from(tableCol.parentElement.querySelectorAll(':scope > .mantine-Grid-col')).forEach(c => {
+          if (c !== tableCol && c !== chartCol) c.style.display = 'none';
+        });
+        tableCol.style.minWidth = '0';
+        tableCol.style.flex = '0 0 40%';
+        tableCol.style.maxWidth = '40%';
+        chartCol.style.flex = '0 0 60%';
+        chartCol.style.maxWidth = '60%';
+      }
+    }
+    // 3. 图表容器 maxWidth 解锁
     document.querySelectorAll('div').forEach(d => {
       const cs = getComputedStyle(d);
       if (cs.maxWidth === '650px' && d.querySelector('.recharts-responsive-container')) {
@@ -117,8 +167,8 @@ async function adjustLayout() {
         d.style.width = '100%';
       }
     });
+    return true;
   });
-  await page.waitForTimeout(2500);
 }
 
 /** X 轴刻度细分: 从现有刻度反推线性映射, 克隆 tick 插入每 stepM 米的刻度 + grid 竖线 */
