@@ -347,7 +347,8 @@ const WEAPON_CONFIGS = {
     weapon: 'AXMC',
     barrel: 'AXMC .338LM 28"',
     ammos: ['FMJ'],
-    prefix: 'axmc'
+    prefix: 'axmc',
+    maxDist: 450
   }
 };
 
