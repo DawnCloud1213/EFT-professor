@@ -96,7 +96,6 @@ async function generateSR25() {
   await sel('Step One', '7.62x51mm');
   await sel('Step Two', 'SR-25');
   await sel('Step Three', 'SR-25 20"');
-  await setMaxDistance350();
   await generateAllAmmos(['M80', 'M61', 'M62', 'M993'], 'sr25');
 }
 
@@ -108,7 +107,6 @@ async function generateM10() {
   await sel('Step One', '.338 LM');
   await sel('Step Two', 'TRG M10');
   await sel('Step Three', 'M10 27" .338LM');
-  await setMaxDistance350();
   await generateAllAmmos(['AP', 'FMJ', 'UCW', 'TAC-X'], 'm10_27');
   
   // 枪管 2: 23.5" 597mm
@@ -117,7 +115,6 @@ async function generateM10() {
   await sel('Step One', '.338 LM');
   await sel('Step Two', 'TRG M10');
   await sel('Step Three', 'M10 23.5" .338LM');
-  await setMaxDistance350();
   await generateAllAmmos(['AP', 'FMJ', 'UCW', 'TAC-X'], 'm10_235');
 }
 
@@ -128,7 +125,8 @@ const WEAPON_CONFIGS = {
     weapon: 'SPEAR 6.8',
     barrel: 'SPEAR 13"',
     ammos: ['FMJ', 'Hybrid'],
-    prefix: 'spear'
+    prefix: 'spear',
+    maxDist: 450
   },
   'sr25': {
     caliber: '7.62x51mm',
