@@ -171,7 +171,7 @@ async function adjustLayout() {
   });
 }
 
-/** X 轴刻度细分: 从现有刻度反推线性映射, 克隆 tick 插入每 stepM 米的刻度 + grid 竖线 */
+/** X 轴刻度细分(自适应): 用图内实际最小/最大距离刻度做模板, 插入每 stepM 米的刻度 + grid 竖线 */
 async function injectTicks(stepM = 50) {
   return await page.evaluate((step) => {
     const svgs = document.querySelectorAll('svg');
@@ -180,30 +180,30 @@ async function injectTicks(stepM = 50) {
       if (!texts.some(t => /^\d+m$/.test(t)) || s.getBoundingClientRect().width < 300) continue;
       const ticksGroup = s.querySelector('.recharts-cartesian-axis-ticks');
       const gridVertical = s.querySelector('.recharts-cartesian-grid-vertical');
-      if (!ticksGroup) return 'no ticks group';
-      const tick150 = Array.from(ticksGroup.querySelectorAll('.recharts-cartesian-axis-tick')).find(t => t.textContent.trim() === '150m');
-      const tick450 = Array.from(ticksGroup.querySelectorAll('.recharts-cartesian-axis-tick')).find(t => t.textContent.trim() === '450m');
-      if (!tick150 || !tick450) return 'template missing';
-      const x150 = parseFloat(tick150.querySelector('text').getAttribute('x'));
-      const x450 = parseFloat(tick450.querySelector('text').getAttribute('x'));
-      const pxPerM = (x450 - x150) / 300;
-      const plotLeft = x150 - 150 * pxPerM;
-      const maxDist = 450;
+      if (!ticksGroup) continue;
+      // 收集所有距离刻度, 按数值排序
+      const distTicks = Array.from(ticksGroup.querySelectorAll('.recharts-cartesian-axis-tick'))
+        .map(t => ({ el: t, val: parseInt(t.textContent.trim()) }))
+        .filter(t => !isNaN(t.val) && /^\d+m$/.test(t.el.textContent.trim()));
+      if (distTicks.length < 2) continue;
+      distTicks.sort((a, b) => a.val - b.val);
+      const tickMin = distTicks[0];
+      const tickMax = distTicks[distTicks.length - 1];
+      const xMin = parseFloat(tickMin.el.querySelector('text').getAttribute('x'));
+      const xMax = parseFloat(tickMax.el.querySelector('text').getAttribute('x'));
+      const minVal = tickMin.val;
+      const maxVal = tickMax.val;
       const existing = new Set(Array.from(ticksGroup.querySelectorAll('.recharts-cartesian-axis-tick-value')).map(t => t.textContent.trim()));
-      const newDists = [];
-      for (let d = step; d <= maxDist; d += step) {
-        if (!existing.has(d + 'm')) newDists.push(d);
-      }
-      for (const d of newDists) {
-        const x = plotLeft + (d / maxDist) * (x450 - plotLeft);
-        const clone = tick150.cloneNode(true);
-        const line = clone.querySelector('line');
+      const added = [];
+      for (let d = step; d <= maxVal; d += step) {
+        if (existing.has(d + 'm')) continue;
+        const x = xMin + ((d - minVal) / (maxVal - minVal)) * (xMax - xMin);
+        const clone = tickMax.el.cloneNode(true);
+        clone.querySelector('line').setAttribute('x1', x); clone.querySelector('line').setAttribute('x2', x);
         const textEl = clone.querySelector('text');
-        const tspan = clone.querySelector('tspan');
-        line.setAttribute('x1', x); line.setAttribute('x2', x);
         textEl.setAttribute('x', x);
-        tspan.setAttribute('x', x);
-        tspan.textContent = d + 'm';
+        clone.querySelector('tspan').setAttribute('x', x);
+        clone.querySelector('tspan').textContent = d + 'm';
         ticksGroup.appendChild(clone);
         if (gridVertical) {
           const gv = Array.from(gridVertical.querySelectorAll('line'));
@@ -213,8 +213,9 @@ async function injectTicks(stepM = 50) {
             gridVertical.appendChild(gclone);
           }
         }
+        added.push(d);
       }
-      return { added: newDists.length, dists: newDists };
+      return { added, maxVal };
     }
     return 'chart not found';
   }, stepM);
@@ -289,42 +290,48 @@ const WEAPON_CONFIGS = {
     weapon: 'SR-25',
     barrel: 'SR-25 20"',
     ammos: ['M80', 'M61', 'M62', 'M993'],
-    prefix: 'sr25'
+    prefix: 'sr25',
+    maxDist: 450
   },
   'g28': {
     caliber: '7.62x51mm',
     weapon: 'G28',
     barrel: '417 16.5"',
     ammos: ['M80', 'M61', 'M62', 'M993'],
-    prefix: 'g28'
+    prefix: 'g28',
+    maxDist: 450
   },
   't5000': {
     caliber: '7.62x51mm',
     weapon: 'T-5000M',
     barrel: 'T-5000M 660mm',
     ammos: ['M80', 'M61', 'M62', 'M993'],
-    prefix: 't5000'
+    prefix: 't5000',
+    maxDist: 450
   },
   'm10_27': {
     caliber: '.338 LM',
     weapon: 'TRG M10',
     barrel: 'M10 27" .338LM',
     ammos: ['AP', 'FMJ', 'UCW', 'TAC-X'],
-    prefix: 'm10_27'
+    prefix: 'm10_27',
+    maxDist: 450
   },
   'm10_235': {
     caliber: '.338 LM',
     weapon: 'TRG M10',
     barrel: 'M10 23.5" .338LM',
     ammos: ['AP', 'FMJ', 'UCW', 'TAC-X'],
-    prefix: 'm10_235'
+    prefix: 'm10_235',
+    maxDist: 450
   },
   'ak50': {
     caliber: '.50 BMG',
     weapon: 'AK-50',
     barrel: 'AK-50 24"',
     ammos: ['M903', 'M33', 'M21', 'HP'],
-    prefix: 'ak50'
+    prefix: 'ak50',
+    maxDist: 450
   },
   'ak12': {
     caliber: '5.45x39mm',
