@@ -12,6 +12,14 @@ __pycache__/
 
 # Temp files
 tarkov-search.json
+tmp_img/
+
+# SPT 玩家存档备份 (敏感, 勿提交)
+user_profile_backup.json
+
+# 弹道测试残留图
+*_test*.png
+*v[0-9]_*.png
 
 # OS
 .DS_Store

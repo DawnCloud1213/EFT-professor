@@ -1,0 +1,30 @@
+# CLIENT BepInEx LogOutput.log — 关键错误提取
+# 来源：D:\free games\EFT\BepInEx\LogOutput.log（2026-07-30 当晚版本，91KB）
+# 注意：原文件已于 2026-07-31 22:45 被今日游戏会话覆盖（BepInEx 无备份机制），
+#       以下为 2026-07-30 当晚提取的完整 Fika 错误记录，供开发者参考。
+# 时间线：会话结束于 2026-07-30 22:58:39（"Fika Client Session Statistics" 之后断线）
+
+# ============ Fika 客户端库存同步错误（7/30 当晚对局内） ============
+
+[Error  :Fika.Client] HandleInventoryPacket::Unable to process descriptor from netId 14, error: You're trying to transfer 9 when you can only transfer 1
+[Error  : Fika.Core] [Execute]: ShotInfoPacket::Execute: Player was not alive, can not process!
+[Error  :Fika.Client] HandleInventoryPacket::Unable to process descriptor from netId 23, error: Result cannot hold as much
+[Error  :Fika.Client] HandleInventoryPacket::Unable to process descriptor from netId 10, error: Could not find item with id: 6a6b49ec5156593f96004d6a
+[Error  : Fika.Core] [GetKeyHandler]: WorldInteractionPacket: Could not find item: 6a6b4ec07ed847bb66000000
+[Error  :Fika.Client] HandleInventoryPacket::Unable to process descriptor from netId 1, error: Could not find item owner with id: 6a69dc891e81a33de8f8f534
+[Error  :Fika.Client] Error in operation: Can't perform operation GClass3398: item patron_9x19_7n31 (id: 6a6b497919774c1ee5000016) ->StackSlot cartridges in item mag_glock_magpul_pmag_21_gl9_9x19_21 (id: 6a69dc891e81a33de8f8f534)
+[Error  :Fika.Client] HandleInventoryPacket::Unable to process descriptor from netId 1, error: Could not find item with id: 6a6b497919774c1ee5000016
+[Error  :Fika.Client] HandleInventoryPacket::Unable to process descriptor from netId 1, error: Cloned item ID desync. Expected ID: 6a6b497919774c1ee5000017, real ID: 6a6b497919774c1ee5000016
+[Error  :Fika.Client] HandleInventoryPacket::Unable to process descriptor from netId 1, error: Could not find item with id: 6a6b497919774c1ee5000017
+[Error  :Fika.Client] HandleInventoryPacket::Unable to process descriptor from netId 1, error: (x: 1, y: 3, r: Horizontal) in grid main in item backpack_Raid_6SH118 (id: 6a4e2f3b0c77480438ef882b) is taken by another item when trying to add item weapon_grenade_f1 (id: 6a6b49f9d1a37b3624904850)
+
+# ============ 其他环境信息（7/30 当晚会话） ============
+
+# 客户端插件列表（FikaModHandler）：
+#   com.Amanda.Graphics, com.bepis.bepinex.configurationmanager, com.SPT.custom,
+#   com.SPT.singleplayer, com.SPT.core, com.SPT.debugging, com.fika.core,
+#   de.tosox.dynamicitemweights, xyz.drakia.searchopencontainers
+
+# Fika.Core 版本：2.3.9（客户端） / 2.3.5（服务端）
+# 会话统计：Sent packets 32980 / Received packets 44650 / Packet loss 0% / Time in raid 00:29:50
+# 会话结束：F8 强制撤离 -> 22:58:39 断线（远程主机强制关闭连接）
